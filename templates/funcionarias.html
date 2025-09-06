@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>Funcionárias - Administração</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Merriweather&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="funcionarias-page" class="container">
+        <h2 class="funcionarias-title">Funcionárias</h2>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash-messages funcionarias-flash-messages">
+              {% for msg in messages %}
+                <p>{{ msg }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+        <p class="funcionarias-new-link"><a href="{{ url_for('nova_funcionaria') }}" class="funcionarias-link">Cadastrar Nova Funcionária</a></p>
+        <table class="funcionarias-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Usuário</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.nome }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>
+                        <a class="funcionarias-edit-link funcionarias-link" href="{{ url_for('editar_funcionaria', user_id=user.id) }}">Editar</a> |
+                        <form method="post" action="{{ url_for('excluir_funcionaria', user_id=user.id) }}" class="funcionarias-delete-form" onsubmit="return confirm('Confirma exclusão?');" style="display:inline;">
+                            <button type="submit" class="btn-link funcionarias-delete-button">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="3" class="funcionarias-no-data">Nenhuma funcionária cadastrada.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p class="funcionarias-back-link"><a href="{{ url_for('admin') }}" class="funcionarias-link">Voltar</a></p>
+    </div>
+</body>
+</html>

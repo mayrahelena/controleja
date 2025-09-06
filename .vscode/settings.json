@@ -1,0 +1,24 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "MeuBancoLocal",
+            "database": "teste_banco",
+            "username": "root"
+        },
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "Sistema Ponto DB",
+            "database": "${workspaceFolder:sistema-ponto}/ponto.db"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}

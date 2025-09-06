@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>{% if novo %}Novo Registro{% else %}Editar Registro{% endif %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Merriweather&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="registro-form-page" class="container">
+        <h2 class="registro-form-title">{% if novo %}Novo Registro{% else %}Editar Registro{% endif %}</h2>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash-messages registro-form-flash-messages">
+              {% for msg in messages %}
+                <p>{{ msg }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+        <form id="registro-form" method="post" class="registro-form">
+
+            {% if novo %}
+            <label for="user_id" class="registro-form-label">Funcionária:</label>
+            <select id="user_id" name="user_id" required class="registro-form-select">
+                <option value="">Selecione</option>
+                {% for u in users %}
+                <option value="{{ u.id }}">{{ u.nome }} ({{ u.username }})</option>
+                {% endfor %}
+            </select>
+            {% else %}
+            <p class="registro-form-funcionaria"><strong>Funcionária:</strong> {{ record.nome }}</p>
+            {% endif %}
+
+            <label for="data" class="registro-form-label">Data (AAAA-MM-DD):</label>
+            <input type="date" id="data" name="data" required value="{{ record.data if record else '' }}" class="registro-form-input" />
+
+            <label for="hora_entrada" class="registro-form-label">Hora Entrada (HH:MM:SS):</label>
+            <input type="time" id="hora_entrada" name="hora_entrada" step="1" value="{{ record.hora_entrada if record else '' }}" class="registro-form-input" />
+
+            <label for="hora_saida" class="registro-form-label">Hora Saída (HH:MM:SS):</label>
+            <input type="time" id="hora_saida" name="hora_saida" step="1" value="{{ record.hora_saida if record else '' }}" class="registro-form-input" />
+
+            <label for="observacoes" class="registro-form-label">Observações:</label>
+            <textarea id="observacoes" name="observacoes" rows="3" cols="30" class="registro-form-textarea">{{ record.observacoes if record else '' }}</textarea>
+
+            <button type="submit" class="btn-primary registro-form-submit">{% if novo %}Criar{% else %}Salvar{% endif %}</button>
+        </form>
+        <p class="registro-form-back-link"><a href="{{ url_for('listar_registros') }}" class="registro-form-link">Voltar</a></p>
+    </div>
+</body>
+</html>

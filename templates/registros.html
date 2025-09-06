@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>Registros de Ponto - Administração</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Merriweather&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="registros-page" class="container">
+        <h2 class="registros-title">Registros de Ponto</h2>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash-messages registros-flash-messages">
+              {% for msg in messages %}
+                <p>{{ msg }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <!-- Formulário filtro período -->
+        <form id="registros-filter-form" class="registros-filter-form" method="post" action="{{ url_for('listar_registros') }}">
+            <label for="data_inicio" class="registros-label">Data Início:</label>
+            <input type="date" id="data_inicio" name="data_inicio" max="{{ date_fim }}" required value="{{ data_inicio }}" class="registros-input-date">
+            <label for="data_fim" class="registros-label">Data Fim:</label>
+            <input type="date" id="data_fim" name="data_fim" max="{{ date_fim }}" required value="{{ data_fim }}" class="registros-input-date">
+            <button type="submit" class="btn-primary registros-btn-filter">Filtrar</button>
+        </form>
+
+        <p class="registros-new-link"><a href="{{ url_for('novo_registro') }}" class="registros-link">Incluir Registro Manual</a></p>
+
+        {% if registros_por_func %}
+            {% for func_nome, registros in registros_por_func.items() %}
+                <section class="funcionaria-section">
+                    <h3 class="funcionaria-name">{{ func_nome }}</h3>
+                    <table class="funcionaria-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Entrada</th>
+                                <th>Saída</th>
+                                <th>Observações</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for r in registros %}
+                            <tr>
+                                <td>{{ r.data }}</td>
+                                <td>{{ r.hora_entrada }}</td>
+                                <td>{{ r.hora_saida }}</td>
+                                <td class="observacoes">{{ r.observacoes }}</td>
+                                <td>
+                                    <a href="{{ url_for('editar_registro', record_id=r.id) }}" class="registros-edit-link registros-link">Editar</a> |
+                                    <form method="post" action="{{ url_for('excluir_registro', record_id=r.id) }}" class="registros-delete-form" onsubmit="return confirm('Confirma exclusão?');" style="display:inline;">
+                                        <button type="submit" class="btn-link registros-delete-button">Excluir</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+            {% endfor %}
+        {% else %}
+            <p class="registros-no-data">Nenhum registro encontrado.</p>
+        {% endif %}
+
+        <p class="registros-back-link"><a href="{{ url_for('admin') }}" class="registros-link">Voltar</a></p>
+    </div>
+</body>
+</html>

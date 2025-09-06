@@ -1,0 +1,1534 @@
+body {
+  background-color: #000000;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  font-family: 'Montserrat', sans-serif;
+  color: #000000;
+}
+
+
+
+/* ====== Estilos específicos da página de login ====== */
+#login-page {
+    background-color: #000000;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #f0f0f0;
+}
+
+.login-box {
+    background-color: #fff;
+    border: 2px solid #FFC107; /* borda amarela da paleta */
+    border-radius: 15px;
+    padding: 40px 50px;
+    width: 420px;
+    box-sizing: border-box;
+    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+    text-align: center;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.login-title {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    font-size: 2.2rem;
+    color: #ff9900;
+    margin: 0 0 20px 0;
+}
+
+#login-form label {
+    display: block;
+    text-align: left;
+    font-weight: 600;
+    color: #e05e17; /* tom escuro laranja da paleta */
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+}
+
+#login-form input[type="text"],
+#login-form input[type="password"] {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.8px solid #FFC107;
+    border-radius: 7px;
+    font-size: 1rem;
+    font-family: 'Montserrat', Arial, sans-serif;
+    color: #333;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+#login-form input[type="text"]::placeholder,
+#login-form input[type="password"]::placeholder {
+    color: #B38F1F; /* tom mais suave da paleta */
+}
+
+#login-form input[type="text"]:focus,
+#login-form input[type="password"]:focus {
+    border-color: #FFB300; /* tom amarelo forte */
+    outline: none;
+    box-shadow: 0 0 8px rgba(255, 179, 0, 0.6);
+}
+
+#btn-login {
+    margin-top: 15px;
+    padding: 14px 0;
+    width: 100%;
+    background-color: #000000;
+    color: #FFC107;
+    font-weight: 700;
+    border: 2px solid #FFC107;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+    transition: 
+        background-color 0.35s ease,
+        color 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.2s ease;
+}
+
+#btn-login:hover,
+#btn-login:focus {
+    background-color: #FFB300; /* amarelo mais claro */
+    color: #000000;
+    box-shadow: 0 6px 15px rgba(255, 179, 0, 0.7);
+    transform: translateY(-3px);
+    outline: none;
+}
+
+.login-subtitle {
+    margin-top: 18px;
+    font-size: 1rem;
+    color: #555555;
+    font-family: 'Montserrat', Arial, sans-serif;
+    user-select: none;
+}
+/* ======  ====== */
+
+/* ====== Estilos específicos para a página admin ====== */
+
+#admin-home {
+    background-color: #000000;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #f0f0f0;
+}
+
+#admin-home .admin-container {
+    background-color: #fff;
+    border: 2px solid #FFC107; /* borda amarela da paleta */
+    border-radius: 15px;
+    padding: 40px 50px;
+    width: 420px;
+    box-sizing: border-box;
+    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+    text-align: center;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+#admin-home .admin-welcome {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    font-size: 2.2rem;
+    color: #ff9900;
+    margin: 0 0 20px 0;
+}
+
+/* Menu */
+#admin-home .admin-menu {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Links do menu como botões */
+#admin-home .admin-link {
+    display: block;
+    padding: 14px 0;
+    width: 100%;
+    background-color: #FFC107;
+    color: #000000;
+    font-weight: 700;
+    border: 2px solid #FFC107;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+    transition: 
+        background-color 0.35s ease,
+        color 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.2s ease;
+    user-select: none;
+}
+
+#admin-home .admin-link:hover,
+#admin-home .admin-link:focus {
+    background-color: #FFB300; /* amarelo mais claro */
+    color: #f3f2ee;
+    box-shadow: 0 6px 15px rgba(255, 179, 0, 0.7);
+    transform: translateY(-3px);
+    outline: none;
+}
+
+/* Botão sair com cor diferenciada */
+#admin-home .admin-link-logout {
+    display: block;
+    padding: 14px 0;
+    width: 100%;
+    background-color: #121111;
+    color: #f9f6f6;
+    font-weight: 700;
+    border: 2px solid #FFC107;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+    transition: 
+        background-color 0.35s ease,
+        color 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.2s ease;
+    user-select: none;
+    transition: 
+        background-color 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.2s ease;
+}
+
+#admin-home .admin-link-logout:hover,
+#admin-home .admin-link-logout:focus {
+    background-color: #922b21;
+    border-color: #922b21;
+    box-shadow: 0 6px 15px rgba(146, 43, 33, 0.7);
+    transform: translateY(-3px);
+    outline: none;
+}
+
+
+/* Acessibilidade - foco visível para teclado */
+.admin-link:focus-visible {
+    outline: 3px solid #FFC107;
+    outline-offset: 3px;
+}
+
+/* ======  ====== */
+
+/* ====== Estilos específicos para a página admin_perfil ====== */
+
+#admin-perfil-page {
+    background-color: #000000;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #f0f0f0;
+}
+
+#admin-perfil-page .perfil-container {
+    background-color: #fff;
+    border: 2px solid #FFC107; /* borda amarela da paleta */
+    border-radius: 15px;
+    padding: 40px 50px;
+    width: 420px;
+    box-sizing: border-box;
+    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+#admin-perfil-page h1 {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    font-size: 2.2rem;
+    color: #FFC107;
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
+/* Form labels */
+#admin-perfil-page label {
+    display: block;
+    font-weight: 600;
+    color: #e05e17; /* tom escuro laranja da paleta */
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+}
+
+/* Inputs */
+#admin-perfil-page input[type="text"],
+#admin-perfil-page input[type="password"] {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.8px solid #FFC107;
+    border-radius: 7px;
+    font-size: 1rem;
+    font-family: 'Montserrat', Arial, sans-serif;
+    color: #333;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+    margin-bottom: 15px;
+}
+
+#admin-perfil-page input[type="text"]::placeholder,
+#admin-perfil-page input[type="password"]::placeholder {
+    color: #B38F1F; /* tom mais suave da paleta */
+}
+
+#admin-perfil-page input[type="text"]:focus,
+#admin-perfil-page input[type="password"]:focus {
+    border-color: #FFB300; /* tom amarelo forte */
+    outline: none;
+    box-shadow: 0 0 8px rgba(255, 179, 0, 0.6);
+}
+
+/* Botão salvar */
+#admin-perfil-page button[type="submit"] {
+    margin-top: 10px;
+    padding: 14px 0;
+    width: 100%;
+    background-color: #000000;
+    color: #FFC107;
+    font-weight: 700;
+    border: 2px solid #FFC107;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+    transition: 
+        background-color 0.35s ease,
+        color 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.2s ease;
+    user-select: none;
+}
+
+#admin-perfil-page button[type="submit"]:hover,
+#admin-perfil-page button[type="submit"]:focus {
+    background-color: #FFB300; /* amarelo mais claro */
+    color: #000000;
+    box-shadow: 0 6px 15px rgba(255, 179, 0, 0.7);
+    transform: translateY(-3px);
+    outline: none;
+}
+
+/* Link voltar */
+#admin-perfil-page a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #FFC107;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    user-select: none;
+}
+
+#admin-perfil-page a:hover,
+#admin-perfil-page a:focus {
+    color: #FFB300;
+    text-decoration: underline;
+    outline: none;
+}
+/* ======  ====== */
+
+/* ====== Estilos específicos para a página funcionarias.html ====== */
+#funcionarias-page {
+    background-color: #000000;
+    min-height: 100vh;
+    padding: 30px 20px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#funcionarias-page.container {
+    background-color: #fff;
+    border: 2px solid #FFC107;
+    border-radius: 15px;
+    padding: 30px 40px;
+    width: 480px;
+    box-sizing: border-box;
+    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.funcionarias-title {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #ff9900;
+    margin: 0 0 15px 0;
+    text-align: center;
+}
+
+.funcionarias-flash-messages {
+    background-color: #fff3cd;
+    border: 1.5px solid #FFC107;
+    border-radius: 8px;
+    padding: 12px 15px;
+    color: #856404;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.funcionarias-new-link,
+.funcionarias-back-link {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.funcionarias-link {
+    color: #FFC107;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    user-select: none;
+}
+
+.funcionarias-link:hover,
+.funcionarias-link:focus {
+    color: #FFB300;
+    text-decoration: underline;
+    outline: none;
+}
+
+.funcionarias-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.funcionarias-table thead tr {
+    background-color: #FFC107;
+    color: #000;
+}
+
+.funcionarias-table th,
+.funcionarias-table td {
+    padding: 10px 12px;
+    border: 1.5px solid #FFC107;
+    text-align: left;
+}
+
+.funcionarias-edit-link {
+    color: #000000;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.funcionarias-edit-link:hover,
+.funcionarias-edit-link:focus {
+    color: #FFB300;
+    outline: none;
+}
+
+.funcionarias-delete-button {
+    background: none;
+    border: none;
+    color: #922b21;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.95rem;
+    user-select: none;
+    transition: color 0.3s ease;
+}
+
+.funcionarias-delete-button:hover,
+.funcionarias-delete-button:focus {
+    color: #ff0000;
+    outline: none;
+}
+
+.funcionarias-no-data {
+    text-align: center;
+    font-style: italic;
+    color: #555555;
+}
+/* ======  ====== */
+
+/* ====== Estilos específicos para a página registros.html ====== */
+#registros-page {
+    background-color: #000000;
+    min-height: 100vh;
+    padding: 30px 20px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#registros-page.container {
+    background-color: #fff;
+    border: 2px solid #FFC107;
+    border-radius: 15px;
+    padding: 30px 40px;
+    width: 720px;
+    box-sizing: border-box;
+    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.registros-title {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #ff9900;
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
+.registros-flash-messages {
+    background-color: #fff3cd;
+    border: 1.5px solid #FFC107;
+    border-radius: 8px;
+    padding: 12px 15px;
+    color: #856404;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.registros-filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.registros-label {
+    font-weight: 600;
+    color: #e05e17;
+    font-size: 0.9rem;
+    min-width: 80px;
+    text-align: right;
+}
+
+.registros-input-date {
+    padding: 8px 12px;
+    border: 1.8px solid #FFC107;
+    border-radius: 7px;
+    font-size: 1rem;
+    font-family: 'Montserrat', Arial, sans-serif;
+    color: #333;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+    width: 160px;
+}
+
+.registros-input-date:focus {
+    border-color: #FFB300;
+    outline: none;
+    box-shadow: 0 0 8px rgba(255, 179, 0, 0.6);
+}
+
+.btn-primary {
+    padding: 12px 24px;
+    background-color: #000000;
+    color: #FFC107;
+    font-weight: 700;
+    border: 2px solid #FFC107;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+    transition: 
+        background-color 0.35s ease,
+        color 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.2s ease;
+    user-select: none;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #FFB300;
+    color: #000000;
+    box-shadow: 0 6px 15px rgba(255, 179, 0, 0.7);
+    transform: translateY(-3px);
+    outline: none;
+}
+
+.registros-new-link,
+.registros-back-link {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.registros-link {
+    color: #FFC107;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    user-select: none;
+}
+
+.registros-link:hover,
+.registros-link:focus {
+    color: #FFB300;
+    text-decoration: underline;
+    outline: none;
+}
+
+.funcionaria-section {
+    margin-bottom: 30px;
+}
+
+.funcionaria-name {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #ff9900;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #FFC107;
+    padding-bottom: 4px;
+}
+
+.funcionaria-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.funcionaria-table thead tr {
+    background-color: #FFC107;
+    color: #000;
+}
+
+.funcionaria-table th,
+.funcionaria-table td {
+    padding: 10px 12px;
+    border: 1.5px solid #FFC107;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.observacoes {
+    font-style: italic;
+    color: #555555;
+    max-width: 200px;
+    word-wrap: break-word;
+}
+
+.registros-edit-link {
+    color: #000000;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.registros-edit-link:hover,
+.registros-edit-link:focus {
+    color: #FFB300;
+    outline: none;
+}
+
+.registros-delete-button {
+    background: none;
+    border: none;
+    color: #922b21;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.95rem;
+    user-select: none;
+    transition: color 0.3s ease;
+}
+
+.registros-delete-button:hover,
+.registros-delete-button:focus {
+    color: #ff0000;
+    outline: none;
+}
+
+.registros-no-data {
+    text-align: center;
+    font-style: italic;
+    color: #555555;
+}
+
+/* ======  ====== */
+/* ====== Estilos específicos para a página registro_form.html ====== */
+#registro-form-page {
+    background-color: #000000;
+    min-height: 100vh;
+    padding: 30px 20px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#registro-form-page.container {
+    background-color: #fff;
+    border: 2px solid #FFC107;
+    border-radius: 15px;
+    padding: 35px 45px;
+    width: 420px;
+    box-sizing: border-box;
+    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.registro-form-title {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #ff9900;
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
+.registro-form-flash-messages {
+    background-color: #fff3cd;
+    border: 1.5px solid #FFC107;
+    border-radius: 8px;
+    padding: 12px 15px;
+    color: #856404;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.registro-form label,
+.registro-form-label {
+    display: block;
+    font-weight: 600;
+    color: #e05e17;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+}
+
+.registro-form-select,
+.registro-form-input,
+.registro-form-textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.8px solid #FFC107;
+    border-radius: 7px;
+    font-size: 1rem;
+    font-family: 'Montserrat', Arial, sans-serif;
+    color: #333;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+    margin-bottom: 15px;
+    resize: vertical;
+}
+
+.registro-form-select:focus,
+.registro-form-input:focus,
+.registro-form-textarea:focus {
+    border-color: #FFB300;
+    outline: none;
+    box-shadow: 0 0 8px rgba(255, 179, 0, 0.6);
+}
+
+.registro-form-funcionaria {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: #000;
+}
+
+.btn-primary.registro-form-submit {
+    margin-top: 10px;
+    padding: 14px 0;
+    width: 100%;
+    background-color: #000000;
+    color: #FFC107;
+    font-weight: 700;
+    border: 2px solid #FFC107;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+    transition: 
+        background-color 0.35s ease,
+        color 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.2s ease;
+    user-select: none;
+}
+
+.btn-primary.registro-form-submit:hover,
+.btn-primary.registro-form-submit:focus {
+    background-color: #FFB300;
+    color: #000000;
+    box-shadow: 0 6px 15px rgba(255, 179, 0, 0.7);
+    transform: translateY(-3px);
+    outline: none;
+}
+
+.registro-form-back-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.registro-form-link {
+    color: #FFC107;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    user-select: none;
+}
+
+.registro-form-link:hover,
+.registro-form-link:focus {
+    color: #FFB300;
+    text-decoration: underline;
+    outline: none;
+}
+
+/* Responsividade básica */
+@media (max-width: 460px) {
+    #registro-form-page.container {
+        width: 100%;
+        padding: 25px 20px;
+    }
+}
+
+/* ====== Estilos específicos para a página func.html ====== */
+#func-page {
+    background-color: #000000;
+    min-height: 60vh; /* altura mínima da página, mas não exagerada */
+    padding: 30px 20px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    color: #f0f0f0;
+
+    display: flex;
+    justify-content: center; /* centraliza horizontalmente */
+    align-items: center;     /* centraliza verticalmente */
+}
+
+/* Container específico para a página func */
+#func-page.func-container {
+    background-color: #fff;
+    border: 2px solid #FFC107;
+    border-radius: 15px;
+    padding: 35px 45px;
+    width: 380px;
+    max-width: 90%; /* responsivo em telas pequenas */
+    box-sizing: border-box;
+    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+    color: #000;
+
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    text-align: center;
+}
+
+.func-welcome {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #ff9900;
+    margin: 0 0 20px 0;
+    text-align: center; /* centralizado */
+}
+
+.func-flash-messages {
+    background-color: #fff3cd;
+    border: 1.5px solid #FFC107;
+    border-radius: 8px;
+    padding: 12px 15px;
+    color: #856404;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-align: left;
+}
+
+.botoes-ponto {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.form-ponto {
+    display: inline;
+}
+
+/* Botões base */
+.btn-ponto {
+    padding: 14px 28px;
+    font-weight: 700;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: 
+        background-color 0.35s ease,
+        color 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.2s ease;
+    user-select: none;
+}
+
+/* Botão Entrada - verde suave */
+.btn-entrada {
+    background-color: #2e7d32; /* verde escuro harmonioso */
+    color: #e8f5e9; /* verde claro para texto */
+    border-color: #2e7d32;
+    box-shadow: 0 4px 10px rgba(46, 125, 50, 0.4);
+}
+
+.btn-entrada:hover,
+.btn-entrada:focus {
+    background-color: #4caf50; /* verde médio */
+    color: #1b5e20; /* verde escuro para texto */
+    box-shadow: 0 6px 15px rgba(76, 175, 80, 0.7);
+    transform: translateY(-3px);
+    outline: none;
+}
+
+/* Botão Saída - vinho suave */
+.btn-saida {
+    background-color: #7b1fa2; /* roxo vinho suave */
+    color: #f3e5f5; /* lilás claro para texto */
+    border-color: #7b1fa2;
+    box-shadow: 0 4px 10px rgba(123, 31, 162, 0.4);
+}
+
+.btn-saida:hover,
+.btn-saida:focus {
+    background-color: #9c27b0; /* roxo médio */
+    color: #4a148c; /* roxo escuro para texto */
+    box-shadow: 0 6px 15px rgba(156, 39, 176, 0.7);
+    transform: translateY(-3px);
+    outline: none;
+}
+
+.status-ponto {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #333333;
+    text-align: left;
+    background-color: #fff9e6;
+    border: 1.5px solid #FFC107;
+    border-radius: 12px;
+    padding: 15px 20px;
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.2);
+}
+
+.status-ponto p {
+    margin: 6px 0;
+}
+
+.status-entrada,
+.status-saida {
+    font-weight: 700;
+    color: #000000;
+}
+
+.func-logout-link {
+    margin-top: 25px;
+}
+
+.func-link-logout {
+    color: #FFC107;
+    font-weight: 700;
+    font-size: 1.2rem; /* um pouco maior */
+    text-decoration: none;
+    transition: color 0.3s ease;
+    user-select: none;
+}
+
+.func-link-logout:hover,
+.func-link-logout:focus {
+    color: #FFB300;
+    text-decoration: underline;
+    outline: none;
+}
+
+
+/* ======  ====== */
+/* ====== Estilos específicos para a página registros ====== */
+#registros-page {
+  background-color: #000000;
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: 'Montserrat', Arial, sans-serif;
+  color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+#registros-page .registros-title {
+  font-family: 'Merriweather', serif;
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: #FFC107;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+#registros-page .registros-flash-messages {
+  background-color: #222;
+  border: 1.5px solid #FFC107;
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin-bottom: 25px;
+  width: 100%;
+  max-width: 600px;
+  color: #FFC107;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+}
+
+#filtro-periodo-form.form-filtro-periodo {
+  background-color: #111;
+  border: 2px solid #FFC107;
+  border-radius: 15px;
+  padding: 20px 25px;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px 20px;
+  align-items: center;
+  box-sizing: border-box;
+  box-shadow: 0 6px 15px rgba(255, 193, 7, 0.4);
+}
+
+#filtro-periodo-form .form-label {
+  flex: 1 1 100px;
+  font-weight: 600;
+  color: #e05e17;
+  font-size: 0.9rem;
+}
+
+#filtro-periodo-form .form-input-date {
+  flex: 1 1 150px;
+  padding: 10px 14px;
+  border: 1.8px solid #FFC107;
+  border-radius: 7px;
+  font-size: 1rem;
+  font-family: 'Montserrat', Arial, sans-serif;
+  color: #333;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+#filtro-periodo-form .form-input-date:focus {
+  border-color: #FFB300;
+  outline: none;
+  box-shadow: 0 0 8px rgba(255, 179, 0, 0.6);
+}
+
+#btn-filtrar {
+  flex: 1 1 100%;
+  margin-top: 10px;
+  padding: 14px 0;
+  background-color: #000000;
+  color: #FFC107;
+  font-weight: 700;
+  border: 2px solid #FFC107;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.2s ease;
+  user-select: none;
+}
+
+#btn-filtrar:hover,
+#btn-filtrar:focus {
+  background-color: #FFB300;
+  color: #000000;
+  box-shadow: 0 6px 15px rgba(255, 179, 0, 0.7);
+  transform: translateY(-3px);
+  outline: none;
+}
+
+.registros-new-link,
+.registros-back-link {
+  margin-top: 25px;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.registros-new-link a,
+.registros-back-link a {
+  color: #FFC107;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  user-select: none;
+}
+
+.registros-new-link a:hover,
+.registros-new-link a:focus,
+.registros-back-link a:hover,
+.registros-back-link a:focus {
+  color: #FFB300;
+  text-decoration: underline;
+  outline: none;
+}
+
+.funcionaria-section {
+  background-color: #fff;
+  border: 2px solid #FFC107;
+  border-radius: 15px;
+  padding: 25px 30px;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 700px;
+  box-sizing: border-box;
+  box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+  color: #000;
+}
+
+.funcionaria-nome {
+  font-family: 'Merriweather', serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #ff9900;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.registros-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+
+.registros-table th,
+.registros-table td {
+  border: 1.5px solid #FFC107;
+  padding: 10px 12px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.registros-table th {
+  background-color: #FFC107;
+  color: #000000;
+  font-weight: 700;
+}
+
+.observacoes {
+  max-width: 200px;
+  word-wrap: break-word;
+  text-align: left;
+  font-style: italic;
+  color: #555;
+}
+
+.acoes-cell {
+  white-space: nowrap;
+}
+
+.registros-edit-link,
+.btn-link.registros-delete-button {
+  color: #000000;
+  font-weight: 700;
+  background-color: #FFC107;
+  border: 2px solid #FFC107;
+  border-radius: 12px;
+  padding: 6px 14px;
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.2s ease;
+  user-select: none;
+}
+
+.registros-edit-link:hover,
+.registros-edit-link:focus,
+.btn-link.registros-delete-button:hover,
+.btn-link.registros-delete-button:focus {
+  background-color: #FFB300;
+  color: #000000;
+  box-shadow: 0 6px 15px rgba(255, 179, 0, 0.7);
+  transform: translateY(-3px);
+  outline: none;
+}
+
+.btn-link.registros-delete-button {
+  background-color: #922b21;
+  border-color: #922b21;
+  color: #f9f6f6;
+  margin-left: 8px;
+}
+
+.btn-link.registros-delete-button:hover,
+.btn-link.registros-delete-button:focus {
+  background-color: #b33a2a;
+  border-color: #b33a2a;
+  box-shadow: 0 6px 15px rgba(179, 58, 42, 0.7);
+  transform: translateY(-3px);
+  outline: none;
+}
+
+.registros-no-data {
+  margin-top: 40px;
+  font-size: 1.1rem;
+  color: #FFC107;
+  font-weight: 600;
+  text-align: center;
+}
+
+
+/* ======  ====== */
+/* ====== Estilos específicos para a página funcionaria_form ====== */
+#funcionaria-form-page {
+  background-color: #000000;
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: 'Montserrat', Arial, sans-serif;
+  color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+#funcionaria-form-page .funcionaria-form-title {
+  font-family: 'Merriweather', serif;
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: #FFC107;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+#funcionaria-form-page .funcionaria-form-flash-messages {
+  background-color: #222;
+  border: 1.5px solid #FFC107;
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin-bottom: 25px;
+  width: 100%;
+  max-width: 420px;
+  color: #FFC107;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+}
+
+#funcionaria-form {
+  background-color: #fff;
+  border: 2px solid #FFC107;
+  border-radius: 15px;
+  padding: 40px 50px;
+  width: 420px;
+  box-sizing: border-box;
+  box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+#funcionaria-form .form-label {
+  display: block;
+  font-weight: 600;
+  color: #e05e17;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+#funcionaria-form .senha-info {
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: #b36a1a;
+  margin-left: 6px;
+  user-select: none;
+}
+
+#funcionaria-form .form-input-text,
+#funcionaria-form .form-input-password {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.8px solid #FFC107;
+  border-radius: 7px;
+  font-size: 1rem;
+  font-family: 'Montserrat', Arial, sans-serif;
+  color: #333;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+#funcionaria-form .form-input-text::placeholder,
+#funcionaria-form .form-input-password::placeholder {
+  color: #B38F1F;
+}
+
+#funcionaria-form .form-input-text:focus,
+#funcionaria-form .form-input-password:focus {
+  border-color: #FFB300;
+  outline: none;
+  box-shadow: 0 0 8px rgba(255, 179, 0, 0.6);
+}
+
+.funcionaria-username-display {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 15px;
+  user-select: none;
+}
+
+#btn-submit-funcionaria {
+  margin-top: 10px;
+  padding: 14px 0;
+  width: 100%;
+  background-color: #000000;
+  color: #FFC107;
+  font-weight: 700;
+  border: 2px solid #FFC107;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.2s ease;
+  user-select: none;
+}
+
+#btn-submit-funcionaria:hover,
+#btn-submit-funcionaria:focus {
+  background-color: #FFB300;
+  color: #000000;
+  box-shadow: 0 6px 15px rgba(255, 179, 0, 0.7);
+  transform: translateY(-3px);
+  outline: none;
+}
+
+.funcionaria-form-back-link {
+  margin-top: 20px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: center;
+  width: 100%;
+  max-width: 420px;
+}
+
+.funcionaria-form-back-link a {
+  color: #FFC107;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  user-select: none;
+}
+
+.funcionaria-form-back-link a:hover,
+.funcionaria-form-back-link a:focus {
+  color: #FFB300;
+  text-decoration: underline;
+  outline: none;
+}
+
+
+/* ======  ====== */
+
+/* ======  ====== */
+
+*********************************************************************************************************************** 
+/* Para maior responsividade */
+@media (max-width: 480px) {
+    .admin-container {
+        padding: 30px 25px;
+    }
+
+    .admin-welcome {
+        font-size: 2rem;
+    }
+
+    .admin-link {
+        font-size: 1rem;
+        padding: 12px 15px;
+    }
+}
+
+/* Responsividade básica func.html*/
+@media (max-width: 460px) {
+    #func-page.container {
+        width: 100%;
+        padding: 25px 20px;
+    }
+    .botoes-ponto {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .btn-ponto {
+        width: 100%;
+        padding: 14px 0;
+    }
+}
+
+
+@media (max-width: 420px) {
+  .form-container {
+    width: 90%;
+    padding: 25px 20px;
+    margin: 20px auto;
+    border-radius: 12px;
+  }
+  .input-field {
+    font-size: 14px;
+    padding: 8px;
+    margin-bottom: 20px;
+  }
+  .button-entrar {
+    padding: 10px 0;
+    font-size: 16px;
+  }
+  .form-container h1 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+}
+
+/* Responsividade básica */
+@media (max-width: 760px) {
+    #registros-page.container {
+        width: 100%;
+        padding: 20px 15px;
+    }
+    .registros-filter-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .registros-label {
+        text-align: left;
+        min-width: auto;
+    }
+    .registros-input-date {
+        width: 100%;
+    }
+    .btn-primary {
+        width: 100%;
+    }
+    .funcionaria-table th,
+    .funcionaria-table td {
+        padding: 8px 6px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Responsividade básica */
+@media (max-width: 520px) {
+    #funcionarias-page.container {
+        width: 100%;
+        padding: 20px 15px;
+    }
+    .funcionarias-table th,
+    .funcionarias-table td {
+        padding: 8px 6px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Responsividade básica */
+@media (max-width: 720px) {
+  #filtro-periodo-form.form-filtro-periodo {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #filtro-periodo-form .form-label,
+  #filtro-periodo-form .form-input-date,
+  #btn-filtrar {
+    flex: 1 1 100%;
+  }
+
+  .funcionaria-section {
+    padding: 20px 15px;
+  }
+
+  .registros-table th,
+  .registros-table td {
+    font-size: 0.85rem;
+    padding: 8px 6px;
+  }
+
+  .observacoes {
+    max-width: 100%;
+  }
+}
+
+/* Responsividade básica */
+@media (max-width: 480px) {
+  #funcionaria-form {
+    padding: 30px 25px;
+    width: 100%;
+  }
+}
+
+/* Responsividade básica */
+@media (max-width: 480px) {
+    #func-page.func-container {
+        width: 100%;
+        padding: 25px 20px;
+    }
+
+    .botoes-ponto {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .btn-ponto {
+        width: 100%;
+        padding: 14px 0;
+    }
+}

@@ -1,0 +1,14 @@
+Run
+Copy code
+# Ignorar ambiente virtual Python
+venv/
+
+# Ignorar arquivos compilados Python
+__pycache__/
+*.pyc
+
+# Ignorar banco de dados SQLite local
+ponto.db
+
+# Ignorar arquivos de configuração do VS Code
+.vscode/

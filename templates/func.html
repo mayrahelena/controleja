@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>Ponto - Funcionária</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Merriweather&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="func-page" class="container func-container">
+        <h2 class="func-welcome">Olá, {{ nome }}</h2>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash-messages func-flash-messages">
+              {% for msg in messages %}
+                <p>{{ msg }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+        <div class="botoes-ponto">
+            <form method="post" class="form-ponto" style="display:inline;">
+                <input type="hidden" name="acao" value="entrada" />
+                <button type="submit" class="btn-ponto btn-entrada">Registrar Entrada</button>
+            </form>
+            <form method="post" class="form-ponto" style="display:inline;">
+                <input type="hidden" name="acao" value="saida" />
+                <button type="submit" class="btn-ponto btn-saida">Registrar Saída</button>
+            </form>
+        </div>
+        <div class="status-ponto">
+            <p><strong>Último registro do dia:</strong></p>
+            <p>Entrada: <span class="status-entrada">{{ entrada or '-' }}</span></p>
+            <p>Saída: <span class="status-saida">{{ saida or '-' }}</span></p>
+        </div>
+        <p class="func-logout-link"><a href="{{ url_for('logout') }}" class="func-link-logout">Sair</a></p>
+    </div>
+</body>
+</html>

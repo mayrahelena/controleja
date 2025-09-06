@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>Login - Controle de Ponto</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Merriweather&display=swap" rel="stylesheet">
+</head>
+<body id="login-page">
+    <div class="login-box">
+        <h1 class="login-title">Sistema de Registro e Gestão de Ponto</h1>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash-messages">
+              {% for msg in messages %}
+                <p>{{ msg }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+        <form method="post" id="login-form">
+            <label for="username-login">Usuário</label>
+            <input 
+                type="text" 
+                id="username-login" 
+                name="username" 
+                required 
+                autofocus 
+                placeholder="Digite seu usuário" 
+            />
+            <label for="senha-login">Senha</label>
+            <input 
+                type="password" 
+                id="senha-login" 
+                name="senha" 
+                required 
+                placeholder="Digite sua senha" 
+            />
+            <button type="submit" id="btn-login">Entrar</button>
+        </form>
+        <p class="login-subtitle">Mercearia do Celinho</p>
+    </div>
+</body>
+</html>

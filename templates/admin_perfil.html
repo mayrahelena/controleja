@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Perfil Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Merriweather&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main id="admin-perfil-page">
+        <section class="perfil-container">
+            <h1>Editar Perfil {{ user.nome }}</h1>
+            <form method="post">
+                <label>Nome:</label>
+                <input type="text" name="nome" value="{{ user.nome }}" required>
+
+                <label>Usuário:</label>
+                <input type="text" name="username" value="{{ user.username }}" required>
+
+                <label>Nova senha (deixe vazio para manter a atual):</label>
+                <input type="password" name="senha">
+
+                <label>Confirme a nova senha:</label>
+                <input type="password" name="senha_confirm">
+
+                <button type="submit">Salvar</button>
+            </form>
+            <a href="{{ url_for('admin') }}">Voltar</a>
+        </section>
+    </main>
+</body>
+</html>
