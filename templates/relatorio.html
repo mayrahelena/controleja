@@ -1,76 +1,118 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>Registros de Ponto - Administração</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Merriweather&display=swap" rel="stylesheet">
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Relatório - Administração</title>
+
+	<link rel="stylesheet" href="{{ url_for('static', filename='relatorio.css') }}" />
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Merriweather&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div id="registros-page" class="container">
-    <h2 class="registros-title">Registros de Ponto</h2>
+	<main id="report-page">
+		<section class="report-container">
+			<h2 class="report-title">Gerar Relatório</h2>
 
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <div class="flash-messages registros-flash-messages">
-          {% for msg in messages %}
-            <p>{{ msg }}</p>
-          {% endfor %}
-        </div>
-      {% endif %}
-    {% endwith %}
+			{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				<div class="report-flash">
+					{% for msg in messages %}
+						<p>{{ msg }}</p>
+					{% endfor %}
+				</div>
+			{% endif %}
+			{% endwith %}
 
-    <!-- Formulário filtro período -->
-    <form id="filtro-periodo-form" class="form-filtro-periodo" method="post" action="{{ url_for('listar_registros') }}">
-      <label for="data_inicio" class="form-label">Data Início:</label>
-      <input type="date" id="data_inicio" name="data_inicio" max="{{ date_fim }}" required value="{{ data_inicio }}" class="form-input-date" />
-      
-      <label for="data_fim" class="form-label">Data Fim:</label>
-      <input type="date" id="data_fim" name="data_fim" max="{{ date_fim }}" required value="{{ data_fim }}" class="form-input-date" />
-      
-      <button type="submit" id="btn-filtrar" class="btn-filtrar">Filtrar</button>
-    </form>
+			<!-- Ações de página (Imprimir) -->
+			
+			<!-- Filtro -->
+			<form method="post" id="report-filter-form" class="report-filter-form">
+				<label for="user_id" class="report-label">Funcionária:</label>
+				<select id="user_id" name="user_id" required class="report-input">
+					<option value="todos">Todas</option>
+					{% for u in users %}
+						<option value="{{ u.id }}">{{ u.nome }}</option>
+					{% endfor %}
+				</select>
 
-    <p class="registros-new-link"><a href="{{ url_for('novo_registro') }}" class="link-novo-registro">Incluir Registro Manual</a></p>
+				<label for="data_inicio" class="report-label">Data Início:</label>
+				<input type="date" id="data_inicio" name="data_inicio" required class="report-input" />
 
-    {% if registros_por_func %}
-      {% for func_nome, registros in registros_por_func.items() %}
-        <section class="funcionaria-section">
-          <h3 class="funcionaria-nome">{{ func_nome }}</h3>
-          <table class="registros-table">
-            <thead>
-              <tr>
-                <th>Data</th>
-                <th>Entrada</th>
-                <th>Saída</th>
-                <th>Observações</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for r in registros %}
-              <tr>
-                <td>{{ r.data }}</td>
-                <td>{{ r.hora_entrada }}</td>
-                <td>{{ r.hora_saida }}</td>
-                <td class="observacoes">{{ r.observacoes }}</td>
-                <td class="acoes-cell">
-                  <a href="{{ url_for('editar_registro', record_id=r.id) }}" class="registros-edit-link">Editar</a> |
-                  <form method="post" action="{{ url_for('excluir_registro', record_id=r.id) }}" class="form-excluir-registro" onsubmit="return confirm('Confirma exclusão?');" style="display:inline;">
-                    <button type="submit" class="btn-link registros-delete-button">Excluir</button>
-                  </form>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </section>
-      {% endfor %}
-    {% else %}
-      <p class="registros-no-data">Nenhum registro encontrado.</p>
-    {% endif %}
+				<label for="data_fim" class="report-label">Data Fim:</label>
+				<input type="date" id="data_fim" name="data_fim" required class="report-input" />
 
-    <p class="registros-back-link"><a href="{{ url_for('admin') }}" class="link-voltar">Voltar</a></p>
-  </div>
+				<button type="submit" id="btn-report" class="btn-primary report-btn">Gerar</button>
+			</form>
+
+			{% if rel_data %}
+				<h3 class="report-period">Relatório para pagamento de {{ rel_data.inicio }} até {{ rel_data.fim }}</h3>
+                
+
+				{% for user in rel_data.usuarios %}
+					<section class="employee-section employee-print">
+						<h4 class="employee-name">Funcionária: {{ user.nome }}</h4>
+
+						<!-- Cabeçalho (desktop e impressão) -->
+						<div class="report-header" aria-hidden="true">
+							<span>Data</span>
+							<span>Entrada</span>
+							<span>Saída</span>
+							<span>Horas (HH:MM)</span>
+							<span>Valor (R$)</span>
+						</div>
+
+						<!-- Lista mobile-first (vira linhas no desktop/print) -->
+						<section class="report-cards">
+							{% for linha in user.linhas %}
+								<article class="report-card{% if linha.sem_registro %} is-empty{% endif %}">
+									<p class="report-field">
+										<strong>Data:</strong><br>
+										<span>{{ linha.data }}</span>
+									</p>
+									<p class="report-field">
+										<strong>Entrada:</strong><br>
+										<span>{{ linha.entrada }}</span>
+									</p>
+									<p class="report-field">
+										<strong>Saída:</strong><br>
+										<span>{{ linha.saida }}</span>
+									</p>
+									<p class="report-field">
+										<strong>Horas (HH:MM):</strong><br>
+										<span>{{ linha.horas }}</span>
+									</p>
+									<p class="report-field">
+										<strong>Valor (R$):</strong><br>
+										<span>R$ {{ linha.valor }}</span>
+									</p>
+								</article>
+							{% endfor %}
+						</section>
+
+						<!-- Totais -->
+						<section class="report-total">
+							<div class="report-total-row">
+								<span class="spacer"></span>
+                                <span class="spacer"></span>
+                                <span class="spacer"></span>
+                                <!-- <span class="label"><strong>Totais: </strong></span> -->
+                                <span class="hours">Total de Horas: {{ user.total_horas }}</span>
+								<span class="amount">Valor total: R$ {{ user.total_valor }}</span>
+                            </section>
+						</div>
+					</section>
+				{% endfor %}
+			{% endif %}
+            <p class="report-actions">
+				<button type="button" class="btn-primary report-print-btn" onclick="window.print()">Imprimir</button>
+			</p>       
+			<p class="report-back">
+				<a href="{{ url_for('admin') }}" class="report-link">Voltar</a>
+			</p>
+		</section>
+	</main>
 </body>
 </html>

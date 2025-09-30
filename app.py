@@ -4,6 +4,7 @@ from datetime import datetime, date, timedelta, time
 from flask import Flask, render_template, request, redirect, url_for, session, flash, g
 import bcrypt
 
+
 app = Flask(__name__)
 app.secret_key = 'troque_esta_chave_para_uma_secreta_e_segura'
 
@@ -155,15 +156,21 @@ def funcionaria():
         now_time = datetime.now().strftime('%H:%M:%S')
 
         if acao == 'entrada':
-            if record and record['hora_entrada'] and not record['hora_saida']:
-                flash('Você já registrou entrada e ainda não registrou saída. Informe a saída antes de nova entrada.')
-            else:
-                if record:
-                    execute_db("UPDATE records SET hora_entrada = %s, hora_saida = NULL WHERE id = %s", (now_time, record['id']))
+            if record:
+                if record['hora_entrada'] and not record['hora_saida']:
+                    flash('Você já registrou entrada e ainda não registrou saída. Informe a saída antes de nova entrada.')
+                elif record['hora_entrada'] and record['hora_saida']:
+                        flash('Você já registrou entrada e saída hoje. Não é permitido mais de um registro por dia.')
                 else:
-                    execute_db("INSERT INTO records (user_id, data, hora_entrada) VALUES (%s, %s, %s)", (user_id, hoje, now_time))
+                        # Caso raro: existe registro mas hora_entrada está nula
+                        execute_db("UPDATE records SET hora_entrada = %s WHERE id = %s", (now_time, record['id']))
+                        flash(f'Entrada registrada às {now_time}')
+            else:
+                # Nenhum registro ainda → insere entrada
+                execute_db("INSERT INTO records (user_id, data, hora_entrada) VALUES (%s, %s, %s)", 
+                            (user_id, hoje, now_time))
                 flash(f'Entrada registrada às {now_time}')
-                return redirect(url_for('funcionaria'))
+            return redirect(url_for('funcionaria'))
 
         elif acao == 'saida':
             if not record or not record['hora_entrada']:
@@ -173,7 +180,7 @@ def funcionaria():
             else:
                 execute_db("UPDATE records SET hora_saida = %s WHERE id = %s", (now_time, record['id']))
                 flash(f'Saída registrada às {now_time}')
-                return redirect(url_for('funcionaria'))
+            return redirect(url_for('funcionaria'))
 
     entrada = record['hora_entrada'] if record else None
     saida = record['hora_saida'] if record else None
@@ -499,12 +506,41 @@ def novo_registro():
 
     return render_template('registro_form.html', users=users, novo=True)
 
-# Relatórios (mantidos)
+@app.route('/registro', methods=['POST'])
+def registrar_ponto():
+    user_id = session['user_id']
+    hoje = date.today()
+
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM records WHERE user_id=%s AND data=%s", (user_id, hoje))
+    registro_existente = cursor.fetchone()
+
+    if registro_existente:
+        flash("⚠️ Você já registrou entrada/saída hoje. Só é permitido 1 entrada e 1 saída por dia.")
+        return redirect(url_for('dashboard'))
+
+    entrada = request.form.get("entrada")
+    saida = request.form.get("saida")
+
+    cursor.execute("""
+        INSERT INTO records (user_id, data, hora_entrada, hora_saida)
+        VALUES (%s, %s, %s, %s)
+    """, (user_id, hoje, entrada, saida))
+    conn.commit()
+
+    flash("✅ Registro de ponto adicionado com sucesso!")
+    return redirect(url_for('dashboard'))
 
 @app.route('/admin/relatorio', methods=['GET', 'POST'])
-@admin_required
+@login_required
 def relatorio():
-    users = query_db("SELECT * FROM users WHERE tipo = 'funcionaria' ORDER BY nome")
+    if session.get('tipo') != 'admin':
+        flash('Acesso negado.')
+        return redirect(url_for('login'))
+
+    # Buscar todas as funcionárias (excluindo administradores)
+    users = query_db("SELECT * FROM users WHERE tipo='funcionaria' ORDER BY nome")
+
     rel_data = None
 
     if request.method == 'POST':
@@ -512,136 +548,92 @@ def relatorio():
         data_inicio = request.form.get('data_inicio')
         data_fim = request.form.get('data_fim')
 
-        if not data_inicio or not data_fim:
-            flash('Informe o período.')
-            return redirect(url_for('relatorio'))
+        # Converter datas para objetos datetime.date
+        dt_inicio = datetime.strptime(data_inicio, '%Y-%m-%d').date()
+        dt_fim = datetime.strptime(data_fim, '%Y-%m-%d').date()
 
-        try:
-            dt_inicio = datetime.strptime(data_inicio, '%Y-%m-%d').date()
-            dt_fim = datetime.strptime(data_fim, '%Y-%m-%d').date()
-            if dt_fim < dt_inicio:
-                flash('Data fim deve ser maior ou igual à data início.')
-                return redirect(url_for('relatorio'))
-        except:
-            flash('Formato de data inválido.')
-            return redirect(url_for('relatorio'))
-
-        if user_id == 'todos':
-            registros = query_db("""
-                SELECT r.*, u.nome FROM records r
-                JOIN users u ON r.user_id = u.id
-                WHERE r.data BETWEEN %s AND %s
-                ORDER BY r.data, u.nome
-            """, (data_inicio, data_fim))
-        else:
-            registros = query_db("""
-                SELECT r.*, u.nome FROM records r
-                JOIN users u ON r.user_id = u.id
-                WHERE r.user_id = %s AND r.data BETWEEN %s AND %s
-                ORDER BY r.data
-            """, (user_id, data_inicio, data_fim))
-
-        dias = []
-        delta = (dt_fim - dt_inicio).days + 1
-        for i in range(delta):
-            dias.append(dt_inicio + timedelta(days=i))
-
-        registros_dict = {}
-        for r in registros:
-            key = (r['user_id'], r['data'])
-            registros_dict[key] = r
-
-        def calcular_horas_valor(data_obj, entrada, saida):
-            if not entrada or not saida:
-                return 0, 0.0
-            # entrada e saida podem ser time ou string
-            def parse_time(t):
-                if isinstance(t, time):
-                    return datetime.combine(date.min, t)
-                try:
-                    return datetime.strptime(t, '%H:%M:%S')
-                except:
-                    return None
-
-            h_entrada = parse_time(entrada)
-            h_saida = parse_time(saida)
-            if h_entrada is None or h_saida is None:
-                return 0, 0.0
-
-            if h_saida < h_entrada:
-                h_saida += timedelta(days=1)
-            diff = h_saida - h_entrada
-            horas = diff.total_seconds() / 3600
-
-            # Domingo = R$ 100 fixos
-            if data_obj.weekday() == 6:
-                valor = 100.0
-            else:
-                valor = horas * 6.90
-            return horas, valor
+        # Gerar lista de datas no período
+        delta = dt_fim - dt_inicio
+        datas = [dt_inicio + timedelta(days=i) for i in range(delta.days + 1)]
 
         usuarios_rel = []
-        if user_id == 'todos':
-            user_ids = list(set([r['user_id'] for r in registros]))
-            if not user_ids:
-                user_ids = [u['id'] for u in users]
-        else:
-            user_ids = [int(user_id)]
 
-        for uid in user_ids:
-            user_nome = next((u['nome'] for u in users if u['id'] == uid), 'Desconhecido')
+        for u in users:
+            if user_id != 'todos' and str(u['id']) != user_id:
+                continue
+
             linhas = []
-            total_horas = 0.0
-            total_valor = 0.0
-            for d in dias:
-                r = registros_dict.get((uid, d))
-                if r:
-                    horas, valor = calcular_horas_valor(d, r['hora_entrada'], r['hora_saida'])
-                    entrada = r['hora_entrada'] or '-'
-                    saida = r['hora_saida'] or '-'
-                    # Formatar horas para exibição HH:MM
-                    def format_hora(h):
-                        if h is None:
-                            return '-'
-                        if isinstance(h, (datetime, time)):
-                            return h.strftime('%H:%M')
-                        try:
-                            dt = datetime.strptime(h, '%H:%M:%S')
-                            return dt.strftime('%H:%M')
-                        except:
-                            return h
-                    entrada = format_hora(entrada)
-                    saida = format_hora(saida)
-                else:
-                    entrada = '-'
-                    saida = '-'
-                    horas = 0
-                    valor = 0
+            total_horas = timedelta()  # Somatório de horas
+            total_valor = 0
+
+            for d in datas:
+                registro = query_db(
+                    "SELECT * FROM records WHERE user_id=%s AND data=%s",
+                    (u['id'], d),
+                    one=True
+                )
+
+                # Calcular horas e valor
+                horas_trabalhadas = None
+                valor = 0
+                if registro and registro['hora_entrada'] and registro['hora_saida']:
+                    h_entrada = registro['hora_entrada']
+                    h_saida = registro['hora_saida']
+
+                    # Se for domingo, valor fixo
+                    if d.weekday() == 6:  # Domingo
+                        horas_trabalhadas = h_saida - h_entrada
+                        valor = 100
+                    else:
+                        horas_trabalhadas = h_saida - h_entrada
+                        # Valor proporcional às horas trabalhadas (8h = 100%)
+                        horas_dec = horas_trabalhadas.total_seconds() / 3600
+                        valor = round(horas_dec * 6.9, 2)  # Exemplo: R$12,5 por hora
+
+                    total_horas += horas_trabalhadas
+                    total_valor += valor
+
                 linhas.append({
                     'data': d.strftime('%d/%m/%Y'),
-                    'entrada': entrada,
-                    'saida': saida,
-                    'horas': round(horas, 2),
-                    'valor': round(valor, 2),
-                    'sem_registro': (entrada == '-' and saida == '-')
+                    'entrada': format_hora_banco(registro['hora_entrada']) if registro else '-',
+                    'saida': format_hora_banco(registro['hora_saida']) if registro else '-',
+                    'horas': str(horas_trabalhadas) if horas_trabalhadas else '-',
+                    'valor': f"{valor:.2f}"
                 })
-                total_horas += horas
-                total_valor += valor
+
+            # Somatório final de horas no formato HH:MM
+            total_horas_str = str(total_horas) if total_horas else '0:00:00'
             usuarios_rel.append({
-                'nome': user_nome,
+                'nome': u['nome'],
                 'linhas': linhas,
-                'total_horas': round(total_horas, 2),
-                'total_valor': round(total_valor, 2)
+                'total_horas': total_horas_str,
+                'total_valor': f"{total_valor:.2f}"
             })
 
         rel_data = {
-            'inicio': data_inicio,
-            'fim': data_fim,
+            'inicio': dt_inicio.strftime('%d/%m/%Y'),
+            'fim': dt_fim.strftime('%d/%m/%Y'),
             'usuarios': usuarios_rel
         }
 
     return render_template('relatorio.html', users=users, rel_data=rel_data)
 
+def format_hora_banco(h):
+    if h is None:
+        return '-'
+    if isinstance(h, timedelta):
+        total_seg = int(h.total_seconds())
+        horas = total_seg // 3600
+        minutos = (total_seg % 3600) // 60
+        return f"{horas:02d}:{minutos:02d}"
+    if isinstance(h, (datetime, time)):
+        return h.strftime('%H:%M')
+    try:
+        dt = datetime.strptime(str(h), '%H:%M:%S')
+        return dt.strftime('%H:%M')
+    except:
+        return str(h)
+    
 if __name__ == '__main__':
     with app.app_context():
         init_db()

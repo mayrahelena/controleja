@@ -1,0 +1,187 @@
+/* =========================================
+   Admin – CSS mobile-first organizado
+   ========================================= */
+
+/* 1) Tokens e reset */
+:root{
+	--space-1: 0.5rem;
+	--space-2: 0.75rem;
+	--space-3: 1rem;
+	--space-4: 1.25rem;
+	--radius-md: 0.75rem;
+	--radius-lg: 0.9375rem;
+
+	--bg-dark: #000000;
+	--fg-light: #f0f0f0;
+	--brand: #FFC107;
+	--brand-strong: #FFB300;
+	--headline: #ff9900;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+/* 2) Base */
+body{
+	background: var(--bg-dark);
+	color: var(--fg-light);
+	font-family: 'Montserrat', sans-serif;
+	margin: 0;
+	padding: max(var(--space-3), env(safe-area-inset-top))
+	         var(--space-3)
+	         max(var(--space-3), env(safe-area-inset-bottom));
+	min-height: 100dvh;
+	overflow-y: auto;
+}
+
+/* 3) Estrutura */
+#admin-home{
+	min-height: 100dvh;
+	display: grid;
+	place-items: center;
+	padding: 0 var(--space-3);
+	color: var(--fg-light);
+}
+
+/* 4) Card principal */
+#admin-home .admin-container{
+	background: #fff;
+	color: #000;
+	border: 0.125rem solid var(--brand);
+	border-radius: var(--radius-lg);
+
+	/* largura fluida + limite confortável */
+	width: 100%;
+	max-width: 28rem;
+
+	/* altura segura; rola internamente se precisar */
+	max-height: calc(100dvh - 2rem - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+	overflow: auto;
+
+	/* padding responsivo */
+	padding: clamp(1rem, 5vw, 2.5rem) clamp(1rem, 6vw, 3.125rem);
+
+	box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.35);
+	text-align: center;
+
+	display: flex;
+	flex-direction: column;
+	gap: clamp(0.875rem, 3.5vw, 1.5625rem);
+}
+
+/* 5) Título */
+#admin-home .admin-welcome{
+	font-family: 'Merriweather', serif;
+	font-weight: 700;
+	color: var(--headline);
+	font-size: clamp(1.375rem, 5.5vw, 2.2rem);
+	line-height: 1.25;
+	margin: 0 0 var(--space-3) 0;
+}
+
+/* 6) Menu */
+#admin-home .admin-menu{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+/* 7) Botões de navegação */
+#admin-home .admin-link,
+#admin-home .admin-link-logout{
+	display: block;
+	width: 100%;
+	padding: 0.875rem 0;
+	font-weight: 700;
+	font-size: clamp(1rem, 3.8vw, 1.1rem);
+	text-decoration: none;
+	text-align: center;
+	border-radius: 0.75rem;
+	box-shadow: 0 0.25rem 0.625rem rgba(255, 193, 7, 0.3);
+	transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+	user-select: none;
+	touch-action: manipulation;
+}
+
+/* estado padrão e hover */
+#admin-home .admin-link{
+	background: var(--brand);
+	color: #000;
+	border: 0.125rem solid var(--brand);
+}
+#admin-home .admin-link:hover,
+#admin-home .admin-link:focus{
+	background: var(--brand-strong);
+	color: #f3f2ee;
+	box-shadow: 0 0.375rem 0.9375rem rgba(255, 179, 0, 0.7);
+	transform: translateY(-0.1875rem);
+	outline: none;
+}
+
+/* Sair */
+#admin-home .admin-link-logout{
+	background: #121111;
+	color: #f9f6f6;
+	border: 0.125rem solid var(--brand);
+}
+#admin-home .admin-link-logout:hover,
+#admin-home .admin-link-logout:focus{
+	background: #922b21;
+	border-color: #922b21;
+	box-shadow: 0 0.375rem 0.9375rem rgba(146, 43, 33, 0.7);
+	transform: translateY(-0.1875rem);
+	outline: none;
+}
+
+/* 8) Foco visível */
+#admin-home .admin-link:focus-visible,
+#admin-home .admin-link-logout:focus-visible{
+	outline: 0.1875rem solid var(--brand);
+	outline-offset: 0.1875rem;
+}
+
+/* 9) Breakpoints */
+
+/* iPhone ~390px: ocupar bem o viewport */
+@media (max-width: 400px){
+	#admin-home{ padding-inline: var(--space-1); }
+	#admin-home .admin-container{
+		max-width: 94vw;
+		padding: clamp(1rem, 5vw, 2rem) clamp(1rem, 6vw, 2.25rem);
+		max-height: calc(100dvh - 1.25rem - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+	}
+}
+
+/* Motorola 401–460px: um pouco mais de respiro */
+@media (min-width: 401px) and (max-width: 460px){
+	#admin-home .admin-container{
+		max-width: 90vw;
+		padding: clamp(1rem, 4vw, 2.25rem) clamp(1rem, 5vw, 2.5rem);
+	}
+}
+
+/* Desktop ≥1200px: preserva o visual da imagem (420px) */
+@media (min-width: 1200px){
+	#admin-home .admin-container{
+		max-width: 26.25rem;     /* 420px */
+		padding: 2.5rem 3.125rem;
+		box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.4);
+		gap: 1.5625rem;
+	}
+	#admin-home .admin-welcome{
+		font-size: 2.2rem;
+		margin: 0 0 1.25rem 0;
+	}
+}
+
+/* 10) Acessibilidade/movimento */
+@media (hover: none){
+	#admin-home .admin-link:hover,
+	#admin-home .admin-link-logout:hover{ transform: none; }
+}
+@media (prefers-reduced-motion: reduce){
+	*{ transition: none !important; animation: none !important; }
+}

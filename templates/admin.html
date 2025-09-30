@@ -2,8 +2,14 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Administração - Controle de Ponto</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Merriweather&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -12,7 +18,7 @@
             <h2 class="admin-welcome">Bem-vinda, Raíssa!</h2>
             <nav aria-label="Menu de Navegação do Admin">
                 <ul class="admin-menu">
-                    <li><a href="{{ url_for('editar_perfil_admin') }}" class="admin-link">Gerenciar perfil Administrador</a></li>
+                    <li><a href="{{ url_for('editar_perfil_admin') }}" class="admin-link">Gerenciar Perfil Administrador</a></li>
                     <li><a href="{{ url_for('listar_funcionarias') }}" class="admin-link">Gerenciar Funcionários</a></li>
                     <li><a href="{{ url_for('listar_registros') }}" class="admin-link">Visualizar Registros de Ponto</a></li>
                     <li><a href="{{ url_for('relatorio') }}" class="admin-link">Gerar Relatórios</a></li>                

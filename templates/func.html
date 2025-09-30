@@ -2,38 +2,51 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ponto - Funcionária</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='func.css') }}" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Merriweather&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="func-page" class="container func-container">
-        <h2 class="func-welcome">Olá, {{ nome }}</h2>
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <div class="flash-messages func-flash-messages">
-              {% for msg in messages %}
-                <p>{{ msg }}</p>
-              {% endfor %}
-            </div>
-          {% endif %}
-        {% endwith %}
-        <div class="botoes-ponto">
-            <form method="post" class="form-ponto" style="display:inline;">
-                <input type="hidden" name="acao" value="entrada" />
-                <button type="submit" class="btn-ponto btn-entrada">Registrar Entrada</button>
-            </form>
-            <form method="post" class="form-ponto" style="display:inline;">
-                <input type="hidden" name="acao" value="saida" />
-                <button type="submit" class="btn-ponto btn-saida">Registrar Saída</button>
-            </form>
-        </div>
-        <div class="status-ponto">
-            <p><strong>Último registro do dia:</strong></p>
-            <p>Entrada: <span class="status-entrada">{{ entrada or '-' }}</span></p>
-            <p>Saída: <span class="status-saida">{{ saida or '-' }}</span></p>
-        </div>
-        <p class="func-logout-link"><a href="{{ url_for('logout') }}" class="func-link-logout">Sair</a></p>
-    </div>
+	<main id="func-page">
+		<section class="func-container">
+			<h2 class="func-welcome">Olá, {{ nome }}</h2>
+
+			{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				<div class="flash-messages func-flash-messages">
+					{% for msg in messages %}
+						<p>{{ msg }}</p>
+					{% endfor %}
+				</div>
+			{% endif %}
+			{% endwith %}
+
+			<div class="botoes-ponto">
+				<form method="post" class="form-ponto" style="display:inline;">
+					<input type="hidden" name="acao" value="entrada"/>
+					<button type="submit" class="btn-ponto btn-entrada">Registrar Entrada</button>
+				</form>
+
+				<form method="post" class="form-ponto" style="display:inline;">
+					<input type="hidden" name="acao" value="saida"/>
+					<button type="submit" class="btn-ponto btn-saida">Registrar Saída</button>
+				</form>
+			</div>
+
+			<div class="status-ponto">
+				<p><strong>Último registro do dia:</strong></p>
+				<p>Entrada: <span class="status-entrada">{{ entrada or '-' }}</span></p>
+				<p>Saída: <span class="status-saida">{{ saida or '-' }}</span></p>
+			</div>
+
+			<p class="func-logout-link">
+				<a href="{{ url_for('logout') }}" class="func-link-logout">Sair</a>
+			</p>
+		</section>
+	</main>
 </body>
 </html>

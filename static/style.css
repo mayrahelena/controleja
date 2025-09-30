@@ -1,24 +1,46 @@
-body {
+
+
+
+/*body {
   background-color: #000000;
-  margin: 0;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding: 20px;
+  align-items: center;
+  padding: 1.25rem;
   font-family: 'Montserrat', sans-serif;
-  color: #000000;
+  height: 100vh;
+  min-height: 100vh;    
+}*/
+/* Box sizing global */
+
+[class*="glasp-extension"],
+.glasp-extension { 
+    display: none !important; }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  background-color: #000000;
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 1.25rem;
+  min-height: 100vh;
+  overflow-y: auto;
+  color: #f0f0f0;
 }
 
 
-
 /* ====== Estilos específicos da página de login ====== */
-#login-page {
+/* #login-page {
     background-color: #000000;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Montserrat', Arial, sans-serif;
+    
     margin: 0;
     padding: 0;
     color: #f0f0f0;
@@ -26,17 +48,17 @@ body {
 
 .login-box {
     background-color: #fff;
-    border: 2px solid #FFC107; /* borda amarela da paleta */
-    border-radius: 15px;
-    padding: 40px 50px;
-    width: 420px;
+    border: 0.125rem solid #FFC107;
+    border-radius: 0.9375rem;
+    padding: 2.5rem 3.125rem;
+    width: 26.25rem;
     box-sizing: border-box;
-    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+    box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.4);
     text-align: center;
     color: #000;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 1.5625rem;
 }
 
 .login-title {
@@ -44,24 +66,24 @@ body {
     font-weight: 700;
     font-size: 2.2rem;
     color: #ff9900;
-    margin: 0 0 20px 0;
+    margin: 0 0 1.25rem 0;
 }
 
 #login-form label {
     display: block;
     text-align: left;
     font-weight: 600;
-    color: #e05e17; /* tom escuro laranja da paleta */
-    margin-bottom: 6px;
+    color: #e05e17;
+    margin-bottom: 0.375rem;
     font-size: 0.9rem;
 }
 
 #login-form input[type="text"],
 #login-form input[type="password"] {
     width: 100%;
-    padding: 11px 14px;
-    border: 1.8px solid #FFC107;
-    border-radius: 7px;
+    padding: 0.6875rem 0.875rem;
+    border: 0.1125rem solid #FFC107;
+    border-radius: 0.4375rem;
     font-size: 1rem;
     font-family: 'Montserrat', Arial, sans-serif;
     color: #333;
@@ -71,28 +93,28 @@ body {
 
 #login-form input[type="text"]::placeholder,
 #login-form input[type="password"]::placeholder {
-    color: #B38F1F; /* tom mais suave da paleta */
+    color: #B38F1F;
 }
 
 #login-form input[type="text"]:focus,
 #login-form input[type="password"]:focus {
-    border-color: #FFB300; /* tom amarelo forte */
+    border-color: #FFB300;
     outline: none;
-    box-shadow: 0 0 8px rgba(255, 179, 0, 0.6);
+    box-shadow: 0 0 0.5rem rgba(255, 179, 0, 0.6);
 }
 
 #btn-login {
-    margin-top: 15px;
-    padding: 14px 0;
+    margin-top: 0.9375rem;
+    padding: 0.875rem 0;
     width: 100%;
     background-color: #000000;
     color: #FFC107;
     font-weight: 700;
-    border: 2px solid #FFC107;
-    border-radius: 12px;
+    border: 0.125rem solid #FFC107;
+    border-radius: 0.75rem;
     font-size: 1.1rem;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+    box-shadow: 0 0.25rem 0.625rem rgba(255, 193, 7, 0.3);
     transition: 
         background-color 0.35s ease,
         color 0.35s ease,
@@ -102,15 +124,15 @@ body {
 
 #btn-login:hover,
 #btn-login:focus {
-    background-color: #FFB300; /* amarelo mais claro */
+    background-color: #FFB300;
     color: #000000;
-    box-shadow: 0 6px 15px rgba(255, 179, 0, 0.7);
-    transform: translateY(-3px);
+    box-shadow: 0 0.375rem 0.9375rem rgba(255, 179, 0, 0.7);
+    transform: translateY(-0.1875rem);
     outline: none;
 }
 
 .login-subtitle {
-    margin-top: 18px;
+    margin-top: 1.125rem;
     font-size: 1rem;
     color: #555555;
     font-family: 'Montserrat', Arial, sans-serif;
@@ -120,7 +142,7 @@ body {
 
 /* ====== Estilos específicos para a página admin ====== */
 
-#admin-home {
+/* #admin-home {
     background-color: #000000;
     min-height: 100vh;
     display: flex;
@@ -134,17 +156,17 @@ body {
 
 #admin-home .admin-container {
     background-color: #fff;
-    border: 2px solid #FFC107; /* borda amarela da paleta */
-    border-radius: 15px;
-    padding: 40px 50px;
-    width: 420px;
+    border: 0.125rem solid #FFC107;
+    border-radius: 0.9375rem;
+    padding: 2.5rem 3.125rem;
+    width: 26.25rem;
     box-sizing: border-box;
-    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+    box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.4);
     text-align: center;
     color: #000;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 1.5625rem;
 }
 
 #admin-home .admin-welcome {
@@ -152,33 +174,33 @@ body {
     font-weight: 700;
     font-size: 2.2rem;
     color: #ff9900;
-    margin: 0 0 20px 0;
+    margin: 0 0 1.25rem 0;
 }
 
 /* Menu */
-#admin-home .admin-menu {
+/*#admin-home .admin-menu {
     list-style: none;
     padding-left: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 0.75rem;
 }
 
 /* Links do menu como botões */
-#admin-home .admin-link {
+/*#admin-home .admin-link {
     display: block;
-    padding: 14px 0;
+    padding: 0.875rem 0;
     width: 100%;
     background-color: #FFC107;
     color: #000000;
     font-weight: 700;
-    border: 2px solid #FFC107;
-    border-radius: 12px;
+    border: 0.125rem solid #FFC107;
+    border-radius: 0.75rem;
     font-size: 1.1rem;
     text-decoration: none;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+    box-shadow: 0 0.25rem 0.625rem rgba(255, 193, 7, 0.3);
     transition: 
         background-color 0.35s ease,
         color 0.35s ease,
@@ -189,27 +211,27 @@ body {
 
 #admin-home .admin-link:hover,
 #admin-home .admin-link:focus {
-    background-color: #FFB300; /* amarelo mais claro */
+    background-color: #FFB300;
     color: #f3f2ee;
-    box-shadow: 0 6px 15px rgba(255, 179, 0, 0.7);
-    transform: translateY(-3px);
+    box-shadow: 0 0.375rem 0.9375rem rgba(255, 179, 0, 0.7);
+    transform: translateY(-0.1875rem);
     outline: none;
 }
 
 /* Botão sair com cor diferenciada */
-#admin-home .admin-link-logout {
+/*#admin-home .admin-link-logout {
     display: block;
-    padding: 14px 0;
+    padding: 0.875rem 0;
     width: 100%;
     background-color: #121111;
     color: #f9f6f6;
     font-weight: 700;
-    border: 2px solid #FFC107;
-    border-radius: 12px;
+    border: 0.125rem solid #FFC107;
+    border-radius: 0.75rem;
     font-size: 1.1rem;
     text-decoration: none;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+    box-shadow: 0 0.25rem 0.625rem rgba(255, 193, 7, 0.3);
     transition: 
         background-color 0.35s ease,
         color 0.35s ease,
@@ -226,23 +248,23 @@ body {
 #admin-home .admin-link-logout:focus {
     background-color: #922b21;
     border-color: #922b21;
-    box-shadow: 0 6px 15px rgba(146, 43, 33, 0.7);
-    transform: translateY(-3px);
+    box-shadow: 0 0.375rem 0.9375rem rgba(146, 43, 33, 0.7);
+    transform: translateY(-0.1875rem);
     outline: none;
 }
 
 
 /* Acessibilidade - foco visível para teclado */
-.admin-link:focus-visible {
-    outline: 3px solid #FFC107;
-    outline-offset: 3px;
+/*.admin-link:focus-visible {
+    outline: 0.1875rem solid #FFC107;
+    outline-offset: 0.1875rem;
 }
 
 /* ======  ====== */
 
 /* ====== Estilos específicos para a página admin_perfil ====== */
 
-#admin-perfil-page {
+/* #admin-perfil-page {
     background-color: #000000;
     min-height: 100vh;
     display: flex;
@@ -256,76 +278,76 @@ body {
 
 #admin-perfil-page .perfil-container {
     background-color: #fff;
-    border: 2px solid #FFC107; /* borda amarela da paleta */
-    border-radius: 15px;
-    padding: 40px 50px;
-    width: 420px;
+    border: 0.125rem solid #FFC107;
+    border-radius: 0.9375rem;
+    padding: 2.5rem 3.125rem;
+    width: 26.25rem;
     box-sizing: border-box;
-    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+    box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.4);
     color: #000;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 1.5625rem;
 }
 
-#admin-perfil-page h1 {
+#admin-perfil-page h1{
     font-family: 'Merriweather', serif;
     font-weight: 700;
-    font-size: 2.2rem;
+    font-size: 2.7rem;
     color: #FFC107;
-    margin: 0 0 20px 0;
+    margin: 0 0 1.25rem 0;
     text-align: center;
 }
 
 /* Form labels */
-#admin-perfil-page label {
+/* #admin-perfil-page label {
     display: block;
     font-weight: 600;
-    color: #e05e17; /* tom escuro laranja da paleta */
-    margin-bottom: 6px;
+    color: #e05e17;
+    margin-bottom: 0.375rem;
     font-size: 0.9rem;
 }
 
 /* Inputs */
-#admin-perfil-page input[type="text"],
+/* #admin-perfil-page input[type="text"],
 #admin-perfil-page input[type="password"] {
     width: 100%;
-    padding: 11px 14px;
-    border: 1.8px solid #FFC107;
-    border-radius: 7px;
+    padding: 0.6875rem 0.875rem;
+    border: 0.1125rem solid #FFC107;
+    border-radius: 0.4375rem;
     font-size: 1rem;
     font-family: 'Montserrat', Arial, sans-serif;
     color: #333;
     box-sizing: border-box;
     transition: border-color 0.3s ease;
-    margin-bottom: 15px;
+    margin-bottom: 0.9375rem;
 }
 
 #admin-perfil-page input[type="text"]::placeholder,
 #admin-perfil-page input[type="password"]::placeholder {
-    color: #B38F1F; /* tom mais suave da paleta */
+    color: #B38F1F;
 }
 
 #admin-perfil-page input[type="text"]:focus,
 #admin-perfil-page input[type="password"]:focus {
-    border-color: #FFB300; /* tom amarelo forte */
+    border-color: #FFB300;
     outline: none;
-    box-shadow: 0 0 8px rgba(255, 179, 0, 0.6);
+    box-shadow: 0 0 0.5rem rgba(255, 179, 0, 0.6);
 }
 
 /* Botão salvar */
-#admin-perfil-page button[type="submit"] {
-    margin-top: 10px;
-    padding: 14px 0;
+/* #admin-perfil-page button[type="submit"] {
+    margin-top: 0.625rem;
+    padding: 0.875rem 0;
     width: 100%;
     background-color: #000000;
     color: #FFC107;
     font-weight: 700;
-    border: 2px solid #FFC107;
-    border-radius: 12px;
+    border: 0.125rem solid #FFC107;
+    border-radius: 0.75rem;
     font-size: 1.1rem;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+    box-shadow: 0 0.25rem 0.625rem rgba(255, 193, 7, 0.3);
     transition: 
         background-color 0.35s ease,
         color 0.35s ease,
@@ -336,17 +358,17 @@ body {
 
 #admin-perfil-page button[type="submit"]:hover,
 #admin-perfil-page button[type="submit"]:focus {
-    background-color: #FFB300; /* amarelo mais claro */
+    background-color: #FFB300;
     color: #000000;
-    box-shadow: 0 6px 15px rgba(255, 179, 0, 0.7);
-    transform: translateY(-3px);
+    box-shadow: 0 0.375rem 0.9375rem rgba(255, 179, 0, 0.7);
+    transform: translateY(-0.1875rem);
     outline: none;
 }
 
 /* Link voltar */
-#admin-perfil-page a {
+/* #admin-perfil-page a {
     display: inline-block;
-    margin-top: 20px;
+    margin-top: 1.25rem;
     color: #FFC107;
     font-weight: 700;
     text-decoration: none;
@@ -363,54 +385,56 @@ body {
 /* ======  ====== */
 
 /* ====== Estilos específicos para a página funcionarias.html ====== */
-#funcionarias-page {
+ #funcionarias-page {
     background-color: #000000;
     min-height: 100vh;
-    padding: 30px 20px;
-    font-family: 'Montserrat', Arial, sans-serif;
-    color: #f0f0f0;
     display: flex;
+
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
+    font-family: 'Montserrat', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #f0f0f0;
 }
 
-#funcionarias-page.container {
+
+#funcionarias-page .funcionarias-container {
     background-color: #fff;
-    border: 2px solid #FFC107;
-    border-radius: 15px;
-    padding: 30px 40px;
-    width: 480px;
+    border: 0.125rem solid #FFC107;
+    border-radius: 0.9375rem;
+    padding: 2.5rem 2.8125rem;
+    width: 35vw;
     box-sizing: border-box;
-    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+    box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.4);
     color: #000;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 1.5625rem;
 }
 
-.funcionarias-title {
+#funcionarias-page .funcionarias-title {
     font-family: 'Merriweather', serif;
     font-weight: 700;
-    font-size: 2rem;
-    color: #ff9900;
-    margin: 0 0 15px 0;
+    font-size: 2.7rem;
+    color: #0a0a0a;
+    margin: 0 0 1.25rem 0;
     text-align: center;
 }
 
 .funcionarias-flash-messages {
     background-color: #fff3cd;
-    border: 1.5px solid #FFC107;
-    border-radius: 8px;
-    padding: 12px 15px;
+    border: 0.09375rem solid #FFC107;
+    border-radius: 0.5rem;
+    padding: 0.75rem 0.9375rem;
     color: #856404;
     font-weight: 600;
     font-size: 0.95rem;
 }
 
-.funcionarias-new-link,
 .funcionarias-back-link {
     text-align: center;
-    margin: 10px 0;
+    margin: 0.9375rem 0;
 }
 
 .funcionarias-link {
@@ -441,8 +465,8 @@ body {
 
 .funcionarias-table th,
 .funcionarias-table td {
-    padding: 10px 12px;
-    border: 1.5px solid #FFC107;
+    padding: 0.625rem 0.75rem;
+    border: 0.09375rem solid #FFC107;
     text-align: left;
 }
 
@@ -481,14 +505,14 @@ body {
     text-align: center;
     font-style: italic;
     color: #555555;
-}
+}*/
 /* ======  ====== */
 
 /* ====== Estilos específicos para a página registros.html ====== */
 #registros-page {
     background-color: #000000;
     min-height: 100vh;
-    padding: 30px 20px;
+    padding: 1.875rem 1.25rem;
     font-family: 'Montserrat', Arial, sans-serif;
     color: #f0f0f0;
     display: flex;
@@ -496,34 +520,11 @@ body {
     align-items: flex-start;
 }
 
-#registros-page.container {
-    background-color: #fff;
-    border: 2px solid #FFC107;
-    border-radius: 15px;
-    padding: 30px 40px;
-    width: 720px;
-    box-sizing: border-box;
-    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
-    color: #000;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-.registros-title {
-    font-family: 'Merriweather', serif;
-    font-weight: 700;
-    font-size: 2rem;
-    color: #ff9900;
-    margin: 0 0 20px 0;
-    text-align: center;
-}
-
 .registros-flash-messages {
     background-color: #fff3cd;
-    border: 1.5px solid #FFC107;
-    border-radius: 8px;
-    padding: 12px 15px;
+    border: 0.09375rem solid #FFC107;
+    border-radius: 0.5rem;
+    padding: 0.75rem 0.9375rem;
     color: #856404;
     font-weight: 600;
     font-size: 0.95rem;
@@ -532,48 +533,48 @@ body {
 .registros-filter-form {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px 20px;
+    gap: 0.75rem 1.25rem;
     align-items: center;
     justify-content: center;
-    margin-bottom: 15px;
+    margin-bottom: 0.9375rem;
 }
 
 .registros-label {
     font-weight: 600;
     color: #e05e17;
     font-size: 0.9rem;
-    min-width: 80px;
+    min-width: 5rem;
     text-align: right;
 }
 
 .registros-input-date {
-    padding: 8px 12px;
-    border: 1.8px solid #FFC107;
-    border-radius: 7px;
+    padding: 0.5rem 0.75rem;
+    border: 0.1125rem solid #FFC107;
+    border-radius: 0.4375rem;
     font-size: 1rem;
     font-family: 'Montserrat', Arial, sans-serif;
     color: #333;
     box-sizing: border-box;
     transition: border-color 0.3s ease;
-    width: 160px;
+    width: 10rem;
 }
 
 .registros-input-date:focus {
     border-color: #FFB300;
     outline: none;
-    box-shadow: 0 0 8px rgba(255, 179, 0, 0.6);
+    box-shadow: 0 0 0.5rem rgba(255, 179, 0, 0.6);
 }
 
 .btn-primary {
-    padding: 12px 24px;
+    padding: 0.75rem 1.5rem;
     background-color: #000000;
     color: #FFC107;
     font-weight: 700;
-    border: 2px solid #FFC107;
-    border-radius: 12px;
+    border: 0.125rem solid #FFC107;
+    border-radius: 0.75rem;
     font-size: 1rem;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+    box-shadow: 0 0.25rem 0.625rem rgba(255, 193, 7, 0.3);
     transition: 
         background-color 0.35s ease,
         color 0.35s ease,
@@ -586,15 +587,14 @@ body {
 .btn-primary:focus {
     background-color: #FFB300;
     color: #000000;
-    box-shadow: 0 6px 15px rgba(255, 179, 0, 0.7);
-    transform: translateY(-3px);
+    box-shadow: 0 0.375rem 0.9375rem rgba(255, 179, 0, 0.7);
+    transform: translateY(-0.1875rem);
     outline: none;
 }
 
-.registros-new-link,
 .registros-back-link {
     text-align: center;
-    margin: 10px 0;
+    margin: 0.625rem 0;
 }
 
 .registros-link {
@@ -613,7 +613,7 @@ body {
 }
 
 .funcionaria-section {
-    margin-bottom: 30px;
+    margin-bottom: 1.875rem;
 }
 
 .funcionaria-name {
@@ -621,9 +621,9 @@ body {
     font-weight: 700;
     font-size: 1.5rem;
     color: #ff9900;
-    margin-bottom: 12px;
-    border-bottom: 2px solid #FFC107;
-    padding-bottom: 4px;
+    margin-bottom: 0.75rem;
+    border-bottom: 0.125rem solid #FFC107;
+    padding-bottom: 0.25rem;
 }
 
 .funcionaria-table {
@@ -639,8 +639,8 @@ body {
 
 .funcionaria-table th,
 .funcionaria-table td {
-    padding: 10px 12px;
-    border: 1.5px solid #FFC107;
+    padding: 0.625rem 0.75rem;
+    border: 0.09375rem solid #FFC107;
     text-align: left;
     vertical-align: middle;
 }
@@ -648,7 +648,7 @@ body {
 .observacoes {
     font-style: italic;
     color: #555555;
-    max-width: 200px;
+    max-width: 12.5rem;
     word-wrap: break-word;
 }
 
@@ -694,26 +694,27 @@ body {
 #registro-form-page {
     background-color: #000000;
     min-height: 100vh;
-    padding: 30px 20px;
-    font-family: 'Montserrat', Arial, sans-serif;
-    color: #f0f0f0;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    font-family: 'Montserrat', Arial, sans-serif;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    color: #f0f0f0;
 }
 
-#registro-form-page.container {
+#registro-form-page .registro-form-container {
     background-color: #fff;
-    border: 2px solid #FFC107;
-    border-radius: 15px;
-    padding: 35px 45px;
-    width: 420px;
+    border: 0.125rem solid #FFC107;
+    border-radius: 0.9375rem;
+    padding: 2.1875rem 2.8125rem;
+    width: 26.25rem;
     box-sizing: border-box;
-    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+    box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.4);
     color: #000;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 1.5625rem;
 }
 
 .registro-form-title {
@@ -721,15 +722,15 @@ body {
     font-weight: 700;
     font-size: 2rem;
     color: #ff9900;
-    margin: 0 0 20px 0;
+    margin: 0 0 1.25rem 0;
     text-align: center;
 }
 
 .registro-form-flash-messages {
     background-color: #fff3cd;
-    border: 1.5px solid #FFC107;
-    border-radius: 8px;
-    padding: 12px 15px;
+    border: 0.09375rem solid #FFC107;
+    border-radius: 0.5rem;
+    padding: 0.75rem 0.9375rem;
     color: #856404;
     font-weight: 600;
     font-size: 0.95rem;
@@ -740,7 +741,7 @@ body {
     display: block;
     font-weight: 600;
     color: #e05e17;
-    margin-bottom: 6px;
+    margin-bottom: 0.375rem;
     font-size: 0.9rem;
 }
 
@@ -748,15 +749,15 @@ body {
 .registro-form-input,
 .registro-form-textarea {
     width: 100%;
-    padding: 11px 14px;
-    border: 1.8px solid #FFC107;
-    border-radius: 7px;
+    padding: 0.6875rem 0.875rem;
+    border: 0.1125rem solid #FFC107;
+    border-radius: 0.4375rem;
     font-size: 1rem;
     font-family: 'Montserrat', Arial, sans-serif;
     color: #333;
     box-sizing: border-box;
     transition: border-color 0.3s ease;
-    margin-bottom: 15px;
+    margin-bottom: 0.9375rem;
     resize: vertical;
 }
 
@@ -765,28 +766,28 @@ body {
 .registro-form-textarea:focus {
     border-color: #FFB300;
     outline: none;
-    box-shadow: 0 0 8px rgba(255, 179, 0, 0.6);
+    box-shadow: 0 0 0.5rem rgba(255, 179, 0, 0.6);
 }
 
 .registro-form-funcionaria {
     font-weight: 600;
     font-size: 1rem;
-    margin-bottom: 15px;
+    margin-bottom: 0.9375rem;
     color: #000;
 }
 
 .btn-primary.registro-form-submit {
-    margin-top: 10px;
-    padding: 14px 0;
+    margin-top: 0.625rem;
+    padding: 0.875rem 0;
     width: 100%;
     background-color: #000000;
     color: #FFC107;
     font-weight: 700;
-    border: 2px solid #FFC107;
-    border-radius: 12px;
+    border: 0.125rem solid #FFC107;
+    border-radius: 0.75rem;
     font-size: 1.1rem;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+    box-shadow: 0 0.25rem 0.625rem rgba(255, 193, 7, 0.3);
     transition: 
         background-color 0.35s ease,
         color 0.35s ease,
@@ -799,14 +800,14 @@ body {
 .btn-primary.registro-form-submit:focus {
     background-color: #FFB300;
     color: #000000;
-    box-shadow: 0 6px 15px rgba(255, 179, 0, 0.7);
-    transform: translateY(-3px);
+    box-shadow: 0 0.375rem 0.9375rem rgba(255, 179, 0, 0.7);
+    transform: translateY(-0.1875rem);
     outline: none;
 }
 
 .registro-form-back-link {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 1.25rem;
 }
 
 .registro-form-link {
@@ -828,39 +829,40 @@ body {
 @media (max-width: 460px) {
     #registro-form-page.container {
         width: 100%;
-        padding: 25px 20px;
+        padding: 1.5625rem 1.25rem;
     }
 }
 
-/* ====== Estilos específicos para a página func.html ====== */
+/* ====== Estilos específicos para a página func.html ====== 
 #func-page {
     background-color: #000000;
-    min-height: 60vh; /* altura mínima da página, mas não exagerada */
-    padding: 30px 20px;
-    font-family: 'Montserrat', Arial, sans-serif;
-    color: #f0f0f0;
-
-    display: flex;
-    justify-content: center; /* centraliza horizontalmente */
-    align-items: center;     /* centraliza verticalmente */
-}
-
-/* Container específico para a página func */
-#func-page.func-container {
-    background-color: #fff;
-    border: 2px solid #FFC107;
-    border-radius: 15px;
-    padding: 35px 45px;
-    width: 380px;
-    max-width: 90%; /* responsivo em telas pequenas */
-    box-sizing: border-box;
-    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
-    color: #000;
-
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #f0f0f0;
+}
+
+Container específico para a página func 
+#func-page .func-container {
+    background-color: #fff;
+    border: 0.125rem solid #FFC107;
+    border-radius: 0.9375rem;
+    padding: 1.875rem 2.5rem;
+    width: 23.75rem;
+    max-width: 90%;
+    box-sizing: border-box;
+    box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.4);
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    gap: 1.875rem;
     text-align: center;
+    overflow-x: auto;
 }
 
 .func-welcome {
@@ -868,15 +870,15 @@ body {
     font-weight: 700;
     font-size: 2rem;
     color: #ff9900;
-    margin: 0 0 20px 0;
-    text-align: center; /* centralizado */
+    margin: 0 0 1.25rem 0;
+    text-align: center;
 }
 
 .func-flash-messages {
     background-color: #fff3cd;
-    border: 1.5px solid #FFC107;
-    border-radius: 8px;
-    padding: 12px 15px;
+    border: 0.09375rem solid #FFC107;
+    border-radius: 0.5rem;
+    padding: 0.75rem 0.9375rem;
     color: #856404;
     font-weight: 600;
     font-size: 0.95rem;
@@ -886,22 +888,22 @@ body {
 .botoes-ponto {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 1.25rem;
 }
 
 .form-ponto {
     display: inline;
 }
 
-/* Botões base */
+/* Botões base 
 .btn-ponto {
-    padding: 14px 28px;
+    padding: 0.875rem 1.75rem;
     font-weight: 700;
-    border: 2px solid transparent;
-    border-radius: 12px;
+    border: 0.125rem solid transparent;
+    border-radius: 0.75rem;
     font-size: 1.1rem;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    box-shadow: 0 0.25rem 0.625rem rgba(0,0,0,0.15);
     transition: 
         background-color 0.35s ease,
         color 0.35s ease,
@@ -910,54 +912,54 @@ body {
     user-select: none;
 }
 
-/* Botão Entrada - verde suave */
+/* Botão Entrada - verde suave *
 .btn-entrada {
-    background-color: #2e7d32; /* verde escuro harmonioso */
-    color: #e8f5e9; /* verde claro para texto */
+    background-color: #2e7d32;
+    color: #e8f5e9;
     border-color: #2e7d32;
-    box-shadow: 0 4px 10px rgba(46, 125, 50, 0.4);
+    box-shadow: 0 0.25rem 0.625rem rgba(46, 125, 50, 0.4);
 }
 
 .btn-entrada:hover,
 .btn-entrada:focus {
-    background-color: #4caf50; /* verde médio */
-    color: #1b5e20; /* verde escuro para texto */
-    box-shadow: 0 6px 15px rgba(76, 175, 80, 0.7);
-    transform: translateY(-3px);
+    background-color: #4caf50;
+    color: #1b5e20;
+    box-shadow: 0 0.375rem 0.9375rem rgba(76, 175, 80, 0.7);
+    transform: translateY(-0.1875rem);
     outline: none;
 }
 
-/* Botão Saída - vinho suave */
+/* Botão Saída - vinho suave 
 .btn-saida {
-    background-color: #7b1fa2; /* roxo vinho suave */
-    color: #f3e5f5; /* lilás claro para texto */
+    background-color: #7b1fa2;
+    color: #f3e5f5;
     border-color: #7b1fa2;
-    box-shadow: 0 4px 10px rgba(123, 31, 162, 0.4);
+    box-shadow: 0 0.25rem 0.625rem rgba(123, 31, 162, 0.4);
 }
 
 .btn-saida:hover,
 .btn-saida:focus {
-    background-color: #9c27b0; /* roxo médio */
-    color: #4a148c; /* roxo escuro para texto */
-    box-shadow: 0 6px 15px rgba(156, 39, 176, 0.7);
-    transform: translateY(-3px);
+    background-color: #9c27b0;
+    color: #4a148c;
+    box-shadow: 0 0.375rem 0.9375rem rgba(156, 39, 176, 0.7);
+    transform: translateY(-0.1875rem);
     outline: none;
 }
 
 .status-ponto {
-    margin-top: 20px;
+    margin-top: 1.25rem;
     font-size: 1rem;
     color: #333333;
     text-align: left;
     background-color: #fff9e6;
-    border: 1.5px solid #FFC107;
-    border-radius: 12px;
-    padding: 15px 20px;
-    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.2);
+    border: 0.09375rem solid #FFC107;
+    border-radius: 0.75rem;
+    padding: 0.9375rem 1.25rem;
+    box-shadow: 0 0.125rem 0.5rem rgba(255, 193, 7, 0.2);
 }
 
 .status-ponto p {
-    margin: 6px 0;
+    margin: 0.375rem 0;
 }
 
 .status-entrada,
@@ -967,13 +969,13 @@ body {
 }
 
 .func-logout-link {
-    margin-top: 25px;
+    margin-top: 1.5625rem;
 }
 
 .func-link-logout {
     color: #FFC107;
     font-weight: 700;
-    font-size: 1.2rem; /* um pouco maior */
+    font-size: 1.2rem;
     text-decoration: none;
     transition: color 0.3s ease;
     user-select: none;
@@ -989,54 +991,81 @@ body {
 
 /* ======  ====== */
 /* ====== Estilos específicos para a página registros ====== */
-#registros-page {
-  background-color: #000000;
-  min-height: 100vh;
-  padding: 40px 20px;
-  font-family: 'Montserrat', Arial, sans-serif;
-  color: #f0f0f0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
+#registros-page{
+    background-color: #000000;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #f0f0f0;
 }
 
 #registros-page .registros-title {
   font-family: 'Merriweather', serif;
   font-weight: 700;
-  font-size: 2.2rem;
-  color: #FFC107;
-  margin-bottom: 30px;
+  font-size: 2.7rem;
+  color: #060606;
+  margin: 0 0 1.25rem 0;
   text-align: center;
+}
+
+#registros-page .registros-container {
+  background-color: #fff;
+  border: 0.125rem solid #FFC107;
+  border-radius: 0.9375rem;
+  padding: 1.875rem 2.5rem;
+  max-width: 70%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.4);
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  gap: 1.875rem;
+  overflow-x: auto;
+} */
+
+/* Ajuste para a tabela dentro da container */
+#registros-page .registros-container .funcionaria-table {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  display: block;
+  box-sizing: border-box;
 }
 
 #registros-page .registros-flash-messages {
   background-color: #222;
-  border: 1.5px solid #FFC107;
-  border-radius: 10px;
-  padding: 15px 20px;
-  margin-bottom: 25px;
+  border: 0.09375rem solid #FFC107;
+  border-radius: 0.625rem;
+  padding: 0.9375rem 1.25rem;
+  margin-bottom: 1.5625rem;
   width: 100%;
-  max-width: 600px;
+  max-width: 37.5rem;
   color: #FFC107;
   font-weight: 600;
-  box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+  box-shadow: 0 0.25rem 0.625rem rgba(255, 193, 7, 0.3);
 }
 
 #filtro-periodo-form.form-filtro-periodo {
   background-color: #111;
-  border: 2px solid #FFC107;
-  border-radius: 15px;
-  padding: 20px 25px;
-  margin-bottom: 30px;
+  border: 0.125rem solid #FFC107;
+  border-radius: 0.9375rem;
+  padding: 1.25rem 1.5625rem;
+  margin-bottom: 1.875rem;
   width: 100%;
-  max-width: 600px;
+  max-width: 100%;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  gap: 15px 20px;
+  gap: 0.9375rem 1.25rem;
   align-items: center;
   box-sizing: border-box;
-  box-shadow: 0 6px 15px rgba(255, 193, 7, 0.4);
+  box-shadow: 0 0.375rem 0.9375rem rgba(255, 193, 7, 0.4);
 }
 
 #filtro-periodo-form .form-label {
@@ -1048,9 +1077,9 @@ body {
 
 #filtro-periodo-form .form-input-date {
   flex: 1 1 150px;
-  padding: 10px 14px;
-  border: 1.8px solid #FFC107;
-  border-radius: 7px;
+  padding: 0.625rem 0.875rem;
+  border: 0.1125rem solid #FFC107;
+  border-radius: 0.4375rem;
   font-size: 1rem;
   font-family: 'Montserrat', Arial, sans-serif;
   color: #333;
@@ -1061,21 +1090,21 @@ body {
 #filtro-periodo-form .form-input-date:focus {
   border-color: #FFB300;
   outline: none;
-  box-shadow: 0 0 8px rgba(255, 179, 0, 0.6);
+  box-shadow: 0 0 0.5rem rgba(255, 179, 0, 0.6);
 }
 
 #btn-filtrar {
   flex: 1 1 100%;
-  margin-top: 10px;
-  padding: 14px 0;
+  margin: 1.25rem;
+  padding: 1.25rem;
   background-color: #000000;
   color: #FFC107;
   font-weight: 700;
-  border: 2px solid #FFC107;
-  border-radius: 12px;
+  border: 0.125rem solid #FFC107;
+  border-radius: 0.75rem;
   font-size: 1.1rem;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+  box-shadow: 0 0.25rem 0.625rem rgba(255, 193, 7, 0.3);
   transition:
     background-color 0.35s ease,
     color 0.35s ease,
@@ -1088,14 +1117,14 @@ body {
 #btn-filtrar:focus {
   background-color: #FFB300;
   color: #000000;
-  box-shadow: 0 6px 15px rgba(255, 179, 0, 0.7);
-  transform: translateY(-3px);
+  box-shadow: 0 0.375rem 0.9375rem rgba(255, 179, 0, 0.7);
+  transform: translateY(-0.1875rem);
   outline: none;
 }
 
 .registros-new-link,
 .registros-back-link {
-  margin-top: 25px;
+  margin-top: 1.5625rem;
   font-weight: 700;
   font-size: 1rem;
 }
@@ -1119,14 +1148,14 @@ body {
 
 .funcionaria-section {
   background-color: #fff;
-  border: 2px solid #FFC107;
-  border-radius: 15px;
-  padding: 25px 30px;
-  margin-bottom: 30px;
+  border: 0.125rem solid #FFC107;
+  border-radius: 0.9375rem;
+  padding: 1.875rem 2.1875rem;
+  margin-bottom: 1.875rem;
   width: 100%;
-  max-width: 700px;
+  max-width: 100%;
   box-sizing: border-box;
-  box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+  box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.4);
   color: #000;
 }
 
@@ -1135,7 +1164,7 @@ body {
   font-weight: 700;
   font-size: 1.8rem;
   color: #ff9900;
-  margin: 0 0 20px 0;
+  margin: 0 0 1.25rem 0;
   text-align: center;
 }
 
@@ -1147,8 +1176,8 @@ body {
 
 .registros-table th,
 .registros-table td {
-  border: 1.5px solid #FFC107;
-  padding: 10px 12px;
+  border: 0.09375rem solid #FFC107;
+  padding: 0.625rem 0.75rem;
   text-align: center;
   font-size: 0.95rem;
 }
@@ -1160,7 +1189,7 @@ body {
 }
 
 .observacoes {
-  max-width: 200px;
+  max-width: 12.5rem;
   word-wrap: break-word;
   text-align: left;
   font-style: italic;
@@ -1176,13 +1205,13 @@ body {
   color: #000000;
   font-weight: 700;
   background-color: #FFC107;
-  border: 2px solid #FFC107;
-  border-radius: 12px;
-  padding: 6px 14px;
+  border: 0.125rem solid #FFC107;
+  border-radius: 0.75rem;
+  padding: 0.375rem 0.875rem;
   font-size: 0.95rem;
   text-decoration: none;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+  box-shadow: 0 0.25rem 0.625rem rgba(255, 193, 7, 0.3);
   transition:
     background-color 0.35s ease,
     color 0.35s ease,
@@ -1197,8 +1226,8 @@ body {
 .btn-link.registros-delete-button:focus {
   background-color: #FFB300;
   color: #000000;
-  box-shadow: 0 6px 15px rgba(255, 179, 0, 0.7);
-  transform: translateY(-3px);
+  box-shadow: 0 0.375rem 0.9375rem rgba(255, 179, 0, 0.7);
+  transform: translateY(-0.1875rem);
   outline: none;
 }
 
@@ -1206,20 +1235,20 @@ body {
   background-color: #922b21;
   border-color: #922b21;
   color: #f9f6f6;
-  margin-left: 8px;
+  margin-left: 0.5rem;
 }
 
 .btn-link.registros-delete-button:hover,
 .btn-link.registros-delete-button:focus {
   background-color: #b33a2a;
   border-color: #b33a2a;
-  box-shadow: 0 6px 15px rgba(179, 58, 42, 0.7);
-  transform: translateY(-3px);
+  box-shadow: 0 0.375rem 0.9375rem rgba(179, 58, 42, 0.7);
+  transform: translateY(-0.1875rem);
   outline: none;
 }
 
 .registros-no-data {
-  margin-top: 40px;
+  margin-top: 2.5rem;
   font-size: 1.1rem;
   color: #FFC107;
   font-weight: 600;
@@ -1227,12 +1256,13 @@ body {
 }
 
 
-/* ======  ====== */
-/* ====== Estilos específicos para a página funcionaria_form ====== */
-#funcionaria-form-page {
+
+/* ====== Estilos específicos para a página funcionaria_form ====== 
+#funcionaria-form-page
+.funcionaria-form-container{
   background-color: #000000;
   min-height: 100vh;
-  padding: 40px 20px;
+  padding: 2.5rem 1.25rem;
   font-family: 'Montserrat', Arial, sans-serif;
   color: #f0f0f0;
   display: flex;
@@ -1246,42 +1276,42 @@ body {
   font-weight: 700;
   font-size: 2.2rem;
   color: #FFC107;
-  margin-bottom: 30px;
+  margin-bottom: 1.875rem;
   text-align: center;
 }
 
 #funcionaria-form-page .funcionaria-form-flash-messages {
   background-color: #222;
-  border: 1.5px solid #FFC107;
-  border-radius: 10px;
-  padding: 15px 20px;
-  margin-bottom: 25px;
+  border: 0.09375rem solid #FFC107;
+  border-radius: 0.625rem;
+  padding: 0.9375rem 1.25rem;
+  margin-bottom: 1.5625rem;
   width: 100%;
-  max-width: 420px;
+  max-width: 26.25rem;
   color: #FFC107;
   font-weight: 600;
-  box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+  box-shadow: 0 0.25rem 0.625rem rgba(255, 193, 7, 0.3);
 }
 
 #funcionaria-form {
   background-color: #fff;
-  border: 2px solid #FFC107;
-  border-radius: 15px;
-  padding: 40px 50px;
-  width: 420px;
+  border: 0.125rem solid #FFC107;
+  border-radius: 0.9375rem;
+  padding: 2.5rem 3.125rem;
+  width: 26.25rem;
   box-sizing: border-box;
-  box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+  box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.4);
   color: #000;
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 1.5625rem;
 }
 
 #funcionaria-form .form-label {
   display: block;
   font-weight: 600;
   color: #e05e17;
-  margin-bottom: 6px;
+  margin-bottom: 0.375rem;
   font-size: 0.9rem;
 }
 
@@ -1289,16 +1319,16 @@ body {
   font-weight: 400;
   font-size: 0.75rem;
   color: #b36a1a;
-  margin-left: 6px;
+  margin-left: 0.375rem;
   user-select: none;
 }
 
 #funcionaria-form .form-input-text,
 #funcionaria-form .form-input-password {
   width: 100%;
-  padding: 11px 14px;
-  border: 1.8px solid #FFC107;
-  border-radius: 7px;
+  padding: 0.6875rem 0.875rem;
+  border: 0.1125rem solid #FFC107;
+  border-radius: 0.4375rem;
   font-size: 1rem;
   font-family: 'Montserrat', Arial, sans-serif;
   color: #333;
@@ -1315,29 +1345,29 @@ body {
 #funcionaria-form .form-input-password:focus {
   border-color: #FFB300;
   outline: none;
-  box-shadow: 0 0 8px rgba(255, 179, 0, 0.6);
+  box-shadow: 0 0 0.5rem rgba(255, 179, 0, 0.6);
 }
 
 .funcionaria-username-display {
   font-weight: 600;
   font-size: 1rem;
   color: #333;
-  margin-bottom: 15px;
+  margin-bottom: 0.9375rem;
   user-select: none;
 }
 
 #btn-submit-funcionaria {
-  margin-top: 10px;
-  padding: 14px 0;
+  margin-top: 0.625rem;
+  padding: 0.875rem 0;
   width: 100%;
   background-color: #000000;
   color: #FFC107;
   font-weight: 700;
-  border: 2px solid #FFC107;
-  border-radius: 12px;
+  border: 0.125rem solid #FFC107;
+  border-radius: 0.75rem;
   font-size: 1.1rem;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+  box-shadow: 0 0.25rem 0.625rem rgba(255, 193, 7, 0.3);
   transition:
     background-color 0.35s ease,
     color 0.35s ease,
@@ -1350,18 +1380,18 @@ body {
 #btn-submit-funcionaria:focus {
   background-color: #FFB300;
   color: #000000;
-  box-shadow: 0 6px 15px rgba(255, 179, 0, 0.7);
-  transform: translateY(-3px);
+  box-shadow: 0 0.375rem 0.9375rem rgba(255, 179, 0, 0.7);
+  transform: translateY(-0.1875rem);
   outline: none;
 }
 
 .funcionaria-form-back-link {
-  margin-top: 20px;
+  margin-top: 1.25rem;
   font-weight: 700;
   font-size: 1rem;
   text-align: center;
   width: 100%;
-  max-width: 420px;
+  max-width: 26.25rem;
 }
 
 .funcionaria-form-back-link a {
@@ -1379,156 +1409,172 @@ body {
 }
 
 
-/* ======  ====== */
+ ======  ====== */
 
 /* ======  ====== */
 
-*********************************************************************************************************************** 
-/* Para maior responsividade */
-@media (max-width: 480px) {
-    .admin-container {
-        padding: 30px 25px;
+/* iPhone 14 (largura ~390px) */
+@media (max-width: 400px) {
+    /* Containers principais com fundo branco */
+    .login-box,
+    #admin-home .admin-container,
+    #admin-perfil-page .perfil-container,
+    #registro-form-page .registro-form-container,
+    #funcionarias-page .funcionarias-container,
+    #func-page .func-container,
+    #funcionaria-form,
+    #registros-page .registros-container {
+        width: 95vw !important;
+        max-width: none !important;
+        padding: 1.875rem 0.9375rem !important;
+        margin: 0 auto !important;
+        box-sizing: border-box !important;
     }
 
-    .admin-welcome {
-        font-size: 2rem;
+    /* Fundo preto com padding lateral */
+    body,
+    #login-page,
+    #admin-home,
+    #admin-perfil-page,
+    #registro-form-page,
+    #funcionarias-page,
+    #func-page,
+    #registros-page {
+        padding-left: 0.625rem !important;
+        padding-right: 0.625rem !important;
+        overflow-x: hidden !important;
     }
 
-    .admin-link {
-        font-size: 1rem;
-        padding: 12px 15px;
+    /* Ajuste de fontes para legibilidade */
+    .login-title,
+    .admin-welcome,
+    .registro-form-title,
+    .funcionarias-title,
+    .func-welcome,
+    #funcionaria-form-page .funcionaria-form-title,
+    #registros-page .registros-title {
+        font-size: 1.9rem !important;
+        line-height: 1.2 !important;
     }
-}
 
-/* Responsividade básica func.html*/
-@media (max-width: 460px) {
-    #func-page.container {
-        width: 100%;
-        padding: 25px 20px;
+    /* Botões e inputs com tamanho confortável */
+    #btn-login,
+    #btn-submit-funcionaria,
+    .btn-primary,
+    #btn-filtrar,
+    .btn-ponto,
+    .admin-link,
+    .admin-link-logout {
+        font-size: 1.1rem !important;
+        padding: 0.875rem 0 !important;
     }
-    .botoes-ponto {
-        flex-direction: column;
-        gap: 15px;
-    }
-    .btn-ponto {
-        width: 100%;
-        padding: 14px 0;
-    }
-}
 
-
-@media (max-width: 420px) {
-  .form-container {
-    width: 90%;
-    padding: 25px 20px;
-    margin: 20px auto;
-    border-radius: 12px;
-  }
-  .input-field {
-    font-size: 14px;
-    padding: 8px;
-    margin-bottom: 20px;
-  }
-  .button-entrar {
-    padding: 10px 0;
-    font-size: 16px;
-  }
-  .form-container h1 {
-    font-size: 22px;
-    margin-bottom: 20px;
-  }
-}
-
-/* Responsividade básica */
-@media (max-width: 760px) {
-    #registros-page.container {
-        width: 100%;
-        padding: 20px 15px;
-    }
-    .registros-filter-form {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .registros-label {
-        text-align: left;
-        min-width: auto;
-    }
+    #login-form input[type="text"],
+    #login-form input[type="password"],
+    #admin-perfil-page input[type="text"],
+    #admin-perfil-page input[type="password"],
+    .registro-form-input,
+    .registro-form-select,
+    .registro-form-textarea,
+    #funcionaria-form .form-input-text,
+    #funcionaria-form .form-input-password,
     .registros-input-date {
-        width: 100%;
+        font-size: 1rem !important;
+        padding: 0.75rem 0.875rem !important;
     }
-    .btn-primary {
-        width: 100%;
-    }
-    .funcionaria-table th,
-    .funcionaria-table td {
-        padding: 8px 6px;
-        font-size: 0.9rem;
-    }
-}
 
-/* Responsividade básica */
-@media (max-width: 520px) {
-    #funcionarias-page.container {
-        width: 100%;
-        padding: 20px 15px;
+    /* Botões ponto em coluna para melhor toque */
+    .botoes-ponto {
+        flex-direction: column !important;
+        gap: 0.9375rem !important;
     }
-    .funcionarias-table th,
-    .funcionarias-table td {
-        padding: 8px 6px;
-        font-size: 0.9rem;
+
+    .btn-ponto {
+        width: 100% !important;
+        padding: 0.875rem 0 !important;
+        font-size: 1.1rem !important;
     }
 }
 
-/* Responsividade básica */
-@media (max-width: 720px) {
-  #filtro-periodo-form.form-filtro-periodo {
-    flex-direction: column;
-    align-items: stretch;
-  }
 
-  #filtro-periodo-form .form-label,
-  #filtro-periodo-form .form-input-date,
-  #btn-filtrar {
-    flex: 1 1 100%;
-  }
-
-  .funcionaria-section {
-    padding: 20px 15px;
-  }
-
-  .registros-table th,
-  .registros-table td {
-    font-size: 0.85rem;
-    padding: 8px 6px;
-  }
-
-  .observacoes {
-    max-width: 100%;
-  }
-}
-
-/* Responsividade básica */
-@media (max-width: 480px) {
-  #funcionaria-form {
-    padding: 30px 25px;
-    width: 100%;
-  }
-}
-
-/* Responsividade básica */
-@media (max-width: 480px) {
-    #func-page.func-container {
-        width: 100%;
-        padding: 25px 20px;
+/* Celulares Motorola maiores (largura entre 400px e 460px) */
+@media (max-width: 460px) {
+/* Containers principais com fundo branco */
+    .login-box,
+    #admin-home .admin-container,
+    #admin-perfil-page .perfil-container,
+    #registro-form-page .registro-form-container,
+    #funcionarias-page .funcionarias-container,
+    #func-page .func-container,
+    #funcionaria-form,
+    #registros-page .registros-container {
+        width: 90vw;
+        max-width: none;
+        padding: 1.875rem 1.25rem;
+        margin: 0 auto;
+        box-sizing: border-box;
     }
 
+    /* Fundo preto (body, #login-page, etc) */
+    body,
+    #login-page,
+    #admin-home,
+    #admin-perfil-page,
+    #registro-form-page,
+    #funcionarias-page,
+    #func-page,
+    #registros-page {
+        padding: 0.625rem 5vw;
+        overflow-x: hidden;
+    }
+
+    /* Ajuste de fontes para manter legibilidade */
+    .login-title,
+    .admin-welcome,
+    .registro-form-title,
+    .funcionarias-title,
+    .func-welcome,
+    #funcionaria-form-page .funcionaria-form-title,
+    #registros-page .registros-title {
+        font-size: 1.9rem;
+    }
+
+    /* Botões e inputs com tamanho confortável */
+    #btn-login,
+    #btn-submit-funcionaria,
+    .btn-primary,
+    #btn-filtrar,
+    .btn-ponto,
+    .admin-link,
+    .admin-link-logout {
+        font-size: 1.05rem;
+        padding: 0.875rem 0;
+    }
+
+    #login-form input[type="text"],
+    #login-form input[type="password"],
+    #admin-perfil-page input[type="text"],
+    #admin-perfil-page input[type="password"],
+    .registro-form-input,
+    .registro-form-select,
+    .registro-form-textarea,
+    #funcionaria-form .form-input-text,
+    #funcionaria-form .form-input-password,
+    .registros-input-date {
+        font-size: 1rem;
+        padding: 0.75rem 0.875rem;
+    }
+
+    /* Botões ponto em coluna */
     .botoes-ponto {
         flex-direction: column;
-        gap: 15px;
+        gap: 0.9375rem;
     }
 
     .btn-ponto {
         width: 100%;
-        padding: 14px 0;
+        padding: 0.875rem 0;
+        font-size: 1.1rem;
     }
 }
+

@@ -2,52 +2,62 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% if acao == 'novo' %}Nova Funcionária{% else %}Editar Funcionária{% endif %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='funcionaria_form.css') }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Merriweather&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="funcionaria-form-page" class="container">
-        <h2 class="funcionaria-form-title">{% if acao == 'novo' %}Nova Funcionária{% else %}Editar Funcionária{% endif %}</h2>
+	<main id="funcionaria-form-page">
+		<section class="funcionaria-form-container">
+			<h2 class="funcionaria-form-title">
+				{% if acao == 'novo' %}Nova Funcionária{% else %}Editar Funcionária{% endif %}
+			</h2>
 
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <div class="flash-messages funcionaria-form-flash-messages">
-              {% for msg in messages %}
-                <p>{{ msg }}</p>
-              {% endfor %}
-            </div>
-          {% endif %}
-        {% endwith %}
+			{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				<div class="flash-messages funcionaria-form-flash-messages">
+					{% for msg in messages %}
+						<p>{{ msg }}</p>
+					{% endfor %}
+				</div>
+			{% endif %}
+			{% endwith %}
 
-        <form id="funcionaria-form" class="form-funcionaria" method="post" novalidate>
-            <label for="nome" class="form-label">Nome:</label>
-            <input type="text" id="nome" name="nome" required value="{{ user.nome if user else '' }}" class="form-input-text" />
+			<form id="funcionaria-form" class="form-funcionaria" method="post" novalidate>
+				<label for="nome" class="form-label">Nome:</label>
+				<input type="text" id="nome" name="nome" required value="{{ user.nome if user else '' }}" class="form-input-text"/>
 
-            {% if acao == 'novo' %}
-            <label for="username" class="form-label">Usuário:</label>
-            <input type="text" id="username" name="username" required class="form-input-text" />
-            {% else %}
-            <p class="funcionaria-username-display"><strong>Usuário:</strong> {{ user.username }}</p>
-            {% endif %}
+				{% if acao == 'novo' %}
+					<label for="username" class="form-label">Usuário:</label>
+					<input type="text" id="username" name="username" required class="form-input-text"/>
+				{% else %}
+					<p class="funcionaria-username-display"><strong>Usuário:</strong> {{ user.username }}</p>
+				{% endif %}
 
-            <label for="senha" class="form-label">
-              Senha:
-              {% if acao == 'editar' %}
-                <small class="senha-info">(deixe em branco para não alterar)</small>
-              {% endif %}
-            </label>
-            <input type="password" id="senha" name="senha" class="form-input-password" />
+				<label for="senha" class="form-label">
+					Senha:
+					{% if acao == 'editar' %}
+						<small class="senha-info">(deixe em branco para não alterar)</small>
+					{% endif %}
+				</label>
+				<input type="password" id="senha" name="senha" class="form-input-password"/>
 
-            <label for="senha_confirm" class="form-label">Confirmar Senha:</label>
-            <input type="password" id="senha_confirm" name="senha_confirm" class="form-input-password" />
+				<label for="senha_confirm" class="form-label">Confirmar Senha:</label>
+				<input type="password" id="senha_confirm" name="senha_confirm" class="form-input-password"/>
 
-            <button type="submit" id="btn-submit-funcionaria" class="btn-submit-funcionaria">
-              {% if acao == 'novo' %}Cadastrar{% else %}Salvar{% endif %}
-            </button>
-        </form>
+				<button type="submit" id="btn-submit-funcionaria" class="btn-submit-funcionaria">
+					{% if acao == 'novo' %}Cadastrar{% else %}Salvar{% endif %}
+				</button>
+			</form>
 
-        <p class="funcionaria-form-back-link"><a href="{{ url_for('listar_funcionarias') }}" class="link-voltar">Voltar</a></p>
-    </div>
+			<p class="funcionaria-form-back-link">
+				<a href="{{ url_for('listar_funcionarias') }}" class="link-voltar">Voltar</a>
+			</p>
+		</section>
+	</main>
 </body>
 </html>

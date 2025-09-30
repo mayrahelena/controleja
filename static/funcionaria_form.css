@@ -1,0 +1,251 @@
+/* =========================================
+   Funcionária – Formulário (mobile-first)
+   ========================================= */
+
+/* 1) Tokens e reset */
+:root {
+    --space-1: 0.5rem;
+    --space-2: 0.75rem;
+    --space-3: 1rem;
+    --space-4: 1.25rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 0.9375rem;
+    --bg-dark: #000000;
+    --fg-light: #f0f0f0;
+    --brand: #FFC107;
+    --brand-strong: #FFB300;
+    --headline: #FFC107;
+    --label: #e05e17;
+    --input-text: #333;
+    --input-ph: #B38F1F;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+/* 2) Base */
+body {
+    background: var(--bg-dark);
+    color: var(--fg-light);
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: max(var(--space-3), env(safe-area-inset-top))
+             var(--space-3)
+             max(var(--space-3), env(safe-area-inset-bottom));
+    min-height: 100dvh;
+    overflow-y: auto;
+}
+
+/* 3) Estrutura */
+#funcionaria-form-page {
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: 0 var(--space-3);
+    color: var(--fg-light);
+}
+
+/* 4) Container do formulário (card) */
+.funcionaria-form-container {
+    background: #fff;
+    color: #000;
+    border: 0.125rem solid var(--brand);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 28rem;
+    height: auto;
+    max-height: none;
+    padding: clamp(1rem, 5vw, 2rem) clamp(1rem, 6vw, 2.5rem); /* reduzido */
+    padding-bottom: clamp(1rem, 6vw, 2rem); /* reduzido */
+    box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.35);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.5rem, 1.5vw, 0.75rem); /* reduzido */
+}
+
+/* 5) Título */
+.funcionaria-form-title {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    color: var(--headline);
+    font-size: clamp(1.5rem, 6vw, 2.2rem);
+    line-height: 1.25;
+    margin: 0 0 0.5rem 0; /* reduzido de 1rem para 0.5rem */
+    text-align: center;
+}
+
+/* 6) Flash */
+.funcionaria-form-flash-messages {
+    background: #222;
+    border: 0.09375rem solid var(--brand);
+    border-radius: 0.625rem;
+    padding: 0.75rem 1rem; /* reduzido */
+    color: var(--brand);
+    font-weight: 600;
+    box-shadow: 0 0.25rem 0.625rem rgba(255, 193, 7, 0.3);
+    width: 100%;
+    max-width: none;
+}
+
+/* 7) Formulário */
+#funcionaria-form {
+    background: #fff;
+    border: 0.125rem solid var(--brand);
+    border-radius: var(--radius-lg);
+    padding: clamp(1rem, 5vw, 1.75rem) clamp(1rem, 6vw, 2.25rem); /* reduzido */
+    color: #000;
+    box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.625rem, 2.5vw, 0.875rem); /* reduzido significativamente */
+    width: 100%;
+}
+
+#funcionaria-form .form-label {
+    display: block;
+    font-weight: 600;
+    color: var(--label);
+    font-size: clamp(0.9rem, 3.6vw, 1rem);
+    margin-bottom: 0.25rem; /* reduzido de 0.375rem */
+}
+
+#funcionaria-form .senha-info {
+    font-weight: 400;
+    font-size: 0.75rem;
+    color: #b36a1a;
+    margin-left: 0.375rem;
+    user-select: none;
+}
+
+#funcionaria-form .form-input-text,
+#funcionaria-form .form-input-password {
+    width: 100%;
+    padding: 0.6875rem 0.875rem;
+    border: 0.1125rem solid var(--brand);
+    border-radius: 0.4375rem;
+    font-size: 1rem;
+    font-family: 'Montserrat', Arial, sans-serif;
+    color: var(--input-text);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#funcionaria-form .form-input-text::placeholder,
+#funcionaria-form .form-input-password::placeholder { 
+    color: var(--input-ph); 
+}
+
+#funcionaria-form .form-input-text:focus,
+#funcionaria-form .form-input-password:focus {
+    border-color: var(--brand-strong);
+    outline: none;
+    box-shadow: 0 0 0.5rem rgba(255, 179, 0, 0.5);
+}
+
+.funcionaria-username-display {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 0.5rem; /* reduzido de 0.9375rem */
+    user-select: none;
+}
+
+/* 8) Botão submit */
+#btn-submit-funcionaria {
+    margin-top: 0.25rem; /* reduzido de 0.625rem */
+    padding: 0.875rem 0;
+    width: 100%;
+    background: #000;
+    color: var(--brand);
+    font-weight: 700;
+    border: 0.125rem solid var(--brand);
+    border-radius: 0.75rem;
+    font-size: clamp(1rem, 3.8vw, 1.1rem);
+    cursor: pointer;
+    box-shadow: 0 0.25rem 0.625rem rgba(255, 193, 7, 0.3);
+    transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+    touch-action: manipulation;
+}
+
+#btn-submit-funcionaria:hover,
+#btn-submit-funcionaria:focus {
+    background: var(--brand-strong);
+    color: #000;
+    box-shadow: 0 0.375rem 0.9375rem rgba(255, 179, 0, 0.6);
+    transform: translateY(-2px);
+    outline: none;
+}
+
+/* 9) Link "Voltar" dentro do card e centralizado */
+.funcionaria-form-back-link {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem; /* reduzido de 1rem */
+}
+
+.funcionaria-form-back-link .link-voltar {
+    display: inline-block;
+    color: var(--brand);
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.25s ease, text-decoration-color 0.25s ease;
+    user-select: none;
+}
+
+.funcionaria-form-back-link .link-voltar:hover,
+.funcionaria-form-back-link .link-voltar:focus {
+    color: var(--brand-strong);
+    text-decoration: underline;
+    outline: none;
+}
+
+/* 10) Breakpoints */
+@media (max-width: 400px) {
+    #funcionaria-form-page { 
+        padding-inline: var(--space-1); 
+    }
+    
+    .funcionaria-form-container {
+        max-width: 94vw;
+        padding: clamp(1rem, 5vw, 1.5rem) clamp(1rem, 6vw, 2rem);
+    }
+}
+
+@media (min-width: 401px) and (max-width: 460px) {
+    .funcionaria-form-container {
+        max-width: 90vw;
+        padding: clamp(1rem, 4vw, 1.75rem) clamp(1rem, 5vw, 2.25rem);
+    }
+}
+
+/* Desktop ≥1200px – mantém estética do desktop (420px) */
+@media (min-width: 1200px) {
+    .funcionaria-form-container {
+        max-width: 26.25rem; /* 420px */
+        padding: 2rem 2.5rem; /* reduzido */
+        box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.4);
+        gap: 0.75rem; /* reduzido */
+    }
+    
+    .funcionaria-form-title {
+        font-size: 2.2rem;
+        margin: 0 0 0.75rem 0; /* reduzido */
+    }
+    
+    #funcionaria-form {
+        gap: 0.875rem; /* reduzido */
+    }
+}
+
+/* 11) Acessibilidade e movimento */
+@media (hover: none) {
+    #btn-submit-funcionaria:hover { 
+        transform: none; 
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { 
+        transition: none !important; 
+        animation: none !important; 
+    }
+}

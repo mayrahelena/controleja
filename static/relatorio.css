@@ -1,0 +1,597 @@
+/* =========================================
+   Relatório – Cards (mobile-first) + Lista (>=1200px)
+   ========================================= */
+
+/* 1) Tokens e reset */
+:root{
+	--space-1: 0.5rem;
+	--space-2: 0.75rem;
+	--space-3: 1rem;
+	--space-4: 1.25rem;
+	--radius-lg: 0.9375rem;
+
+	--bg-dark: #000000;
+	--fg-light: #f0f0f0;
+	--brand: #FFC107;
+	--brand-strong: #FFB300;
+	--headline: #060606;
+
+	--card-gap: 1rem;
+}
+
+*, *::before, *::after{ box-sizing: border-box; }
+html{ -webkit-text-size-adjust: 100%; }
+
+/* 2) Base */
+body{
+	background: var(--bg-dark);
+	color: var(--fg-light);
+	font-family: 'Montserrat', sans-serif;
+	margin: 0;
+	padding: max(var(--space-3), env(safe-area-inset-top))
+	         var(--space-3)
+	         max(var(--space-3), env(safe-area-inset-bottom));
+	min-height: 100dvh;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+/* 3) Estrutura */
+#report-page{
+	min-height: 100dvh;
+	display: grid;
+	place-items: center;
+	padding: 0 var(--space-3);
+	color: var(--fg-light);
+}
+
+.report-container{
+	background: #fff;
+	color: #000;
+	border: 0.125rem solid var(--brand);
+	border-radius: var(--radius-lg);
+	width: 100%;
+	max-width: 70rem;
+	inline-size: min(100vw - 2rem, 70rem);
+	overflow: clip;
+	padding: clamp(1rem, 5vw, 1.875rem) clamp(1rem, 6vw, 2.5rem);
+	box-shadow: 0 0.5rem 1.25rem rgba(255,193,7,0.4);
+	display: flex;
+	flex-direction: column;
+	gap: clamp(1rem, 4vw, 1.875rem);
+}
+
+.report-title{
+	font-family: 'Merriweather', serif;
+	font-weight: 700;
+	font-size: clamp(1.6rem, 6vw, 2.4rem);
+	color: var(--headline);
+	margin: 0 0 1rem 0;
+	text-align: center;
+}
+
+.report-flash{
+	background: #fff3cd;
+	border: 0.09375rem solid var(--brand);
+	border-radius: 0.5rem;
+	padding: 0.75rem 0.9375rem;
+	color: #856404;
+	font-weight: 600;
+	font-size: 0.95rem;
+}
+
+/* 4) Filtro */
+.report-filter-form{
+	background: #111;
+	border: 0.125rem solid var(--brand);
+	border-radius: var(--radius-lg);
+	padding: 1rem 1.25rem;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 0.75rem 1rem;
+	align-items: center;
+	box-shadow: 0 0.375rem 0.9375rem rgba(255,193,7,0.4);
+}
+.report-label{
+	font-weight: 600;
+	color: #e05e17;
+	font-size: clamp(0.9rem, 3.6vw, 1rem);
+}
+.report-input{
+	padding: 0.625rem 0.875rem;
+	border: 0.1125rem solid var(--brand);
+	border-radius: 0.4375rem;
+	font-size: 1rem;
+	font-family: 'Montserrat', Arial, sans-serif;
+	color: #333;
+	transition: border-color .2s ease, box-shadow .2s ease;
+}
+.report-input:focus{
+	border-color: var(--brand-strong);
+	outline: none;
+	box-shadow: 0 0 0.5rem rgba(255,179,0,.6);
+}
+.btn-primary.report-btn{
+	margin-top: 0.5rem;
+	padding: 0.875rem 0;
+	width: 100%;
+	background: #000;
+	color: var(--brand);
+	font-weight: 700;
+	border: 0.125rem solid var(--brand);
+	border-radius: 0.75rem;
+	font-size: clamp(1rem, 3.8vw, 1.1rem);
+	cursor: pointer;
+	box-shadow: 0 0.25rem 0.625rem rgba(255,193,7,.3);
+	transition: background-color .25s, color .25s, box-shadow .25s, transform .15s;
+}
+.btn-primary.report-btn:hover,
+.btn-primary.report-btn:focus{
+	background: var(--brand-strong);
+	color: #000;
+	box-shadow: 0 0.375rem 0.9375rem rgba(255,179,0,.7);
+	transform: translateY(-0.1875rem);
+	outline: none;
+}
+
+/* 5) Período e seção de funcionária */
+.report-period{
+	font-weight: 700;
+	color: #333;
+	text-align: center;
+	margin: 0;
+}
+
+.employee-section{
+	background: #fff;
+	border: 0.125rem solid var(--brand);
+	border-radius: var(--radius-lg);
+	padding: 1.25rem 1.5rem;
+	box-shadow: 0 0.5rem 1.25rem rgba(255,193,7,0.4);
+	color: #000;
+	max-width: 100%;
+}
+.employee-name{
+	font-family: 'Merriweather', serif;
+	font-weight: 700;
+	font-size: clamp(1.2rem, 4.5vw, 1.8rem);
+	color: #ff9900;
+	margin: 0 0 1rem 0;
+	text-align: center;
+}
+
+/* 6) Header (desktop) e lista de cards (mobile-first) */
+.report-header{ display: none; }
+
+.report-cards{
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--card-gap);
+}
+
+/* ===== Botão "Imprimir" (coerente com o tema) ===== */
+.report-actions{
+	display: flex;
+	gap: 0.75rem;
+	align-items: center;
+	justify-content: flex-start; /* troque para center se quiser centralizado */
+	margin: 0.25rem 0 0.5rem;
+}
+
+.report-actions .report-print-btn{
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+
+	/* visual do tema */
+	background: var(--brand);
+	color: #000;
+	font-weight: 700;
+	text-decoration: none;
+
+	border: 0.125rem solid var(--brand);
+	border-radius: 0.75rem;
+	padding: 0.75rem 1.125rem;
+	font-size: clamp(1rem, 3.8vw, 1.05rem);
+	cursor: pointer;
+
+	box-shadow: 0 0.25rem 0.625rem rgba(255, 193, 7, 0.3);
+	transition: background-color .25s ease, color .25s ease, box-shadow .25s ease, transform .15s ease;
+	user-select: none;
+	white-space: nowrap;
+}
+
+.report-actions .report-print-btn:hover,
+.report-actions .report-print-btn:focus{
+	background: var(--brand-strong);
+	color: #000;
+	box-shadow: 0 0.375rem 0.9375rem rgba(255, 179, 0, 0.6);
+	transform: translateY(-2px);
+	outline: none;
+}
+
+/* Em telas pequenas, pode ocupar a largura toda (opcional) */
+@media (max-width: 480px){
+	.report-actions{
+		justify-content: center;
+	}
+	.report-actions .report-print-btn{
+		width: 100%;
+		max-width: 28rem; /* limite confortável */
+	}
+}
+
+/* Ocultar na impressão */
+@media (print){
+	.report-actions{ display: none !important; }
+}
+
+@media (min-width: 680px){ .report-cards{ grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px){ .report-cards{ grid-template-columns: 1fr 1fr 1fr; } }
+
+.report-card{
+	border: 0.09375rem solid var(--brand);
+	border-radius: 0.75rem;
+	box-shadow: 0 0.25rem 0.625rem rgba(255,193,7,0.2);
+	background: #fff;
+	padding: 0.875rem 1rem;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 0.5rem 1rem;
+}
+.report-card.is-empty{ opacity: 0.85; }
+
+.report-field{ margin: 0; }
+.report-field strong{
+	display: inline-block;
+	color: #333;
+	margin-bottom: 0.25rem;
+}
+.report-field span{ color: #000; }
+
+/* 7) Totais por funcionária (mobile-first) */
+.report-total{
+	margin-top: 0.5rem;
+}
+.report-total-row{
+	display: grid;
+	grid-template-columns: auto 1fr auto auto;
+	gap: 0.7rem 0.75rem;
+	align-items: center;
+	padding: 0.5rem 0.75rem;
+	border: 1px solid var(--brand);
+	border-radius: 0.5rem;
+	background: #fffef6;
+}
+.report-total-row .label{ font-weight: 700; color: #333; text-align: center;}
+.report-total-row .hours{ font-weight: 700; text-align: center; }
+.report-total-row .amount{ font-weight: 700; text-align: center; }
+
+/* 8) Link de voltar */
+.report-back{ text-align: left; }
+.report-link{
+	color: var(--brand);
+	font-weight: 700;
+	text-decoration: none;
+	transition: color .25s ease;
+}
+.report-link:hover,
+.report-link:focus{
+	color: var(--brand-strong);
+	text-decoration: underline;
+	outline: none;
+}
+
+/* 9) Mobile refinamentos */
+@media (max-width: 480px){
+	#report-page{ padding-inline: var(--space-1); }
+	.report-container{
+		inline-size: 100%;
+		max-width: 100%;
+		padding: clamp(0.875rem, 5vw, 1.25rem);
+	}
+	.report-filter-form{ padding: 0.75rem 0.875rem; gap: 0.5rem 0.75rem; }
+	.employee-section{ padding: 0.875rem 1rem; }
+	.employee-name{ font-size: clamp(1.1rem, 4.5vw, 1.4rem); margin-bottom: 0.75rem; }
+}
+
+/* 10) Desktop ≥1200px – alinhamento de colunas e centralização do header */
+@media (min-width: 1200px){
+	.report-header{
+		display: grid;
+		grid-template-columns: 12rem 8rem 8rem 12rem 10rem;
+		gap: 0;
+		align-items: center;
+		color: #000;
+		font-weight: 700;
+		background: #fff7dd;
+		border: 1px solid var(--brand);
+		border-radius: 0.5rem 0.5rem 0 0;
+	}
+	.report-header > span{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-right: 1px solid var(--brand);
+		padding: 0.625rem 0;
+	}
+	.report-header > span:last-child{ border-right: none; }
+
+	.report-cards{
+		display: block;
+	}
+	.report-card{
+		display: grid;
+		grid-template-columns: 12rem 8rem 8rem 12rem 10rem;
+		gap: 0;
+		align-items: center;
+		padding: 0;
+		margin: 0;
+		background: #fff;
+		border-left: 1px solid var(--brand);
+		border-right: 1px solid var(--brand);
+		border-bottom: 1px solid var(--brand);
+		box-shadow: none;
+		border-radius: 0;
+	}
+
+	.report-field{
+		margin: 0;
+		padding: 0.625rem 0;
+		border-right: 1px solid var(--brand);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.report-field:last-of-type{ border-right: 0; }
+	.report-field strong{ display: none; }
+
+	.report-total-row{
+		display: grid;
+		grid-template-columns: 11rem 8rem 8rem 12rem 16rem;
+		gap: 0;
+		align-items: center;
+		border-left: 1px solid var(--brand);
+		border-right: 1px solid var(--brand);
+		border-bottom: 1px solid var(--brand);
+		border-top: 1px solid var(--brand);
+		border-radius: 0 0 0.5rem 0.5rem;
+		background: #fffef6;
+	}
+	
+    .report-total-row .hours
+    .report-total-row .amount
+    .report-total-row .label{
+		padding: 0.625rem 0;
+		border-right: 1px solid var(--brand);
+		text-align: center;
+	}
+	
+
+	/* Hover de linha */
+	.report-card:hover{ background: rgba(255,193,7,0.06); }
+
+	/* Botões Ações responsivos */
+	.report-card .actions{
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		justify-content: center;
+	}
+	.report-card .actions button{
+		flex: 1 1 auto;
+		min-width: 4rem;
+		max-width: 100%;
+	}
+}
+
+/* 11) Acessibilidade / movimento */
+@media (hover: none){
+	.btn-primary.report-btn:hover{ transform: none; }
+}
+@media (prefers-reduced-motion: reduce){
+	*{ transition: none !important; animation: none !important; }
+}
+
+/* 12) Blindagem contra overflow interno */
+.report-container *{
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+@media print {
+
+    /* Base: fundo branco, remover sombras e bordas decorativas */
+    html,
+    body {
+        background: #fff !important;
+        color: #000 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    #report-page {
+        padding: 0 !important;
+    }
+
+    .report-container {
+        inline-size: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        border: 0 !important;
+        box-shadow: none !important;
+    }
+
+    /* Esconder elementos não necessários na impressão */
+    .report-filter-form,
+    .report-actions,
+    .report-back,
+    .report-link,
+    .report-flash,
+    .btn-primary,
+    .report-btn {
+        display: none !important;
+    }
+
+    /* Período visível em destaque no topo */
+    .report-title {
+        font-size: 18pt !important;
+        text-align: left !important;
+        margin: 0 0 6pt 0 !important;
+		display: none !important; /* Esconde "Gerar Relatório" */
+    }
+
+    .report-period {
+        font-size: 18pt !important;
+        margin: 0 0 12pt 0 !important;
+        text-align: center !important;
+        color: #000 !important;
+		page-break-after: avoid !important;
+    }
+
+    /* Cada funcionária começa em uma nova “seção” imprimível */
+    .employee-section {
+        page-break-inside: avoid;
+		page-break-before: auto !important; /* só quebra quando necessário */
+        break-inside: avoid;
+        border: 0 !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 0 18pt 0 !important;
+        page-break-after: always; /* quebra só no final de cada funcionária */
+        break-after: page;
+    }
+
+    .employee-name {
+        font-size: 14pt !important;
+        text-align: left !important;
+        margin: 0 0 6pt 0 !important;
+        color: #000 !important;
+    }
+
+    /* Forçar layout em “tabela” (mesma grade do desktop) */
+    .report-header {
+        display: grid !important;
+        grid-template-columns: 12rem 8rem 8rem 12rem 10rem !important;
+        gap: 0 !important;
+        align-items: center !important;
+        margin: 0 !important;
+        border: 1pt solid #000 !important;
+        border-bottom: 0 !important;
+        background: #f3f3f3 !important;
+    }
+
+    .report-header > span {
+        border-right: 1pt solid #000 !important;
+        text-align: center !important;
+        padding: 4pt 6pt !important;
+    }
+
+    .report-header > span:last-child {
+        border-right: 0 !important;
+    }
+
+    /* Linhas (cards viram linhas de lista) */
+    .report-cards {
+        display: block !important;
+    }
+
+    .report-card {
+        display: grid !important;
+        grid-template-columns: 12rem 8rem 8rem 12rem 10rem !important;
+        gap: 0 !important;
+        align-items: center !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border-left: 1pt solid #000 !important;
+        border-right: 1pt solid #000 !important;
+        border-bottom: 1pt solid #000 !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .report-field {
+        margin: 0 !important;
+        padding: 6pt 6pt !important;
+        border-right: 1pt solid #000 !important;
+        text-align: left !important;
+    }
+
+    .report-field strong {
+        display: none !important;
+    }
+
+    .report-field:last-of-type {
+        border-right: 0 !important;
+    }
+
+    .report-field span {
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        max-width: 100% !important;
+        display: inline-block !important;
+    }
+
+    /* Totais com mesma grade e altura das linhas */
+    .report-total {
+        margin: 0 !important;
+    }
+
+    .report-total-row {
+        display: grid !important;
+        grid-template-columns: 12rem 8rem 8rem 12rem 10rem !important;
+        gap: 0 !important;
+        align-items: center !important;
+        padding: 0 !important;
+        border: 1pt solid #000 !important;
+        border-top: 0 !important;
+        background: #fff !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .report-total-row .label {
+        grid-column: 1 / span 3 !important;
+        padding: 6pt 6pt !important;
+        border-right: 1pt solid #000 !important;
+        font-weight: 700 !important;
+    }
+
+    .report-total-row .spacer {
+        display: none !important;
+    }
+
+    .report-total-row .hours {
+        grid-column: 4 !important;
+        padding: 6pt 6pt !important;
+        border-right: 1pt solid #000 !important;
+        font-weight: 700 !important;
+        text-align: left !important;
+    }
+
+    .report-total-row .amount {
+        grid-column: 5 !important;
+        padding: 6pt 6pt !important;
+        font-weight: 700 !important;
+        text-align: left !important;
+    }
+
+    /* Quebras entre funcionárias, mas evitar quebra dentro do bloco */
+    .employee-section {
+        page-break-after: always;
+        break-after: page;
+    }
+
+    .employee-section:last-of-type {
+        page-break-after: auto;
+        break-after: auto;
+    }
+
+	
+
+}
+

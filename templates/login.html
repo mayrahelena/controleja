@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login - Controle de Ponto</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Merriweather&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Merriweather&display=swap" rel="stylesheet">    
 </head>
-<body id="login-page">
-    <div class="login-box">
-        <h1 class="login-title">Sistema de Registro e Gestão de Ponto</h1>
+<body>
+  <main id="login-page">
+    <section class="login-box">
+        <section id="cabecalho-login">
+
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo ControleJá, letras estilizadas em azul e verde sobre fundo branco, transmite sensação de confiança e modernidade" class="login-logo">
+
+          <h1 class="login-title">Sistema de Registro e Gestão de Ponto</h1>
+        </section>
         {% with messages = get_flashed_messages() %}
           {% if messages %}
-            <div class="flash-messages">
+            <section class="flash-messages">
               {% for msg in messages %}
                 <p>{{ msg }}</p>
               {% endfor %}
-            </div>
           {% endif %}
         {% endwith %}
         <form method="post" id="login-form">
-            <label for="username-login">Usuário</label>
+            <label for="username-login" class="usuario">Usuário</label>
             <input 
                 type="text" 
                 id="username-login" 
@@ -28,7 +34,7 @@
                 autofocus 
                 placeholder="Digite seu usuário" 
             />
-            <label for="senha-login">Senha</label>
+            <label for="senha-login" class="senha">Senha</label>
             <input 
                 type="password" 
                 id="senha-login" 
@@ -39,6 +45,7 @@
             <button type="submit" id="btn-login">Entrar</button>
         </form>
         <p class="login-subtitle">Mercearia do Celinho</p>
-    </div>
+      </section>
+    </main>
 </body>
 </html>

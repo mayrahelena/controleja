@@ -1,0 +1,226 @@
+/* =========================================
+   Funcionária – Ponto do dia (mobile-first)
+   ========================================= */
+
+/* 1) Tokens e reset */
+:root {
+    --space-1: 0.5rem;
+    --space-2: 0.75rem;
+    --space-3: 1rem;
+    --space-4: 1.25rem;
+    --radius-lg: 0.9375rem;
+    --bg-dark: #000;
+    --fg-light: #f0f0f0;
+    --brand: #FFC107;
+    --headline: #ff9900;
+    --green: #2e7d32;
+    --green-strong: #4caf50;
+    --purple: #7b1fa2;
+    --purple-strong: #9c27b0;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+/* 2) Base */
+body {
+    background: var(--bg-dark);
+    color: var(--fg-light);
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: max(var(--space-3), env(safe-area-inset-top))
+             var(--space-3)
+             max(var(--space-3), env(safe-area-inset-bottom));
+    min-height: 100dvh;
+    overflow-y: auto;
+}
+
+/* 3) Estrutura */
+#func-page {
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: 0 var(--space-3);
+    color: var(--fg-light);
+}
+
+#func-page .func-container {
+    background: #fff;
+    color: #000;
+    border: 0.125rem solid var(--brand);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 23.75rem;
+    padding: clamp(1rem, 5vw, 1.875rem) clamp(1rem, 6vw, 2.5rem);
+    box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.35);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1rem, 3.5vw, 1.875rem);
+    text-align: center;
+}
+
+/* 4) Título e mensagens */
+.func-welcome {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    color: var(--headline);
+    font-size: clamp(1.4rem, 5.5vw, 2rem);
+    line-height: 1.25;
+    margin: 0 0 var(--space-3) 0;
+}
+
+.func-flash-messages {
+    background: #fff3cd;
+    border: 0.09375rem solid var(--brand);
+    border-radius: 0.5rem;
+    padding: 0.75rem 0.9375rem;
+    color: #856404;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-align: left;
+}
+
+/* 5) Botões de ponto */
+.botoes-ponto {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-ponto {
+    /* Largura fixa para garantir mesmo tamanho */
+    flex: 1 1 clamp(7rem, 35%, 9rem); /* largura responsiva igual */
+    min-width: clamp(7rem, 35%, 9rem); /* garante mínimo igual */
+    max-width: clamp(8.5rem, 40%, 10rem); /* limita máximo igual */
+    padding: 0.875rem 0.5rem; /* padding horizontal reduzido */
+    font-weight: 700;
+    border: 0.125rem solid transparent;
+    border-radius: 0.75rem;
+    font-size: clamp(1rem, 3.8vw, 1.1rem);
+    cursor: pointer;
+    box-shadow: 0 0.25rem 0.625rem rgba(0,0,0,0.15);
+    transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+    touch-action: manipulation;
+    user-select: none;
+    text-align: center; /* centraliza o texto */
+}
+
+/* Entrada (verde) */
+.btn-entrada {
+    background: var(--green);
+    color: #e8f5e9;
+    border-color: var(--green);
+    box-shadow: 0 0.25rem 0.625rem rgba(46,125,50,0.4);
+}
+
+.btn-entrada:hover,
+.btn-entrada:focus {
+    background: var(--green-strong);
+    color: #1b5e20;
+    box-shadow: 0 0.375rem 0.9375rem rgba(76,175,80,0.7);
+    transform: translateY(-2px);
+    outline: none;
+}
+
+/* Saída (roxo) */
+.btn-saida {
+    background: var(--purple);
+    color: #f3e5f5;
+    border-color: var(--purple);
+    box-shadow: 0 0.25rem 0.625rem rgba(123,31,162,0.4);
+}
+
+.btn-saida:hover,
+.btn-saida:focus {
+    background: var(--purple-strong);
+    color: #4a148c;
+    box-shadow: 0 0.375rem 0.9375rem rgba(156,39,176,0.7);
+    transform: translateY(-2px);
+    outline: none;
+}
+
+/* 6) Status do ponto */
+.status-ponto {
+    font-size: 1rem;
+    color: #333;
+    text-align: left;
+    background: #fff9e6;
+    border: 0.09375rem solid var(--brand);
+    border-radius: 0.75rem;
+    padding: 0.9375rem 1.25rem;
+    box-shadow: 0 0.125rem 0.5rem rgba(255,193,7,0.2);
+}
+
+.status-ponto p { margin: 0.375rem 0; }
+.status-entrada, .status-saida { font-weight: 700; color: #000; }
+
+/* 7) Logout */
+.func-logout-link { margin-top: 1.25rem; }
+
+.func-link-logout {
+    color: var(--brand);
+    font-weight: 700;
+    font-size: clamp(1rem, 3.6vw, 1.2rem);
+    text-decoration: none;
+    transition: color 0.25s ease;
+    user-select: none;
+}
+
+.func-link-logout:hover,
+.func-link-logout:focus { 
+    color: #FFB300; 
+    text-decoration: underline; 
+    outline: none; 
+}
+
+/* 8) Breakpoints */
+@media (max-width: 400px) {
+    #func-page { padding-inline: var(--space-1); }
+    
+    .func-container {
+        max-width: 94vw;
+        padding: clamp(1rem, 5vw, 1.5rem) clamp(1rem, 6vw, 2rem);
+    }
+    
+    .btn-ponto {
+        flex: 1 1 clamp(6.5rem, 38%, 8rem);
+        min-width: clamp(6.5rem, 38%, 8rem);
+        max-width: clamp(7.5rem, 42%, 9rem);
+    }
+}
+
+@media (min-width: 401px) and (max-width: 460px) {
+    .func-container {
+        max-width: 90vw;
+        padding: clamp(1rem, 4vw, 1.75rem) clamp(1rem, 5vw, 2.25rem);
+    }
+}
+
+/* Desktop ≥1200px – preserva aparência original */
+@media (min-width: 1200px) {
+    .func-container {
+        max-width: 23.75rem;
+        padding: 1.875rem 2.5rem;
+        box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.4);
+        gap: 1.875rem;
+    }
+    
+    .func-welcome { font-size: 2rem; }
+    
+    .btn-ponto {
+        flex: 1 1 8.5rem;
+        min-width: 8.5rem;
+        max-width: 9.5rem;
+        padding: 0.875rem 1rem;
+    }
+}
+
+/* 9) Acessibilidade/movimento */
+@media (hover: none) {
+    .btn-ponto:hover { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+}
