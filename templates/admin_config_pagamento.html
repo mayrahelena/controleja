@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Configurações de Pagamento - Admin</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_config_pagamento.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link 
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" 
+        rel="stylesheet"
+    >
+</head>
+<body>
+    <main id="config-pagamento-page">
+        <div class="config-container">
+            <header class="config-header">
+                <a href="{{ url_for('admin') }}" class="btn-voltar">← Voltar</a>
+            </header>
+            <h1 class="config-title">⚙️ Configurações de Pagamento</h1>
+            <!-- Mensagens Flash -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, msg in messages %}
+                            <div class="flash-message flash-{{ category }}">
+                                {{ msg }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <!-- Informações -->
+            <div class="config-info">
+                <p>
+                    <strong>💡 Como funciona:</strong><br>
+                    Configure o valor pago por hora trabalhada para cada dia da semana. 
+                    As alterações serão aplicadas imediatamente em todos os cálculos de pagamento.
+                </p>
+                <p class="config-warning">
+                    ⚠️ <strong>Atenção:</strong> Relatórios já gerados não serão recalculados automaticamente.
+                </p>
+            </div>
+
+            <!-- Formulário -->
+            <form method="post" class="config-form" id="form-config-pagamento">
+                <div class="table-wrapper">
+                    <table class="config-table">
+                        <thead>
+                            <tr>
+                                <th class="col-dia">Dia da Semana</th>
+                                <th class="col-valor">Valor por Hora (R$)</th>
+                                <th class="col-info">Última Atualização</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for config in configuracoes %}
+                            <tr class="config-row {% if config.tipo_dia == 'domingo' %}row-destaque{% endif %}">
+                                <td class="col-dia">
+                                    <span class="dia-icon">
+                                        {% if config.tipo_dia == 'domingo' %}🌟{% else %}📅{% endif %}
+                                    </span>
+                                    <strong class="dia-nome">
+                                        {% if config.tipo_dia == 'segunda' %}Segunda-feira
+                                        {% elif config.tipo_dia == 'terca' %}Terça-feira
+                                        {% elif config.tipo_dia == 'quarta' %}Quarta-feira
+                                        {% elif config.tipo_dia == 'quinta' %}Quinta-feira
+                                        {% elif config.tipo_dia == 'sexta' %}Sexta-feira
+                                        {% elif config.tipo_dia == 'sabado' %}Sábado
+                                        {% elif config.tipo_dia == 'domingo' %}Domingo
+                                        {% endif %}
+                                    </strong>
+                                </td>
+
+                                <td class="col-valor">
+                                    <div class="input-wrapper">
+                                        <span class="currency-symbol">R$</span>
+                                        <input 
+                                            type="number" 
+                                            name="valor_{{ config.tipo_dia }}" 
+                                            value="{{ '%.2f' % config.valor_hora }}" 
+                                            step="0.01" 
+                                            min="0.01" 
+                                            max="9999.99"
+                                            required
+                                            class="valor-input"
+                                            id="valor_{{ config.tipo_dia }}"
+                                        >
+                                    </div>
+                                </td>
+
+                                <td class="col-info">
+                                    <div class="info-atualizacao">
+                                        <span class="data-update">
+                                            {{ config.data_atualizacao.strftime('%d/%m/%Y às %H:%M') if config.data_atualizacao else '-' }}
+                                        </span>
+                                        <span class="usuario-update">
+                                            por {{ config.atualizado_por or 'Sistema' }}
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-salvar">
+                        💾 Salvar Alterações
+                    </button>
+                    <button type="reset" class="btn-resetar">
+                        🔄 Resetar
+                    </button>
+                </div>
+            </form>
+
+            <!-- Rodapé -->
+            <div class="config-footer">
+                <p><strong>📊 Exemplo de cálculo:</strong></p>
+                <p>Se uma funcionária trabalhar 8 horas em uma segunda-feira com valor de R$ 6,90/hora:</p>
+                <p class="exemplo-calculo">8 horas × R$ 6,90 = <strong>R$ 55,20</strong></p>
+            </div>
+            <div class="config-header">
+                <a href="{{ url_for('admin') }}" class="btn-voltar">← Voltar</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

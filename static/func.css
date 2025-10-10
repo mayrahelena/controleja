@@ -32,15 +32,15 @@ body {
              var(--space-3)
              max(var(--space-3), env(safe-area-inset-bottom));
     min-height: 100dvh;
-    overflow-y: auto;
+    overflow-y: auto; /* Scroll na página toda */
 }
 
 /* 3) Estrutura */
 #func-page {
     min-height: 100dvh;
     display: grid;
-    place-items: center;
-    padding: 0 var(--space-3);
+    place-items: start center; /* AJUSTADO: start em vez de center para não centralizar verticalmente */
+    padding: var(--space-3) var(--space-3);
     color: var(--fg-light);
 }
 
@@ -57,6 +57,7 @@ body {
     flex-direction: column;
     gap: clamp(1rem, 3.5vw, 1.875rem);
     text-align: center;
+    margin: auto; /* Centraliza horizontalmente */
 }
 
 /* 4) Título e mensagens */
@@ -66,7 +67,7 @@ body {
     color: var(--headline);
     font-size: clamp(1.4rem, 5.5vw, 2rem);
     line-height: 1.25;
-    margin: 0 0 var(--space-3) 0;
+    margin: var(--space-3) 0;
 }
 
 .func-flash-messages {
@@ -85,15 +86,15 @@ body {
     display: flex;
     justify-content: center;
     gap: 1rem;
+    margin: 1.5rem;
     flex-wrap: wrap;
 }
 
 .btn-ponto {
-    /* Largura fixa para garantir mesmo tamanho */
-    flex: 1 1 clamp(7rem, 35%, 9rem); /* largura responsiva igual */
-    min-width: clamp(7rem, 35%, 9rem); /* garante mínimo igual */
-    max-width: clamp(8.5rem, 40%, 10rem); /* limita máximo igual */
-    padding: 0.875rem 0.5rem; /* padding horizontal reduzido */
+    flex: 1 1 clamp(7rem, 35%, 9rem);
+    min-width: clamp(7rem, 35%, 9rem);
+    max-width: clamp(8.5rem, 40%, 10rem);
+    padding: 0.875rem 0.5rem;
     font-weight: 700;
     border: 0.125rem solid transparent;
     border-radius: 0.75rem;
@@ -103,7 +104,7 @@ body {
     transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
     touch-action: manipulation;
     user-select: none;
-    text-align: center; /* centraliza o texto */
+    text-align: center;
 }
 
 /* Entrada (verde) */
@@ -149,11 +150,147 @@ body {
     border: 0.09375rem solid var(--brand);
     border-radius: 0.75rem;
     padding: 0.9375rem 1.25rem;
+    margin: 1rem 0;
     box-shadow: 0 0.125rem 0.5rem rgba(255,193,7,0.2);
 }
 
 .status-ponto p { margin: 0.375rem 0; }
 .status-entrada, .status-saida { font-weight: 700; color: #000; }
+
+/* =============================================================================
+   10) NOVA SEÇÃO: Histórico do mês
+   ============================================================================= */
+
+.historico-mes {
+    background: #fff9e6;
+    border: 0.125rem solid var(--brand);
+    border-radius: var(--radius-lg);
+    padding: clamp(0.875rem, 3vw, 1.25rem);
+    box-shadow: 0 0.25rem 0.75rem rgba(255, 193, 7, 0.25);
+}
+
+.historico-titulo {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    color: var(--headline);
+    margin: 0 0 clamp(0.625rem, 2.5vw, 0.75rem) 0;
+    text-align: center;
+}
+
+/* Alerta de pendências */
+.historico-alerta {
+    background: #fff3cd;
+    border: 0.09375rem solid #ff9800;
+    border-radius: 0.5rem;
+    padding: clamp(0.5rem, 2vw, 0.625rem) clamp(0.75rem, 3vw, 0.875rem);
+    color: #856404;
+    font-size: clamp(0.8rem, 2.8vw, 0.875rem);
+    font-weight: 600;
+    margin-bottom: clamp(0.625rem, 2.5vw, 0.875rem);
+    text-align: center;
+}
+
+/* Lista de registros - SEM scroll interno, apenas espaçamento */
+.historico-lista {
+    margin-bottom: clamp(0.75rem, 3vw, 0.875rem);
+    border-radius: 0.5rem;
+}
+
+/* Item individual do histórico */
+.historico-item {
+    display: grid;
+    grid-template-columns: clamp(3.5rem, 18%, 5rem) clamp(1.5rem, 8%, 2rem) 1fr;
+    gap: clamp(0.375rem, 2vw, 0.5rem);
+    align-items: center;
+    padding: clamp(0.5rem, 2.5vw, 0.625rem) clamp(0.5rem, 3vw, 0.75rem);
+    border-bottom: 0.0625rem solid #f0f0f0;
+    font-size: clamp(0.8rem, 3vw, 0.875rem);
+    transition: background-color 0.2s ease;
+}
+
+.historico-item:last-child {
+    border-bottom: none;
+}
+
+.historico-item:hover {
+    background: rgba(255, 193, 7, 0.08);
+}
+
+.historico-data {
+    font-weight: 600;
+    color: #333;
+}
+
+.historico-icone {
+    font-size: clamp(1rem, 4vw, 1.1rem);
+    text-align: center;
+}
+
+.historico-horarios {
+    color: #555;
+    font-size: clamp(0.75rem, 2.8vw, 0.85rem);
+    text-align: left;
+}
+
+.historico-horas {
+    color: #666;
+    font-weight: 600;
+    margin-left: 0.25rem;
+}
+
+.historico-pendente {
+    color: #d32f2f;
+    font-weight: 600;
+    margin-left: 0.25rem;
+}
+
+/* Classes de status para os itens */
+.historico-item.completo .historico-icone {
+    color: var(--green);
+}
+
+.historico-item.incompleto .historico-icone {
+    color: #ff9800;
+}
+
+.historico-item.ausente .historico-icone {
+    color: #d32f2f;
+}
+
+.historico-vazio {
+    text-align: center;
+    color: #999;
+    font-size: clamp(0.85rem, 3vw, 0.9rem);
+    padding: clamp(1.25rem, 5vw, 1.5rem) 0;
+    margin: 0;
+}
+
+/* Botão de solicitação de correção */
+.btn-solicitar-correcao {
+    display: block;
+    width: 100%;
+    padding: clamp(0.675rem, 3vw, 0.75rem);
+    background: var(--brand);
+    color: #000;
+    font-weight: 700;
+    font-size: clamp(0.9rem, 3.5vw, 0.95rem);
+    text-decoration: none;
+    text-align: center;
+    border: 0.125rem solid var(--brand);
+    border-radius: 0.75rem;
+    box-shadow: 0 0.25rem 0.625rem rgba(255, 193, 7, 0.3);
+    transition: background-color 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+    user-select: none;
+}
+
+.btn-solicitar-correcao:hover,
+.btn-solicitar-correcao:focus {
+    background: #FFB300;
+    box-shadow: 0 0.375rem 0.9375rem rgba(255, 179, 0, 0.6);
+    transform: translateY(-0.125rem);
+    outline: none;
+}
 
 /* 7) Logout */
 .func-logout-link { margin-top: 1.25rem; }
@@ -174,9 +311,274 @@ body {
     outline: none; 
 }
 
+/* =============================================================================
+   11) DIVISORES DE SEÇÃO
+   ============================================================================= */
+
+.divisor-secao {
+    width: 100%;
+    height: 0.125rem;
+    background: linear-gradient(to right, transparent, var(--brand), transparent);
+    margin: 1 rem 0;
+    opacity: 0.3;
+}
+
+/* =============================================================================
+   12) TÍTULOS DE SEÇÃO
+   ============================================================================= */
+
+.secao-titulo {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    font-size: clamp(1.1rem, 4.5vw, 1.4rem);
+    color: var(--headline);
+    margin: 0 0 clamp(0.75rem, 3vw, 1rem) 0;
+    text-align: center;
+}
+
+/* =============================================================================
+   13) SEÇÃO DE SOLICITAÇÕES
+   ============================================================================= */
+
+.secao-solicitacoes {
+    width: 100%;
+}
+
+.solicitacoes-lista {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.75rem, 3vw, 1rem);
+}
+
+/* Card individual de solicitação */
+.solicitacao-card {
+    background: #fff;
+    border: 0.125rem solid #e0e0e0;
+    border-radius: var(--radius-md);
+    padding: clamp(0.875rem, 3vw, 1rem);
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.solicitacao-card:hover {
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.12);
+}
+
+/* Bordas coloridas por status */
+.solicitacao-card.status-pendente {
+    border-left: 0.25rem solid #FFC107;
+}
+
+.solicitacao-card.status-aprovado {
+    border-left: 0.25rem solid var(--green);
+}
+
+.solicitacao-card.status-rejeitado {
+    border-left: 0.25rem solid #d32f2f;
+}
+
+/* Header do card */
+.solicitacao-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.625rem;
+    border-bottom: 0.0625rem solid #f0f0f0;
+}
+
+/* Badge de status */
+.solicitacao-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 1rem;
+    font-size: clamp(0.75rem, 2.8vw, 0.85rem);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.badge-pendente {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.badge-aprovado {
+    background: #d4edda;
+    color: #155724;
+}
+
+.badge-rejeitado {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.solicitacao-data-solic {
+    font-size: clamp(0.75rem, 2.8vw, 0.8rem);
+    color: #777;
+}
+
+/* Body do card */
+.solicitacao-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.solicitacao-info {
+    font-size: clamp(0.85rem, 3vw, 0.9rem);
+    color: #333;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.solicitacao-info strong {
+    color: var(--label);
+}
+
+/* Resposta do admin */
+.solicitacao-resposta {
+    margin-top: 0.5rem;
+    padding: clamp(0.625rem, 2.5vw, 0.75rem);
+    background: #f9f9f9;
+    border-radius: 0.5rem;
+    border-left: 0.1875rem solid var(--brand);
+}
+
+.resposta-icone {
+    font-size: clamp(0.85rem, 3vw, 0.9rem);
+    color: #333;
+    margin: 0 0 0.375rem 0;
+}
+
+.resposta-texto {
+    font-size: clamp(0.8rem, 2.8vw, 0.85rem);
+    color: #555;
+    margin: 0 0 0.375rem 0;
+    font-style: italic;
+}
+
+.resposta-data {
+    font-size: clamp(0.75rem, 2.5vw, 0.8rem);
+    color: #777;
+    margin: 0;
+}
+
+/* Estado vazio */
+.solicitacoes-vazio {
+    text-align: center;
+    padding: clamp(1.5rem, 5vw, 2rem);
+    background: #f9f9f9;
+    border: 0.125rem dashed #ddd;
+    border-radius: var(--radius-md);
+    color: #777;
+}
+
+.solicitacoes-vazio p {
+    margin: 0.5rem 0;
+    font-size: clamp(0.85rem, 3vw, 0.95rem);
+}
+
+.solicitacoes-hint {
+    font-size: clamp(0.8rem, 2.8vw, 0.85rem);
+    color: #999;
+}
+
+/* Seção de horários solicitados */
+.solicitacao-horarios {
+    margin-top: 0.625rem;
+    padding: clamp(0.625rem, 2.5vw, 0.75rem);
+    background: #f0f7ff;
+    border-radius: 0.5rem;
+    border-left: 0.1875rem solid #2196F3;
+}
+
+.solicitacao-info-destaque {
+    font-size: clamp(0.85rem, 3vw, 0.9rem);
+    color: #333;
+    margin: 0 0 0.5rem 0;
+}
+
+.horarios-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.horario-item {
+    display: inline-flex;
+    align-items: end;
+    gap: 0.25rem;
+    font-size: clamp(0.85rem, 3vw, 0.9rem);
+    color: #555;
+}
+
+.horario-item strong {
+    color: #000;
+    margin-left: 0.25rem;
+}
+
+/* =============================================================================
+   15) NAVEGAÇÃO DE MÊS (SETAS)
+   ============================================================================= */
+
+.historico-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.75rem, 3vw, 1rem);
+    margin-bottom: clamp(0.625rem, 2.5vw, 0.75rem);
+}
+
+.historico-header .historico-titulo {
+    margin: 0;
+    flex: 1;
+    text-align: center;
+}
+
+.historico-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(2rem, 8vw, 2.5rem);
+    height: clamp(2rem, 8vw, 2.5rem);
+    background: var(--brand);
+    color: #000;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    transition: background-color 0.2s ease, transform 0.15s ease;
+    cursor: pointer;
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.historico-nav-btn:hover,
+.historico-nav-btn:focus {
+    background: var(--brand-strong);
+    transform: scale(1.1);
+    outline: none;
+}
+
+.historico-nav-btn:active {
+    transform: scale(0.95);
+}
+
+.historico-nav-disabled {
+    background: #e0e0e0;
+    color: #999;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 /* 8) Breakpoints */
 @media (max-width: 400px) {
-    #func-page { padding-inline: var(--space-1); }
+    #func-page { 
+        padding-inline: var(--space-1); 
+    }
     
     .func-container {
         max-width: 94vw;
@@ -187,6 +589,20 @@ body {
         flex: 1 1 clamp(6.5rem, 38%, 8rem);
         min-width: clamp(6.5rem, 38%, 8rem);
         max-width: clamp(7.5rem, 42%, 9rem);
+    }
+    
+    .historico-item {
+        grid-template-columns: 3.25rem 1.5rem 1fr;
+        gap: 0.3rem;
+        padding: 0.5rem 0.5rem;
+    }
+    
+    .historico-titulo {
+        font-size: 0.95rem;
+    }
+    
+    .historico-mes {
+        padding: 0.75rem;
     }
 }
 
@@ -206,7 +622,11 @@ body {
         gap: 1.875rem;
     }
     
-    .func-welcome { font-size: 2rem; }
+    .func-welcome { 
+        font-size: 2rem; 
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
     
     .btn-ponto {
         flex: 1 1 8.5rem;
@@ -214,13 +634,65 @@ body {
         max-width: 9.5rem;
         padding: 0.875rem 1rem;
     }
+    
+    .historico-mes {
+        padding: 1.25rem 1.5rem;
+    }
+
+    .horarios-grid {
+        gap: 1.5rem;
+    }
 }
 
 /* 9) Acessibilidade/movimento */
 @media (hover: none) {
-    .btn-ponto:hover { transform: none; }
+    .btn-ponto:hover,
+    .btn-solicitar-correcao:hover 
+    .historico-nav-btn:hover{ 
+        transform: none; 
+    }
+
+    .historico-nav-btn:active {
+        transform: scale(0.95);
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; animation: none !important; }
+    * { 
+        transition: none !important; 
+        animation: none !important; 
+    }
+}
+
+@media (max-width: 400px) {
+    .solicitacao-card {
+        padding: 0.75rem;
+    }
+    
+    .solicitacao-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (min-width: 1200px) {
+    .solicitacoes-lista {
+        gap: 1.25rem;
+    }
+    
+    .solicitacao-card {
+        padding: 1.25rem;
+    }
+}
+
+@media (min-width: 640px) {
+    .horarios-grid {
+        flex-direction: row;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .horario-item {
+        flex-shrink: 0; /* ADICIONEI: impede que o item encolha */
+    }
 }

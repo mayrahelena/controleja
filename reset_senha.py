@@ -10,7 +10,7 @@ config = {
 }
 
 # Defina a nova senha que deseja
-nova_senha = "admin123"   # trocar por outra
+nova_senha = "123"   # trocar por outra
 
 # Gerar hash da senha com bcrypt
 hashed = bcrypt.hashpw(nova_senha.encode("utf-8"), bcrypt.gensalt())
@@ -22,7 +22,7 @@ try:
     cursor = conn.cursor()
 
     # Atualizar senha do usuário admin (id = 1)
-    cursor.execute("UPDATE users SET senha = %s WHERE id = 1", (hash_str,))
+    cursor.execute("UPDATE users SET senha = %s WHERE id = 9", (hash_str,))
     conn.commit()
 
     print("✅ Senha do administrador redefinida com sucesso!")

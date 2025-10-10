@@ -1,0 +1,265 @@
+/* =========================================
+   Solicitar Correção – Mobile-first
+   ========================================= */
+
+/* 1) Tokens (mesmos do func.css) */
+:root {
+    --space-1: 0.5rem;
+    --space-2: 0.75rem;
+    --space-3: 1rem;
+    --space-4: 1.25rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 0.9375rem;
+    --bg-dark: #000;
+    --fg-light: #f0f0f0;
+    --brand: #FFC107;
+    --brand-strong: #FFB300;
+    --headline: #ff9900;
+    --label: #e05e17;
+    --input-text: #333;
+    --input-ph: #B38F1F;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+/* 2) Base */
+body {
+    background: var(--bg-dark);
+    color: var(--fg-light);
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: max(var(--space-3), env(safe-area-inset-top))
+             var(--space-3)
+             max(var(--space-3), env(safe-area-inset-bottom));
+    min-height: 100dvh;
+    overflow-y: auto;
+}
+
+/* 3) Estrutura */
+#solicitar-page {
+    min-height: 100dvh;
+    display: grid;
+    place-items: start center;
+    padding: var(--space-3);
+    color: var(--fg-light);
+}
+
+.solicitar-container {
+    background: #fff;
+    color: #000;
+    border: 0.125rem solid var(--brand);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 32rem;
+    padding: clamp(1.25rem, 5vw, 2rem) clamp(1.25rem, 6vw, 2.5rem);
+    box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.35);
+    margin: auto;
+}
+
+/* 4) Títulos */
+.solicitar-title {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    color: var(--headline);
+    font-size: clamp(1.5rem, 5.5vw, 2rem);
+    line-height: 1.25;
+    margin: 0 0 0.5rem 0;
+    text-align: center;
+}
+
+.solicitar-subtitle {
+    font-size: clamp(0.9rem, 3.5vw, 0.95rem);
+    color: #666;
+    text-align: center;
+    margin: 0 0 1.5rem 0;
+}
+
+/* 5) Flash messages */
+.solicitar-flash-messages {
+    background: #fff3cd;
+    border: 0.09375rem solid var(--brand);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    color: #856404;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+}
+
+.solicitar-flash-messages p {
+    margin: 0;
+}
+
+/* 6) Formulário */
+.solicitar-form {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1rem, 3vw, 1.25rem);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    color: var(--label);
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
+}
+
+.label-required {
+    color: #d32f2f;
+    margin-left: 0.25rem;
+}
+
+.form-hint {
+    display: block;
+    font-size: clamp(0.75rem, 2.8vw, 0.8rem);
+    color: #777;
+    margin-top: 0.25rem;
+}
+
+/* Inputs e selects */
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: clamp(0.65rem, 2.5vw, 0.75rem) clamp(0.75rem, 3vw, 0.875rem);
+    border: 0.125rem solid var(--brand);
+    border-radius: var(--radius-md);
+    font-size: 1rem; /* mínimo 16px para evitar zoom iOS */
+    font-family: 'Montserrat', Arial, sans-serif;
+    color: var(--input-text);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: var(--input-ph);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    border-color: var(--brand-strong);
+    outline: none;
+    box-shadow: 0 0 0.5rem rgba(255, 179, 0, 0.5);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 5rem;
+    line-height: 1.5;
+}
+
+/* Select estilizado */
+select.form-input {
+    cursor: pointer;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23FFC107' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 0.75rem;
+    padding-right: 2.5rem;
+    appearance: none;
+}
+
+/* 7) Botões de ação */
+.form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.btn-submit,
+.btn-cancel {
+    padding: clamp(0.75rem, 3vw, 0.875rem) clamp(1rem, 4vw, 1.5rem);
+    font-weight: 700;
+    font-size: clamp(0.95rem, 3.5vw, 1rem);
+    border-radius: var(--radius-md);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 0.125rem solid;
+}
+
+.btn-submit {
+    background: var(--bg-dark);
+    color: var(--brand);
+    border-color: var(--brand);
+    box-shadow: 0 0.25rem 0.625rem rgba(255, 193, 7, 0.3);
+}
+
+.btn-submit:hover,
+.btn-submit:focus {
+    background: var(--brand-strong);
+    color: #000;
+    box-shadow: 0 0.375rem 0.9375rem rgba(255, 179, 0, 0.6);
+    transform: translateY(-0.125rem);
+    outline: none;
+}
+
+.btn-cancel {
+    background: #fff;
+    color: #666;
+    border-color: #ddd;
+    box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.1);
+    display: block;
+}
+
+.btn-cancel:hover,
+.btn-cancel:focus {
+    background: #f5f5f5;
+    color: #333;
+    border-color: #bbb;
+    outline: none;
+}
+
+/* 8) Responsividade */
+@media (max-width: 400px) {
+    #solicitar-page {
+        padding: var(--space-1);
+    }
+    
+    .solicitar-container {
+        max-width: 94vw;
+        padding: 1rem 1.25rem;
+    }
+}
+
+@media (min-width: 640px) {
+    .form-actions {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    .btn-submit,
+    .btn-cancel {
+        flex: 1;
+    }
+}
+
+@media (min-width: 1200px) {
+    .solicitar-container {
+        max-width: 34rem;
+        padding: 2rem 2.5rem;
+    }
+}
+
+/* 9) Acessibilidade */
+@media (hover: none) {
+    .btn-submit:hover {
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}

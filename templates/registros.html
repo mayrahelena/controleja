@@ -14,6 +14,9 @@
 <body>
 	<main id="registros-page">
 		<section class="registros-container">
+			<div class="page-header">
+                <a href="{{ url_for('admin') }}" class="btn-voltar">← Voltar</a>
+			</div>
 			<h1 class="registros-title">Registros de Ponto</h1>
 
 			{% with messages = get_flashed_messages() %}
@@ -36,6 +39,7 @@
 
 				<button type="submit" class="btn-primary registros-btn-filter">Filtrar</button>
 			</form>
+
 
 			<p class="registros-actions">
 				<a href="{{ url_for('novo_registro') }}" class="registros-link">Incluir Registro Manual</a>
@@ -92,7 +96,7 @@
 			{% endif %}
 
 			<p class="registros-back">
-				<a href="{{ url_for('admin') }}" class="registros-link">Voltar</a>
+				<a href="{{ url_for('admin') }}" class="btn-voltar">← Voltar</a>
 			</p>
 		</section>
 	</main>

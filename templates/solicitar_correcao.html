@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solicitar Correção - Ponto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='solicitar_correcao.css') }}" />
+</head>
+<body>
+    <main id="solicitar-page">
+        <section class="solicitar-container">
+            <h2 class="solicitar-title">📝 Solicitar Correção</h2>
+            <p class="solicitar-subtitle">Preencha os dados abaixo para solicitar correção de ponto</p>
+            
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages solicitar-flash-messages">
+                    {% for msg in messages %}
+                        <p>{{ msg }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% endwith %}
+            
+            <form method="post" id="solicitar-form" class="solicitar-form">
+                <!-- Data do registro -->
+                <div class="form-group">
+                    <label for="data_registro" class="form-label">
+                        <strong>Data do registro:</strong>
+                        <span class="label-required">*</span>
+                    </label>
+                    <input 
+                        type="date" 
+                        id="data_registro" 
+                        name="data_registro" 
+                        class="form-input" 
+                        required 
+                        max="{{ hoje }}"
+                    />
+                    <small class="form-hint">Selecione o dia que você esqueceu de bater ponto</small>
+                </div>
+                
+                <!-- Tipo de correção -->
+                <div class="form-group">
+                    <label for="tipo" class="form-label">
+                        <strong>Tipo de correção:</strong>
+                        <span class="label-required">*</span>
+                    </label>
+                    <select id="tipo" name="tipo" class="form-input" required>
+                        <option value="">-- Selecione --</option>
+                        <option value="entrada">Falta registro de ENTRADA</option>
+                        <option value="saida">Falta registro de SAÍDA</option>
+                        <option value="ambos">Falta ENTRADA e SAÍDA</option>
+                    </select>
+                </div>
+                
+                <!-- Horário de entrada -->
+                <div class="form-group" id="grupo-entrada">
+                    <label for="horario_entrada" class="form-label">
+                        <strong>Horário de entrada:</strong>
+                    </label>
+                    <input 
+                        type="time" 
+                        id="horario_entrada" 
+                        name="horario_entrada" 
+                        class="form-input"
+                        step="1"
+                    />
+                    <small class="form-hint">Formato: HH:MM (ex: 08:15)</small>
+                </div>
+                
+                <!-- Horário de saída -->
+                <div class="form-group" id="grupo-saida">
+                    <label for="horario_saida" class="form-label">
+                        <strong>Horário de saída:</strong>
+                    </label>
+                    <input 
+                        type="time" 
+                        id="horario_saida" 
+                        name="horario_saida" 
+                        class="form-input"
+                        step="1"
+                    />
+                    <small class="form-hint">Formato: HH:MM (ex: 18:00)</small>
+                </div>
+                
+                <!-- Justificativa -->
+                <div class="form-group">
+                    <label for="justificativa" class="form-label">
+                        <strong>Justificativa:</strong>
+                        <span class="label-required">*</span>
+                    </label>
+                    <textarea 
+                        id="justificativa" 
+                        name="justificativa" 
+                        class="form-textarea" 
+                        rows="4" 
+                        required
+                        placeholder="Explique o motivo da solicitação (ex: Esqueci de bater o ponto)"
+                        maxlength="500"
+                    ></textarea>
+                    <small class="form-hint">Máximo 500 caracteres</small>
+                    <small class="form-hint">* Campo Obrigatório.</small>
+                </div>
+                
+                <!-- Botões -->
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Enviar Solicitação</button>
+                    <a href="{{ url_for('funcionaria') }}" class="btn-cancel">Cancelar</a>
+                </div>
+            </form>
+        </section>
+    </main>
+    
+    <!-- Script para controlar campos dinâmicos -->
+    <script>
+        const tipoSelect = document.getElementById('tipo');
+        const grupoEntrada = document.getElementById('grupo-entrada');
+        const grupoSaida = document.getElementById('grupo-saida');
+        const inputEntrada = document.getElementById('horario_entrada');
+        const inputSaida = document.getElementById('horario_saida');
+        
+        // Inicialmente ocultar campos de horário
+        grupoEntrada.style.display = 'none';
+        grupoSaida.style.display = 'none';
+        
+        // Mostrar/ocultar campos baseado no tipo
+        tipoSelect.addEventListener('change', function() {
+            const tipo = this.value;
+            
+            if (tipo === 'entrada') {
+                grupoEntrada.style.display = 'block';
+                grupoSaida.style.display = 'none';
+                inputEntrada.required = true;
+                inputSaida.required = false;
+                inputSaida.value = '';
+            } else if (tipo === 'saida') {
+                grupoEntrada.style.display = 'none';
+                grupoSaida.style.display = 'block';
+                inputEntrada.required = false;
+                inputSaida.required = true;
+                inputEntrada.value = '';
+            } else if (tipo === 'ambos') {
+                grupoEntrada.style.display = 'block';
+                grupoSaida.style.display = 'block';
+                inputEntrada.required = true;
+                inputSaida.required = true;
+            } else {
+                grupoEntrada.style.display = 'none';
+                grupoSaida.style.display = 'none';
+                inputEntrada.required = false;
+                inputSaida.required = false;
+            }
+        });
+    </script>
+</body>
+</html>

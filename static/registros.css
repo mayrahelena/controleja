@@ -9,12 +9,14 @@
 	--space-3: 1rem;
 	--space-4: 1.25rem;
 	--radius-lg: 0.9375rem;
+	--radius-md: 0.75rem;
 
 	--bg-dark: #000000;
 	--fg-light: #f0f0f0;
 	--brand: #FFC107;
 	--brand-strong: #FFB300;
 	--headline: #060606;
+
 
 	--card-gap: 1rem;
 }
@@ -68,6 +70,7 @@ body{
 	color: var(--headline);
 	margin: 0 0 1.25rem 0;
 	text-align: center;
+	padding: 0.75rem;
 }
 
 #registros-page .registros-flash-messages{
@@ -78,6 +81,25 @@ body{
 	color: var(--brand);
 	font-weight: 600;
 	box-shadow: 0 0.25rem 0.625rem rgba(255,193,7,0.3);
+}
+
+.btn-voltar {
+    padding: 0.5rem 1rem;
+    background: var(--brand);
+    color: #000;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: var(--radius-md);
+    transition: background 0.2s ease;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 0.125rem solid var(--brand);
 }
 
 /* 4) Filtro */
@@ -133,6 +155,9 @@ body{
 	transform: translateY(-0.1875rem);
 	outline: none;
 }
+
+
+
 
 /* 5) Links auxiliares */
 .registros-actions,

@@ -31,12 +31,10 @@
 				<label for="nome" class="form-label">Nome:</label>
 				<input type="text" id="nome" name="nome" required value="{{ user.nome if user else '' }}" class="form-input-text"/>
 
-				{% if acao == 'novo' %}
-					<label for="username" class="form-label">Usuário:</label>
-					<input type="text" id="username" name="username" required class="form-input-text"/>
-				{% else %}
-					<p class="funcionaria-username-display"><strong>Usuário:</strong> {{ user.username }}</p>
-				{% endif %}
+				<!-- ✅ CAMPO USERNAME SEMPRE EDITÁVEL -->
+                <label for="username" class="form-label">Usuário:</label>
+                <input type="text" id="username" name="username" required value="{{ user.username if user else '' }}" class="form-input-text"/>
+
 
 				<label for="senha" class="form-label">
 					Senha:

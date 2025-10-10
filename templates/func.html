@@ -5,48 +5,212 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ponto - Funcionária</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-	  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='func.css') }}" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Merriweather&display=swap" rel="stylesheet">
 </head>
 <body>
-	<main id="func-page">
-		<section class="func-container">
-			<h2 class="func-welcome">Olá, {{ nome }}</h2>
+    <main id="func-page">
+        <section class="func-container">
+            
+            <!-- ==================== SEÇÃO 1: REGISTRO DE PONTO ==================== -->
+            <div class="secao-ponto">
+                <h2 class="func-welcome">Olá, {{ nome }}</h2>
+                
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="flash-messages func-flash-messages">
+                        {% for msg in messages %}
+                            <p>{{ msg }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% endwith %}
+                
+                <div class="botoes-ponto">
+                    <form method="post" class="form-ponto" style="display:inline;">
+                        <input type="hidden" name="acao" value="entrada"/>
+                        <button type="submit" class="btn-ponto btn-entrada">Registrar Entrada</button>
+                    </form>
+                    <form method="post" class="form-ponto" style="display:inline;">
+                        <input type="hidden" name="acao" value="saida"/>
+                        <button type="submit" class="btn-ponto btn-saida">Registrar Saída</button>
+                    </form>
+                </div>
+                
+                <div class="status-ponto">
+                    <p><strong>Último registro do dia:</strong></p>
+                    <p>Entrada: <span class="status-entrada">{{ entrada or '-' }}</span></p>
+                    <p>Saída: <span class="status-saida">{{ saida or '-' }}</span></p>
+                </div>
+                <p class="func-logout-link">
+                    <a href="{{ url_for('logout') }}" class="func-link-logout">Sair</a>
+                </p>
+            </div>
+            
+            <div class="divisor-secao"></div>
+            
+            <!-- ==================== SEÇÃO 2: HISTÓRICO DO MÊS ==================== -->
+            <div class="secao-historico">
+                <h3 class="secao-titulo">📅 Histórico do Mês</h3>
+                
+					<div class="historico-mes">
+						<div class="historico-header">
+						{% if pode_voltar %}
+						<a href="{{ url_for('funcionaria', mes=mes_anterior, ano=ano_anterior) }}" 
+						class="historico-nav-btn">
+							◀️
+						</a>
+						{% else %}
+						<span class="historico-nav-btn historico-nav-disabled">◀️</span>
+						{% endif %}
+						
+						<h4 class="historico-titulo">{{mes_atual}}</h4>
+						
+						{% if pode_avancar %}
+						<a href="{{ url_for('funcionaria', mes=mes_proximo, ano=ano_proximo) }}" 
+						class="historico-nav-btn">
+							▶️
+						</a>
+						{% else %}
+						<span class="historico-nav-btn historico-nav-disabled">▶️</span>
+						{% endif %}
+					</div>
+                    
+                    {% if pendencias_count > 0 %}
+                    <div class="historico-alerta">
+                        ⚠️ Você tem <strong>{{ pendencias_count }}</strong> dia(s) com pendências este mês
+                    </div>
+                    {% endif %}
+                    
+                    <div class="historico-lista">
+                        {% if registros_mes %}
+                            {% for reg in registros_mes %}
+                            <div class="historico-item {{ reg.status_class }}">
+                                <span class="historico-data">{{ reg.data }}</span>
+                                <span class="historico-icone">{{ reg.icone }}</span>
+                                <span class="historico-horarios">
+                                    {% if reg.entrada != '-' and reg.saida != '-' %}
+                                        {{ reg.entrada }} - {{ reg.saida }}
+                                        {% if reg.horas_trabalhadas %}
+                                            <span class="historico-horas">({{ reg.horas_trabalhadas }})</span>
+                                        {% endif %}
+                                    {% elif reg.entrada != '-' %}
+                                        {{ reg.entrada }} - ----
+                                        <span class="historico-pendente">(falta saída)</span>
+                                    {% else %}
+                                        Sem registro
+                                    {% endif %}
+                                </span>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="historico-vazio">Nenhum registro encontrado para este mês.</p>
+                        {% endif %}
+                    </div>
+                    
+                    <a href="{{ url_for('solicitar_correcao') }}" class="btn-solicitar-correcao">
+                        📝 Solicitar Correção
+                    </a>
+                </div>
+            </div>
+            
+            <div class="divisor-secao"></div>
+            
+            <!-- ==================== SEÇÃO 3: MINHAS SOLICITAÇÕES ==================== -->
+            <section class="secao-solicitacoes">
+                <h3 class="secao-titulo">📋 Minhas Solicitações</h3>
+                
+                {% if solicitacoes %}
+                    <div class="solicitacoes-lista">
+                        {% for sol in solicitacoes %}
+                        <div class="solicitacao-card {{ sol.status }}">
+                            <div class="solicitacao-header">
+                                <span class="solicitacao-badge {{ sol.status }}">
+                                    {% if sol.status == 'pendente' %}🟡
+                                    {% elif sol.status == 'aprovado' %}🟢
+                                    {% else %}🔴{% endif %}
+                                    {{ sol.status_label }}
+                                </span>
+                                <span class="solicitacao-data-solic">Solicitação aberta em: {{ sol.data_solicitacao }}</span>
+                            </div>
 
-			{% with messages = get_flashed_messages() %}
-			{% if messages %}
-				<div class="flash-messages func-flash-messages">
-					{% for msg in messages %}
-						<p>{{ msg }}</p>
-					{% endfor %}
-				</div>
-			{% endif %}
-			{% endwith %}
+                <!-- Botão excluir (só para pendentes) -->
+                {% if sol.status == 'pendente' %}
+                    <div style="position: absolute; top: 10px; right: 10px;">
+                        <form method="post" 
+                            action="{{ url_for('excluir_solicitacao', solicitacao_id=sol.id) }}"
+                            onsubmit="return confirm('⚠️ Tem certeza que deseja excluir esta solicitação?');"
+                            style="display: inline;">
+                            <button type="submit" 
+                                    style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 12px;">
+                                🗑️ Excluir
+                            </button>
+                        </form>
+                    </div>
+                    {% endif %}
+                    <!-- ✅ FIM BOTÃO -->   
+                            
+                            <div class="solicitacao-body">
+                                <p class="solicitacao-info">
+                                    <strong>Tipo:</strong> {{ sol.tipo }}
+                                </p>
+                                <p class="solicitacao-info">
+                                    <strong>Data do Ponto:</strong> {{ sol.data_registro }}
+                                </p>
 
-			<div class="botoes-ponto">
-				<form method="post" class="form-ponto" style="display:inline;">
-					<input type="hidden" name="acao" value="entrada"/>
-					<button type="submit" class="btn-ponto btn-entrada">Registrar Entrada</button>
-				</form>
-
-				<form method="post" class="form-ponto" style="display:inline;">
-					<input type="hidden" name="acao" value="saida"/>
-					<button type="submit" class="btn-ponto btn-saida">Registrar Saída</button>
-				</form>
-			</div>
-
-			<div class="status-ponto">
-				<p><strong>Último registro do dia:</strong></p>
-				<p>Entrada: <span class="status-entrada">{{ entrada or '-' }}</span></p>
-				<p>Saída: <span class="status-saida">{{ saida or '-' }}</span></p>
-			</div>
-
-			<p class="func-logout-link">
-				<a href="{{ url_for('logout') }}" class="func-link-logout">Sair</a>
-			</p>
-		</section>
-	</main>
+								{% if sol.horario_entrada or sol.horario_saida %}
+								<section class="solicitacao-horarios">
+									<p class="solicitacao-info-destaque">
+										<strong>Horários a serem ajustados:</strong>
+									</p>
+									<div class="horarios-grid">
+										{% if sol.horario_entrada %}
+										<span class="horario-item">
+											🟢 Entrada: <strong> {{ sol.horario_entrada }} </strong>
+										</span>
+										{% endif %}
+										{% if sol.horario_saida %}
+										<span class="horario-item">
+											🟣 Saída: <strong> {{ sol.horario_saida }} </strong>
+										</span>
+										{% endif %}
+									</div>
+								</section>
+								{% endif %}
+                                
+                                {% if sol.observacao_admin %}
+                                <div class="solicitacao-resposta">
+                                    {% if sol.status == 'aprovado' %}
+                                        <p class="resposta-icone">✅ <strong>Resposta do administrador:</strong></p>
+                                    {% else %}
+                                        <p class="resposta-icone">❌ <strong>Motivo da rejeição:</strong></p>
+                                    {% endif %}
+                                    <p class="resposta-texto">{{ sol.observacao_admin }}</p>
+                                    {% if sol.data_processamento %}
+                                        <p class="resposta-data">Processado em: {{ sol.data_processamento }}</p>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="solicitacoes-vazio">
+                        <p>Você ainda não fez nenhuma solicitação de correção.</p>
+                        <p class="solicitacoes-hint">Caso esqueça de bater o ponto, você pode solicitar correção na seção acima.</p>
+                    </div>
+                {% endif %}
+			</section>
+            
+            <div class="divisor-secao"></div>
+            
+            <!-- ==================== LOGOUT ==================== -->
+            <p class="func-logout-link">
+                <a href="{{ url_for('logout') }}" class="func-link-logout">Sair</a>
+            </p>
+        </section>
+    </main>
 </body>
 </html>

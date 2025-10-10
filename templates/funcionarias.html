@@ -3,69 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Funcionários - Administração</title>
+    <title>Funcionárias - Administração</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Merriweather&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='funcionarias.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='funcionarias.css') }}">
 </head>
 <body>
     <main id="funcionarias-page">
-        <section class="funcionarias-container">
+        <div class="funcionarias-container">
             <h1 class="funcionarias-title">Funcionárias</h1>
 
             {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <div class="flash-messages funcionarias-flash-messages">
-                {% for msg in messages %}
-                <p>{{ msg }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for msg in messages %}
+                            <p class="flash-message">{{ msg }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             {% endwith %}
 
-            <p class="funcionarias-cta">
-                <a class="btn-cta" href="{{ url_for('nova_funcionaria')}}">Cadastrar Nova Funcionária</a>
-            </p>
-
-            <div class="funcionarias-table-wrap">
-                <table class="funcionarias-table">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Usuário</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for user in users %}
-                        <tr>
-                            <td>{{ user.nome }}</td>
-                            <td>{{ user.username }}</td>
-                            <td>
-                                <a class="funcionarias-edit-link funcionarias-link" href="{{ url_for('editar_funcionaria', user_id=user.id) }}">Editar</a> |
-                                <form method="post" action="{{ url_for('excluir_funcionaria', user_id=user.id) }}" class="funcionarias-delete-form" onsubmit="return confirm('Confirma exclusão?');" style="display:inline;">
-                                    <button type="submit" class="btn-link funcionarias-delete-button">Excluir</button>
-                                </form>
-                            </td>
-
-                        </tr>
-                        {% else %}
-                        <tr>
-                            <td colspan="3" class="funcionarias-no-data">Nenhuma funcionária cadastrada.</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            <div class="funcionarias-actions-top">
+                <a class="btn-cadastrar" href="{{ url_for('nova_funcionaria') }}">
+                    + Cadastrar Nova Funcionária
+                </a>
             </div>
 
-            <p class="funcionarias-back-link">
-                <a href="{{ url_for('admin') }}" class="funcionarias-link">Voltar</a>
-            </p>
-        </section>
+            <div class="funcionarias-list">
+                {% for user in users %}
+                    <div class="funcionaria-card">
+                        <div class="funcionaria-info">
+                            <p class="funcionaria-nome"><strong>Nome:</strong> {{ user.nome }}</p>
+                            <p class="funcionaria-username"><strong>Usuário:</strong> {{ user.username }}</p>
+                        </div>
+                        <div class="funcionaria-actions">
+                            <a class="btn-action btn-editar" href="{{ url_for('editar_funcionaria', user_id=user.id) }}">
+                                Editar
+                            </a>
+                            <form method="post" action="{{ url_for('excluir_funcionaria', user_id=user.id) }}"
+                                   class="form-excluir"
+                                   onsubmit="return confirm('Confirma exclusão de {{ user.nome }}?');">
+                                <button type="submit" class="btn-action btn-excluir">Excluir</button>
+                            </form>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="funcionarias-empty">
+                        <p>Nenhuma funcionária cadastrada.</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="funcionarias-footer">
+                <a href="{{ url_for('admin') }}" class="btn-voltar">← Voltar</a>
+            </div>
+        </div>
     </main>
 </body>
 </html>

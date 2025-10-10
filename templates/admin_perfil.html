@@ -2,6 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Perfil Admin</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='admin_perfil.css') }}" />
     
@@ -9,8 +10,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="15">
 </head>
 <body>
     <main id="admin-perfil-page">
@@ -31,7 +30,9 @@
 
                 <button type="submit">Salvar</button>
             </form>
-            <a class="voltar" href="{{ url_for('admin') }}">Voltar</a>
+            <div class="page-header">
+                <a href="{{ url_for('admin') }}" class="btn-voltar">← Voltar</a>
+            </div>
         </section>
     </main>
 </body>

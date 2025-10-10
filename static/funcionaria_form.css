@@ -1,5 +1,6 @@
 /* =========================================
    Funcionária – Formulário (mobile-first)
+   ✅ CORRIGIDO: Base com padding normal + media queries mobile com vw explícitos
    ========================================= */
 
 /* 1) Tokens e reset */
@@ -41,7 +42,7 @@ body {
     min-height: 100dvh;
     display: grid;
     place-items: center;
-    padding: 0 var(--space-3);
+    padding: 0 var(--space-3); /* ✅ MUDOU: começa com padding normal, não mínimo */
     color: var(--fg-light);
 }
 
@@ -51,16 +52,19 @@ body {
     color: #000;
     border: 0.125rem solid var(--brand);
     border-radius: var(--radius-lg);
+    
+    /* ✅ MUDOU: largura fluida normal no base, não calc() */
     width: 100%;
     max-width: 28rem;
+    
     height: auto;
     max-height: none;
-    padding: clamp(1rem, 5vw, 2rem) clamp(1rem, 6vw, 2.5rem); /* reduzido */
-    padding-bottom: clamp(1rem, 6vw, 2rem); /* reduzido */
+    padding: clamp(1rem, 5vw, 2rem) clamp(1rem, 6vw, 2.5rem);
+    padding-bottom: clamp(1rem, 6vw, 2rem);
     box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.35);
     display: flex;
     flex-direction: column;
-    gap: clamp(0.5rem, 1.5vw, 0.75rem); /* reduzido */
+    gap: clamp(0.5rem, 1.5vw, 0.75rem);
 }
 
 /* 5) Título */
@@ -70,7 +74,7 @@ body {
     color: var(--headline);
     font-size: clamp(1.5rem, 6vw, 2.2rem);
     line-height: 1.25;
-    margin: 0 0 0.5rem 0; /* reduzido de 1rem para 0.5rem */
+    margin: 0 0 0.5rem 0;
     text-align: center;
 }
 
@@ -79,7 +83,7 @@ body {
     background: #222;
     border: 0.09375rem solid var(--brand);
     border-radius: 0.625rem;
-    padding: 0.75rem 1rem; /* reduzido */
+    padding: 0.75rem 1rem;
     color: var(--brand);
     font-weight: 600;
     box-shadow: 0 0.25rem 0.625rem rgba(255, 193, 7, 0.3);
@@ -92,12 +96,12 @@ body {
     background: #fff;
     border: 0.125rem solid var(--brand);
     border-radius: var(--radius-lg);
-    padding: clamp(1rem, 5vw, 1.75rem) clamp(1rem, 6vw, 2.25rem); /* reduzido */
+    padding: clamp(1rem, 5vw, 1.75rem) clamp(1rem, 6vw, 2.25rem);
     color: #000;
     box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.4);
     display: flex;
     flex-direction: column;
-    gap: clamp(0.625rem, 2.5vw, 0.875rem); /* reduzido significativamente */
+    gap: clamp(0.625rem, 2.5vw, 0.875rem);
     width: 100%;
 }
 
@@ -106,7 +110,7 @@ body {
     font-weight: 600;
     color: var(--label);
     font-size: clamp(0.9rem, 3.6vw, 1rem);
-    margin-bottom: 0.25rem; /* reduzido de 0.375rem */
+    margin-bottom: 0.25rem;
 }
 
 #funcionaria-form .senha-info {
@@ -145,13 +149,13 @@ body {
     font-weight: 600;
     font-size: 1rem;
     color: #333;
-    margin-bottom: 0.5rem; /* reduzido de 0.9375rem */
+    margin-bottom: 0.5rem;
     user-select: none;
 }
 
 /* 8) Botão submit */
 #btn-submit-funcionaria {
-    margin-top: 0.25rem; /* reduzido de 0.625rem */
+    margin-top: 0.25rem;
     padding: 0.875rem 0;
     width: 100%;
     background: #000;
@@ -179,7 +183,7 @@ body {
 .funcionaria-form-back-link {
     display: flex;
     justify-content: center;
-    margin-top: 0.5rem; /* reduzido de 1rem */
+    margin-top: 0.5rem;
 }
 
 .funcionaria-form-back-link .link-voltar {
@@ -199,40 +203,60 @@ body {
 }
 
 /* 10) Breakpoints */
+
+/* ✅ NOVO: Mobile extremo (≤400px) - ocupa 89% como login.css */
 @media (max-width: 400px) {
     #funcionaria-form-page { 
         padding-inline: var(--space-1); 
     }
     
     .funcionaria-form-container {
-        max-width: 94vw;
-        padding: clamp(1rem, 5vw, 1.5rem) clamp(1rem, 6vw, 2rem);
+        width: 89vw;  /* ✅ NOVO: largura explícita em vw */
+        max-width: 89vw;
+        padding: clamp(1rem, 5vw, 2rem) clamp(1rem, 6vw, 2.25rem);
     }
 }
 
+/* ✅ NOVO: Mobile médio (401-460px) - ocupa 86% como login.css */
 @media (min-width: 401px) and (max-width: 460px) {
+    #funcionaria-form-page { 
+        padding-inline: var(--space-1); 
+    }
+    
     .funcionaria-form-container {
-        max-width: 90vw;
-        padding: clamp(1rem, 4vw, 1.75rem) clamp(1rem, 5vw, 2.25rem);
+        width: 86vw;  /* ✅ NOVO: largura explícita progressiva em vw */
+        max-width: 86vw;
+        padding: clamp(1rem, 4vw, 2.25rem) clamp(1rem, 5vw, 2.5rem);
     }
 }
 
-/* Desktop ≥1200px – mantém estética do desktop (420px) */
+/* ✅ Tablets e acima (461px+) - mantém limite normal */
+@media (min-width: 461px) {
+    #funcionaria-form-page { 
+        padding: 0 var(--space-3);
+    }
+    
+    .funcionaria-form-container {
+        max-width: 28rem;
+    }
+}
+
+/* ✅ Desktop ≥1200px – mantém estética do desktop (420px) */
 @media (min-width: 1200px) {
     .funcionaria-form-container {
         max-width: 26.25rem; /* 420px */
-        padding: 2rem 2.5rem; /* reduzido */
+        padding: 2rem 2.5rem;
         box-shadow: 0 0.5rem 1.25rem rgba(255, 193, 7, 0.4);
-        gap: 0.75rem; /* reduzido */
+        gap: 0.75rem;
     }
     
     .funcionaria-form-title {
         font-size: 2.2rem;
-        margin: 0 0 0.75rem 0; /* reduzido */
+        margin: 0 0 0.75rem 0;
     }
     
     #funcionaria-form {
-        gap: 0.875rem; /* reduzido */
+        gap: 0.875rem;
     }
 }
 
