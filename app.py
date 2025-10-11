@@ -109,12 +109,6 @@ for telefone, chave in CALLMEBOT_KEYS.items():
 
 URL_SITE = os.getenv('URL_SITE', 'seu-site.com')
 
-# IPs permitidos
-IPS_PERMITIDOS = [
-    "192.168.100.",
-    "192.168.1.",
-    "127.0.0.1"
-]
 
 # Horários (mantidos no código - não são sensíveis)
 HORARIOS_FUNCIONARIAS = {
@@ -472,27 +466,6 @@ def format_hora(h):
         return dt.strftime('%H:%M')
     except:
         return str(h)
-
-def validar_wifi(ip_address):
-    """
-    Valida se IP está em uma das redes permitidas.
-    Usado APENAS para registro via SITE (não WhatsApp!).
-    
-    Args:
-        ip_address (str): IP do usuário (request.remote_addr)
-    
-    Returns:
-        bool: True se IP está em rede permitida
-    
-    Exemplos:
-        validar_wifi('192.168.1.45') → True (mercearia)
-        validar_wifi('192.168.100.10') → True (casa/testes)
-        validar_wifi('10.0.0.1') → False (rede desconhecida)
-    """
-    if not ip_address:
-        return False
-    
-    return any(ip_address.startswith(ip) for ip in IPS_PERMITIDOS)
 
 # =============================================================================
 # CÁLCULO DE VALOR POR HORA E DIA
@@ -974,7 +947,7 @@ def funcionaria():
     Tela principal da funcionária.
     
     Funcionalidades:
-    - Registrar entrada/saída (COM validação Wi-Fi no site)
+    - Registrar entrada/saída (SEM validação Wi-Fi - removida)
     - Ver registro do dia
     - Ver histórico do mês
     - Ver solicitações de correção
@@ -990,17 +963,10 @@ def funcionaria():
     
     if request.method == 'POST':
         try:
-            # ⚠️ VALIDAR WI-FI ANTES DE REGISTRAR (SITE)
-            ip_usuario = request.remote_addr
+            # ✅ VALIDAÇÃO DE WI-FI REMOVIDA
+            # Motivo: Não funciona com servidor externo (PythonAnywhere)
+            # Segurança mantida via: Login + senha + revisão do admin
             
-            if not validar_wifi(ip_usuario):
-                flash(
-                    '⚠️ Você precisa estar conectada no Wi-Fi da mercearia para registrar o ponto!',
-                    'error'
-                )
-                return redirect(url_for('funcionaria'))
-            
-            # Wi-Fi OK, continuar com registro
             acao = request.form.get('acao')
             now_time = agora_sp().strftime('%H:%M:%S')
             
@@ -1195,7 +1161,6 @@ def funcionaria():
         pode_avancar=pode_avancar,
         pode_voltar=pode_voltar
     )
-
 # =============================================================================
 # FUNÇÕES AUXILIARES PARA HISTÓRICO DE PONTO
 # =============================================================================
@@ -2725,7 +2690,7 @@ def backup_mensal_telegram():
             import os
             if os.path.exists(filename):
                 os.remove(filename)
-                
+
 def relatorio_falhas_whatsapp():
     """
     Envia relatório diário de falhas para admin (23h50).
