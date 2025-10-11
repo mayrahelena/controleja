@@ -2593,6 +2593,45 @@ def relatorio_mensal_pagamento():
 # =============================================================================
 # ✅ BACKUP AUTOMÁTICO VIA TELEGRAM (GRATUITO!)
 # =============================================================================
+def converter_hora_banco_para_time(hora):
+    """
+    Converte hora do banco (timedelta, time ou string) para time object.
+    Helper para usar em funções de relatório e backup.
+    
+    Args:
+        hora: Pode ser timedelta, time, string ou None
+    
+    Returns:
+        time: Objeto time ou None
+    """
+    if hora is None:
+        return None
+    
+    # Se já é time, retorna direto
+    if isinstance(hora, time):
+        return hora
+    
+    # Se é timedelta (retorno do MySQL para TIME)
+    if isinstance(hora, timedelta):
+        total_seg = int(hora.total_seconds())
+        horas = total_seg // 3600
+        minutos = (total_seg % 3600) // 60
+        segundos = total_seg % 60
+        return time(hour=horas, minute=minutos, second=segundos)
+    
+    # Se é string, converter
+    if isinstance(hora, str):
+        try:
+            dt = datetime.strptime(hora, '%H:%M:%S')
+            return dt.time()
+        except:
+            try:
+                dt = datetime.strptime(hora, '%H:%M')
+                return dt.time()
+            except:
+                return None
+    
+    return None
 
 def backup_mensal_telegram():
     """
@@ -2632,25 +2671,16 @@ def backup_mensal_telegram():
             data_obj = datetime.strptime(reg['data'], '%Y-%m-%d').date() if isinstance(reg['data'], str) else reg['data']
             
             if reg['hora_entrada'] and reg['hora_saida']:
-                # ✅ CORREÇÃO: Converter timedelta para time
-                if isinstance(reg['hora_entrada'], timedelta):
-                    total_seg = int(reg['hora_entrada'].total_seconds())
-                    entrada = time(hour=total_seg // 3600, minute=(total_seg % 3600) // 60)
-                elif isinstance(reg['hora_entrada'], str):
-                    entrada = datetime.strptime(reg['hora_entrada'], '%H:%M:%S').time()
-                else:
-                    entrada = reg['hora_entrada']
+                # ✅ USAR FUNÇÃO HELPER para converter
+                entrada = converter_hora_banco_para_time(reg['hora_entrada'])
+                saida = converter_hora_banco_para_time(reg['hora_saida'])
                 
-                if isinstance(reg['hora_saida'], timedelta):
-                    total_seg = int(reg['hora_saida'].total_seconds())
-                    saida = time(hour=total_seg // 3600, minute=(total_seg % 3600) // 60)
-                elif isinstance(reg['hora_saida'], str):
-                    saida = datetime.strptime(reg['hora_saida'], '%H:%M:%S').time()
+                if entrada and saida:
+                    horas_dia, valor_dia = calcular_valor_dia(data_obj, entrada, saida, reg['nome'])
+                    horas_str = format_hora(horas_dia)
                 else:
-                    saida = reg['hora_saida']
-                
-                horas_dia, valor_dia = calcular_valor_dia(data_obj, entrada, saida, reg['nome'])
-                horas_str = format_hora(horas_dia)
+                    horas_str = '-'
+                    valor_dia = 0
             else:
                 horas_str = '-'
                 valor_dia = 0
@@ -2695,7 +2725,7 @@ def backup_mensal_telegram():
             import os
             if os.path.exists(filename):
                 os.remove(filename)
-
+                
 def relatorio_falhas_whatsapp():
     """
     Envia relatório diário de falhas para admin (23h50).
