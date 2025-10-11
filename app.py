@@ -2342,7 +2342,7 @@ def lembrete_entrada():
                 mensagem = (
                     f"☀️ *Bom dia, {func['nome']}!*\n\n"
                     f"⏰ Hora de registrar sua *ENTRADA*\n\n"
-                    f"📱 Mande: *entrada*"
+                    f"🔗 Acesse: {URL_SITE}"
                 )
                 enviar_whatsapp(func['telefone'], mensagem)
                 print(f"📤 Lembrete de entrada enviado para {func['nome']}")
@@ -2382,7 +2382,7 @@ def lembrete_saida():
                     mensagem = (
                         f"🌙 *Oi, {func['nome']}!*\n\n"
                         f"⏰ Lembra de registrar sua *SAÍDA*\n\n"
-                        f"📱 Mande: *saída*"
+                        f"🔗 Acesse: {URL_SITE}"
                     )
                     enviar_whatsapp(func['telefone'], mensagem)
                     print(f"📤 Lembrete de saída enviado para {func['nome']}")
