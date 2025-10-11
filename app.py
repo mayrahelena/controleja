@@ -2632,8 +2632,22 @@ def backup_mensal_telegram():
             data_obj = datetime.strptime(reg['data'], '%Y-%m-%d').date() if isinstance(reg['data'], str) else reg['data']
             
             if reg['hora_entrada'] and reg['hora_saida']:
-                entrada = datetime.strptime(reg['hora_entrada'], '%H:%M:%S').time() if isinstance(reg['hora_entrada'], str) else reg['hora_entrada']
-                saida = datetime.strptime(reg['hora_saida'], '%H:%M:%S').time() if isinstance(reg['hora_saida'], str) else reg['hora_saida']
+                # ✅ CORREÇÃO: Converter timedelta para time
+                if isinstance(reg['hora_entrada'], timedelta):
+                    total_seg = int(reg['hora_entrada'].total_seconds())
+                    entrada = time(hour=total_seg // 3600, minute=(total_seg % 3600) // 60)
+                elif isinstance(reg['hora_entrada'], str):
+                    entrada = datetime.strptime(reg['hora_entrada'], '%H:%M:%S').time()
+                else:
+                    entrada = reg['hora_entrada']
+                
+                if isinstance(reg['hora_saida'], timedelta):
+                    total_seg = int(reg['hora_saida'].total_seconds())
+                    saida = time(hour=total_seg // 3600, minute=(total_seg % 3600) // 60)
+                elif isinstance(reg['hora_saida'], str):
+                    saida = datetime.strptime(reg['hora_saida'], '%H:%M:%S').time()
+                else:
+                    saida = reg['hora_saida']
                 
                 horas_dia, valor_dia = calcular_valor_dia(data_obj, entrada, saida, reg['nome'])
                 horas_str = format_hora(horas_dia)
