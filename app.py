@@ -738,46 +738,65 @@ def webhook_whatsapp():
                 (funcionaria['id'], hoje),
                 one=True
             )
-            
-            if not record or not record['hora_entrada']:
-                resposta = "❌ Você ainda não registrou entrada hoje!"
-            elif record['hora_saida']:
+
+            # ✅ CORREÇÃO: Permite registrar saída mesmo sem entrada
+            if record and record['hora_saida']:
                 resposta = f"⚠️ Você já registrou saída às {format_hora(record['hora_saida'])}"
             else:
                 # Registrar saída
-                execute_db(
-                    "UPDATE records SET hora_saida = %s WHERE id = %s",
-                    (now_time, record['id'])
-                )
-                
-                # Calcular horas trabalhadas
-                entrada_time = (
-                    datetime.strptime(record['hora_entrada'], '%H:%M:%S').time()
-                    if isinstance(record['hora_entrada'], str)
-                    else record['hora_entrada']
-                )
-                saida_time = datetime.strptime(now_time, '%H:%M:%S').time()
-                
-                dt_entrada = datetime.combine(date.today(), entrada_time)
-                dt_saida = datetime.combine(date.today(), saida_time)
-                diff = dt_saida - dt_entrada
-                
-                horas = int(diff.total_seconds() // 3600)
-                minutos = int((diff.total_seconds() % 3600) // 60)
-                
-                resposta = (
-                    f"✅ *Saída registrada!*\n\n"
-                    f"📊 RESUMO DO DIA:\n"
-                    f"📅 Data: {hoje_sp().strftime('%d/%m/%Y')}\n"
-                    f"🕐 Entrada: {format_hora(record['hora_entrada'])}\n"
-                    f"🕔 Saída: {now_time[:5]}\n"
-                    f"⏱️ Trabalhado: {horas}h{minutos:02d}m\n\n"
-                    f"Dúvidas? Acesse: {URL_SITE}\n\n"
-                    f"Até amanhã! 👋"
-                )
-            
+                if record:
+                    # Atualiza registro existente (com ou sem entrada)
+                    execute_db(
+                        "UPDATE records SET hora_saida = %s WHERE id = %s",
+                        (now_time, record['id'])
+                    )
+                else:
+                    # Cria novo registro apenas com saída
+                    execute_db(
+                        "INSERT INTO records (user_id, data, hora_saida) VALUES (%s, %s, %s)",
+                        (funcionaria['id'], hoje, now_time)
+                    )
+
+                # Montar resposta
+                if record and record['hora_entrada']:
+                    # Tem entrada: calcular horas trabalhadas
+                    entrada_time = (
+                        datetime.strptime(record['hora_entrada'], '%H:%M:%S').time()
+                        if isinstance(record['hora_entrada'], str)
+                        else record['hora_entrada']
+                    )
+                    saida_time = datetime.strptime(now_time, '%H:%M:%S').time()
+
+                    dt_entrada = datetime.combine(date.today(), entrada_time)
+                    dt_saida = datetime.combine(date.today(), saida_time)
+                    diff = dt_saida - dt_entrada
+
+                    horas = int(diff.total_seconds() // 3600)
+                    minutos = int((diff.total_seconds() % 3600) // 60)
+
+                    resposta = (
+                        f"✅ *Saída registrada!*\\n\\n"
+                        f"📊 RESUMO DO DIA:\\n"
+                        f"📅 Data: {hoje_sp().strftime('%d/%m/%Y')}\\n"
+                        f"🕐 Entrada: {format_hora(record['hora_entrada'])}\\n"
+                        f"🕔 Saída: {now_time[:5]}\\n"
+                        f"⏱️ Trabalhado: {horas}h{minutos:02d}m\\n\\n"
+                        f"Dúvidas? Acesse: {URL_SITE}\\n\\n"
+                        f"Até amanhã! 👋"
+                    )
+                else:
+                    # Sem entrada: apenas confirma saída
+                    resposta = (
+                        f"✅ *Saída registrada!*\\n\\n"
+                        f"📅 Data: {hoje_sp().strftime('%d/%m/%Y')}\\n"
+                        f"🕔 Saída: {now_time[:5]}\\n\\n"
+                        f"⚠️ *Atenção:* Você não registrou entrada hoje.\\n"
+                        f"Se necessário, solicite correção em: {URL_SITE}\\n\\n"
+                        f"Até amanhã! 👋"
+                    )
+
             enviar_whatsapp(telefone_formatado, resposta)
-        
+            
         # COMANDO: CONSULTAR PONTO
         elif 'ponto' in mensagem or 'status' in mensagem or 'hoje' in mensagem:
             record = query_db(
@@ -963,19 +982,15 @@ def funcionaria():
     
     if request.method == 'POST':
         try:
-            # ✅ VALIDAÇÃO DE WI-FI REMOVIDA
-            # Motivo: Não funciona com servidor externo (PythonAnywhere)
-            # Segurança mantida via: Login + senha + revisão do admin
-            
             acao = request.form.get('acao')
             now_time = agora_sp().strftime('%H:%M:%S')
-            
+
             record = query_db(
                 "SELECT * FROM records WHERE user_id = %s AND data = %s",
                 (user_id, hoje),
                 one=True
             )
-            
+
             if acao == 'entrada':
                 if record and record['hora_entrada']:
                     flash('Você já registrou entrada hoje.', 'warning')
@@ -991,28 +1006,36 @@ def funcionaria():
                             (user_id, hoje, now_time)
                         )
                     flash('✅ Entrada registrada com sucesso!', 'success')
-            
+
             elif acao == 'saida':
-                if not record or not record['hora_entrada']:
-                    flash('Você ainda não registrou entrada hoje.', 'error')
-                elif record['hora_saida']:
+                # ✅ CORREÇÃO: Permite registrar saída mesmo sem entrada
+                if record and record['hora_saida']:
                     flash('Você já registrou saída hoje.', 'warning')
                 else:
-                    execute_db(
-                        "UPDATE records SET hora_saida = %s WHERE id = %s",
-                        (now_time, record['id'])
-                    )
+                    if record:
+                        # Atualiza registro existente (com ou sem entrada)
+                        execute_db(
+                            "UPDATE records SET hora_saida = %s WHERE id = %s",
+                            (now_time, record['id'])
+                        )
+                    else:
+                        # Cria novo registro apenas com saída
+                        execute_db(
+                            "INSERT INTO records (user_id, data, hora_saida) VALUES (%s, %s, %s)",
+                            (user_id, hoje, now_time)
+                        )
+                    
                     flash('✅ Saída registrada com sucesso!', 'success')
-            
+
             return redirect(url_for('funcionaria'))
-        
+
         except Exception as e:
             print(f"❌ ERRO AO REGISTRAR: {e}")
             import traceback
             traceback.print_exc()
             flash(f'Erro ao registrar: {str(e)}', 'error')
             return redirect(url_for('funcionaria'))
-    
+        
     # GET - Buscar dados para exibir
     hoje_date = hoje_sp()
     
