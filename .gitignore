@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+**/*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Ambientes virtuais
+venv/
+env/
+ENV/
+.venv/
+
+# Build
+*.egg-info/
+dist/
+build/
+
+# SEGURANÇA
+.env
+*.env
+.env.local
+.env.production
+
+# Logs
+logs/
+*.log
+
+# Banco de dados local
+*.db
+*.sqlite3
+ponto.db
+
+# Backups CSV
+backup_*.csv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Flask
+instance/
+.webassets-cache
+
+# Outros
+*.bak
+*.tmp
