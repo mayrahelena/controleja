@@ -31,6 +31,18 @@
 
 			<!-- Filtro de período -->
 			<form id="registros-filter-form" class="registros-filter-form" method="post" action="{{ url_for('listar_registros') }}">
+				*<!-- Adicionar ANTES do campo "Data Início" -->
+				<label for="funcionaria">Funcionária:</label>
+				<select name="funcionaria" id="funcionaria">
+					<option value="todas" {% if funcionaria_selecionada == 'todas' %}selected{% endif %}>
+						📋 Todas
+					</option>
+					{% for user in users %}
+					<option value="{{ user.id }}" {% if funcionaria_selecionada|string == user.id|string %}selected{% endif %}>
+						{{ user.nome }}
+					</option>
+					{% endfor %}
+				</select>
 				<label for="data_inicio" class="registros-label">Data Início:</label>
 				<input type="date" id="data_inicio" name="data_inicio" max="{{ date_fim }}" required value="{{ data_inicio }}" class="registros-input-date">
 

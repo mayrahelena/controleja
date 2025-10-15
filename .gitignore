@@ -53,3 +53,4 @@ instance/
 # Outros
 *.bak
 *.tmp
+*.env

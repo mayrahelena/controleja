@@ -1591,17 +1591,23 @@ print("✅ Parte 5.2 carregada: Admin e Funcionárias CRUD")
 @admin_required
 def listar_registros():
     """
-    Lista registros de ponto com filtro de período.
+    Lista registros de ponto com filtro de período e funcionária.
+    ✅ NOVO: Filtro por funcionária + período padrão do mês atual
     """
     cleanup_old_records()
     
     users = query_db("SELECT * FROM users WHERE tipo = 'funcionaria' ORDER BY nome")
-    
+
     hoje = hoje_sp()
     data_fim_str = hoje.strftime('%Y-%m-%d')
-    data_inicio_default = hoje - timedelta(days=89)
-    data_inicio_str = data_inicio_default.strftime('%Y-%m-%d')
     
+    # ✅ NOVO: Período padrão é o mês atual (ao invés de 90 dias)
+    primeiro_dia_mes = date(hoje.year, hoje.month, 1)
+    data_inicio_str = primeiro_dia_mes.strftime('%Y-%m-%d')
+    
+    # ✅ NOVO: Filtro de funcionária
+    funcionaria_selecionada = 'todas'
+
     def format_data(d):
         if d is None:
             return '-'
@@ -1611,20 +1617,21 @@ def listar_registros():
             dt = datetime.strptime(d, '%Y-%m-%d')
             return dt.strftime('%d/%m/%Y')
         except:
-            return d  # ✅ CORRIGIDO: retorna o valor original
-    
+            return d
+
     if request.method == 'POST':
         data_inicio_str = request.form.get('data_inicio')
         data_fim_str = request.form.get('data_fim')
-        
+        funcionaria_selecionada = request.form.get('funcionaria', 'todas')  # ✅ NOVO
+
         try:
             dt_inicio = datetime.strptime(data_inicio_str, '%Y-%m-%d').date()
             dt_fim = datetime.strptime(data_fim_str, '%Y-%m-%d').date()
-            
+
             if dt_fim < dt_inicio:
                 flash('Data fim deve ser maior ou igual à data início.')
                 return redirect(url_for('listar_registros'))
-            
+
             limite_min = hoje - timedelta(days=395)
             if dt_inicio < limite_min:
                 dt_inicio = limite_min
@@ -1640,26 +1647,36 @@ def listar_registros():
     else:
         dt_inicio = datetime.strptime(data_inicio_str, '%Y-%m-%d').date()
         dt_fim = datetime.strptime(data_fim_str, '%Y-%m-%d').date()
-    
-    # ✅ CORRIGIDO: Query dentro do fluxo correto, sem vírgula extra
-    registros_raw = query_db("""
-        SELECT r.id, r.data, r.hora_entrada, r.hora_saida, r.observacoes, u.nome, u.id as user_id
-        FROM records r
-        JOIN users u ON r.user_id = u.id
-        WHERE r.data BETWEEN %s AND %s
-        ORDER BY u.nome ASC, r.data ASC
-    """, (dt_inicio.isoformat(), dt_fim.isoformat()))
-    
+
+    # ✅ NOVO: Query com filtro opcional de funcionária
+    if funcionaria_selecionada != 'todas':
+        registros_raw = query_db("""
+            SELECT r.id, r.data, r.hora_entrada, r.hora_saida, r.observacoes, u.nome, u.id as user_id
+            FROM records r
+            JOIN users u ON r.user_id = u.id
+            WHERE r.data BETWEEN %s AND %s
+            AND u.id = %s
+            ORDER BY u.nome ASC, r.data ASC
+        """, (dt_inicio.isoformat(), dt_fim.isoformat(), funcionaria_selecionada))
+    else:
+        registros_raw = query_db("""
+            SELECT r.id, r.data, r.hora_entrada, r.hora_saida, r.observacoes, u.nome, u.id as user_id
+            FROM records r
+            JOIN users u ON r.user_id = u.id
+            WHERE r.data BETWEEN %s AND %s
+            ORDER BY u.nome ASC, r.data ASC
+        """, (dt_inicio.isoformat(), dt_fim.isoformat()))
+
     registros_por_func = {}
     for r in registros_raw:
         user_nome = r['nome']
         if user_nome not in registros_por_func:
             registros_por_func[user_nome] = []
-        
+
         data_fmt = format_data(r['data'])
         hora_entrada_fmt = format_hora(r['hora_entrada'])
         hora_saida_fmt = format_hora(r['hora_saida'])
-        
+
         registros_por_func[user_nome].append({
             'id': r['id'],
             'data': data_fmt,
@@ -1667,11 +1684,14 @@ def listar_registros():
             'hora_saida': hora_saida_fmt,
             'observacoes': r['observacoes'] or ''
         })
-    
+
     return render_template('registros.html',
                            registros_por_func=registros_por_func,
                            data_inicio=data_inicio_str,
-                           data_fim=data_fim_str)
+                           data_fim=data_fim_str,
+                           users=users,
+                           funcionaria_selecionada=funcionaria_selecionada)
+
 
 @app.route('/admin/registro/editar/<int:record_id>', methods=['GET', 'POST'])
 @admin_required

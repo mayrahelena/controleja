@@ -279,6 +279,52 @@ body{
 	margin: 0;
 }
 
+/* =========================================
+   FILTRO: Dropdown Funcionária
+   ========================================= */
+
+/* Label da funcionária (igual aos outros labels) */
+.registros-filter-form label[for="funcionaria"] {
+	font-weight: 600;
+	color: #e05e17;
+	font-size: clamp(0.9rem, 3.6vw, 1rem);
+}
+
+/* Select dropdown da funcionária */
+#funcionaria {
+	padding: 0.625rem 0.875rem;
+	border: 0.1125rem solid var(--brand);
+	border-radius: 0.4375rem;
+	font-size: 1rem;
+	font-family: 'Montserrat', Arial, sans-serif;
+	color: #333;
+	background-color: #fff;
+	transition: border-color .2s ease, box-shadow .2s ease;
+	cursor: pointer;
+	
+	/* Seta customizada */
+	appearance: none;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23FFC107' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 0.75rem center;
+	padding-right: 2.5rem;
+}
+
+/* Hover e focus */
+#funcionaria:hover,
+#funcionaria:focus {
+	border-color: var(--brand-strong);
+	outline: none;
+	box-shadow: 0 0 0.5rem rgba(255,179,0,.6);
+}
+
+/* Options do select */
+#funcionaria option {
+	padding: 0.5rem;
+	background: #fff;
+	color: #333;
+}
+
 /* 8) Mobile refinamentos */
 @media (max-width: 480px){
 	#registros-page{ padding-inline: var(--space-1); }
